@@ -34,7 +34,9 @@ connection.once("open", () => {
 });
 
 
-
+//test route
+const test = require('./Routes/test');
+app.use("/test", test);
 
 
 
