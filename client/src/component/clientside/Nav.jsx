@@ -38,7 +38,7 @@ const Nav = () => {
                 </ul>
             </div>
 
-            <div className="side-button w-24 h-12 flex justify-center items-center rounded-md bg-amber-500" >
+            <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500" >
                 <a href="#!" className='text-lg p-2'> Log In</a>
             </div>
 

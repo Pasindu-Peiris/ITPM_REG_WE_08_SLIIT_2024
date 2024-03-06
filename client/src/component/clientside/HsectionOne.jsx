@@ -52,7 +52,7 @@ const HsectionOne = () => {
                 </div>
 
                 <div className="side-button flex justify-center items-center mt-6 " >
-                    <a href="#!" className='w-48 h-14 flex justify-center items-center rounded-md bg-amber-500 text-lg '> Discover Tours</a>
+                    <a href="#!" className='w-48 h-14 flex justify-center items-center rounded bg-amber-500 text-lg '> Discover Tours</a>
                 </div>
 
             </div>
