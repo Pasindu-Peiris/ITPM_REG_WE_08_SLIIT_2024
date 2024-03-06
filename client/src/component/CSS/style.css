@@ -10,7 +10,7 @@
     content: "";
     position: absolute;
     width: 0;
-    height: 1px;
+    height: 2px;
     background-color: rgb(253 230 138);
     top: 30px;
     display: block;
