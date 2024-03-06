@@ -1,5 +1,6 @@
 import React from 'react';
 import Img from '../../Images/herobg.jpg'
+import { TypeAnimation } from 'react-type-animation';
 
 
 
@@ -7,7 +8,7 @@ const HsectionOne = () => {
 
     const addImg = {
         width: "100%",
-        height: "100vh",
+        height: "120vh",
         backgroundImage: `url(${Img})`,
         backgroundSize: "cover"
     }
@@ -30,7 +31,6 @@ const HsectionOne = () => {
     }
 
 
-
     return (
 
 
@@ -43,7 +43,19 @@ const HsectionOne = () => {
                 </div>
 
                 <div className="block-2 p-2">
-                    <h1 style={fontSize.f1}>THE NEW WORLD</h1>
+                    <TypeAnimation
+                        sequence={[
+                            1500,
+                            'THE NEW WORLD',
+                            1000,
+                            8500,
+                            '',
+
+                        ]}
+                        style={fontSize.f1}
+                        repeat={Infinity}
+                        speed={10}
+                    />
                 </div>
 
                 <div className="block-3 p-1">
@@ -51,8 +63,10 @@ const HsectionOne = () => {
 
                 </div>
 
+
+
                 <div className="side-button flex justify-center items-center mt-6 " >
-                    <a href="#!" className='w-48 h-14 flex justify-center items-center rounded-md bg-amber-500 text-lg '> Discover Tours</a>
+                    <a href="#!" className='w-48 h-14 flex justify-center items-center rounded bg-amber-500 text-lg '> Discover Tours</a>
                 </div>
 
             </div>
