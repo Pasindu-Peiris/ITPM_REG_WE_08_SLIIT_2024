@@ -22,7 +22,7 @@ const Nav = () => {
 
     return (
 
-        <div className='Nav w-100 flex justify-between items-center px-5 p-4 bg-black text-gray-100  top-0 left-0 right-0' >
+        <div className='Nav w-100 flex justify-between items-center px-5 p-4 bg-black text-gray-100 fixed top-0 left-0 right-0' >
 
             <div className="logo" >
                 <img className='object-contain' src={logo} alt="logo.png" width={80} />
