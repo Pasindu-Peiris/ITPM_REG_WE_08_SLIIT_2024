@@ -6,7 +6,7 @@ const HsectionOne = () => {
 
     <div>
       
-      
+     <h1>Hi I'm pasindu</h1> 
 
 
 
