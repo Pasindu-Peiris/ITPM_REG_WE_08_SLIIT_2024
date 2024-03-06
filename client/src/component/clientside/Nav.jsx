@@ -14,6 +14,11 @@ const Nav = () => {
             backgroundColor: "red",
         }
     }
+    // const style = {
+    //     menu: {
+            
+    //     }
+    // }
 
     return (
 

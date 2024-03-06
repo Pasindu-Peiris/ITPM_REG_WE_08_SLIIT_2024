@@ -12,7 +12,8 @@ const Home = () => {
 
     <>
       <Nav />
-      <HsectionOne />
+      <HsectionOne/>
+
 
 
 
