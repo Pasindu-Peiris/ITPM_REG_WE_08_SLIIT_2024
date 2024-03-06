@@ -1,5 +1,6 @@
 import React from 'react'
 import Nav from './Nav';
+import HsectionOne from './HsectionOne';
 
 
 
@@ -11,6 +12,7 @@ const Home = () => {
 
     <>
       <Nav />
+      <HsectionOne/>
 
 
 
