@@ -1,7 +1,14 @@
 import React from 'react';
 import logo from '../../Images/logo.png'
+import '../CSS/style.css'
 
 const Nav = () => {
+
+    const style = {
+        menu: {
+            
+        }
+    }
 
     return (
 
@@ -11,8 +18,8 @@ const Nav = () => {
                 <img className='object-contain' src={logo} alt="logo.png" width={80} />
             </div>
 
-            <div className="menu">
-                <ul className='flex justify-between items-center '>
+            <div  className="menu" >
+                <ul className='flex justify-between items-center ' id='menu'>
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Home</a></li>
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour List</a></li>
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour Search</a></li>

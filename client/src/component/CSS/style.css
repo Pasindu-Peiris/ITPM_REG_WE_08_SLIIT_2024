@@ -1,0 +1,24 @@
+/* --------- Start nav css for line animation -----------*/
+
+#menu li a{
+    width: auto;
+    display: inline-block;
+    position: relative;
+}
+
+#menu li a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 1px;
+    background-color: rgb(253 230 138);
+    top: 30px;
+    display: block;
+    transition: .3s;
+}
+
+#menu li a:hover:after {
+    width: 100%;
+}
+
+/* --------- End nav css for line animation -----------*/
