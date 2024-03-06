@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Img from '../../Images/herobg.jpg'
 import { TypeAnimation } from 'react-type-animation';
 
@@ -8,7 +8,7 @@ const HsectionOne = () => {
 
     const addImg = {
         width: "100%",
-        height: "100vh",
+        height: "120vh",
         backgroundImage: `url(${Img})`,
         backgroundSize: "cover"
     }
@@ -30,7 +30,6 @@ const HsectionOne = () => {
         }
     }
 
-    const [typingStatus, setTypingStatus] = useState('Initializing');
 
     return (
 
@@ -44,30 +43,19 @@ const HsectionOne = () => {
                 </div>
 
                 <div className="block-2 p-2">
-                <TypeAnimation
-                    sequence={[
-                        1500,
-                        () => {
-                            setTypingStatus('Typing...');
-                        },
-                        'THE NEW WORLD',
-                        () => {
-                            setTypingStatus('Done Typing');
-                        },
-                        1000,
-                        () => {
-                            setTypingStatus('Deleting...');
-                        },
-                        8500,
-                        '',
-                        () => {
-                            setTypingStatus('Done Deleting');
-                        },
-                    ]}
-                    style={fontSize.f1}
-                    repeat={Infinity}
-                    speed={10}
-                />
+                    <TypeAnimation
+                        sequence={[
+                            1500,
+                            'THE NEW WORLD',
+                            1000,
+                            8500,
+                            '',
+
+                        ]}
+                        style={fontSize.f1}
+                        repeat={Infinity}
+                        speed={10}
+                    />
                 </div>
 
                 <div className="block-3 p-1">
@@ -75,7 +63,7 @@ const HsectionOne = () => {
 
                 </div>
 
-                
+
 
                 <div className="side-button flex justify-center items-center mt-6 " >
                     <a href="#!" className='w-48 h-14 flex justify-center items-center rounded bg-amber-500 text-lg '> Discover Tours</a>
