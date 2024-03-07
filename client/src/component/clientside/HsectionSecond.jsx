@@ -19,7 +19,7 @@ const HsectionSecond = () => {
 
             <div className="w-[80%] flex items-center justify-center bg-white h-32 shadow-2xl rounded-lg" style={style}>
 
-                <form action="" className=' w-[80%] flex items-around justify-around'>
+                <form action="" className=' w-[80%] flex items-around justify-between'>
 
                     <div className="block1 w-[300px] " >
                         <label for="keyword" className='py-1'>Keyword</label><br></br>
