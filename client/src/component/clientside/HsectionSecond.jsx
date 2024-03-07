@@ -46,8 +46,8 @@ const HsectionSecond = () => {
                         </select>
                     </div>
 
-                    <div className="block4 mx-4 py-3 ml-2 flex align-middle justify-center w-32 rounded bg-amber-500">
-                        <button>Search <i class="fas fa-search"></i></button>
+                    <div className="block4 mx-4 py-3 ml-2 flex align-middle justify-center w-36 rounded bg-amber-500 text-blue-50">
+                        <button>Search <i className="fas fa-search mx-2"></i></button>
                     </div>
 
                 </form>
