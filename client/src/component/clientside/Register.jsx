@@ -45,7 +45,7 @@ const Register = () => {
                     </div>
 
                     <div class='flex mt-6'>
-                        <div class='w-1/2 mr-2'>
+                        <div class='w-1/2 mr-6'>
                             <label htmlFor='firstname' className='block text-md '>First Name*</label>
                             <input type='text' name='firstname' className='mt-1 p-2 border w-full' />
                         </div>
@@ -56,7 +56,7 @@ const Register = () => {
                     </div>
 
                     <div className='flex mt-6'>
-                        <div className='w-1/2 mr-2'>
+                        <div className='w-1/2 mr-6'>
                             <label htmlFor='birthday' className='block text-md '>Birth Date*</label>
                             <input type='date' name='birthdate' className='mt-1 p-2 border w-full' />
                         </div>
@@ -67,7 +67,7 @@ const Register = () => {
                     </div>
 
                     <div className='flex mt-6'>
-                        <div className='w-1/2 mr-2'>
+                        <div className='w-1/2 mr-6'>
                             <label htmlFor='phone' className='block text-md '>Phone*</label>
                             <input type='tel' name='phone' className='mt-1 p-2 border w-full' />
                         </div>
