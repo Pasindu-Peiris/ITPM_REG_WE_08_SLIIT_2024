@@ -76,7 +76,7 @@ const HsectionOne = () => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered max-w-2xl">
+        <div className="modal-dialog modal-dialog-centered max-w-2xl ">
           <div className="modal-content ">
             <div className="modal-header flex justify-between items-center">
               <h1 className="text-black text-2xl font-semibold flex justify-center w-full">
