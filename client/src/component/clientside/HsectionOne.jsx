@@ -1,7 +1,7 @@
 import React from "react";
 import Img from "../../Images/herobg.jpg";
 import { TypeAnimation } from "react-type-animation";
-
+import { Link } from 'react-router-dom';
 const HsectionOne = () => {
   const addImg = {
     width: "100%",
@@ -135,7 +135,11 @@ const HsectionOne = () => {
               <div className="text-center">
                 <h2 className="text-black font-bold">DO NOT HAVE AN ACCOUNT</h2>
                 <p className="text-amber-500  mt-1">
-                  <a href="#!">Create an account</a>
+                  <Link to={"/register"}>
+                    <span className="text-xs text-amber-500 p-2">
+                      CREATE AN ACCOUNT
+                    </span>
+                  </Link>
                 </p>
               </div>
             </div>

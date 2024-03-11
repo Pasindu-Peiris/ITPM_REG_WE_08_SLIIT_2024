@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import Img from "../../Images/page-title-bg.png";
 import Hfotter from "./Hfotter";
 import { useState,useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const addImg = {
@@ -498,10 +499,9 @@ const Register = () => {
       <div className="flex flex-col items-center justify-center mt-6">
         <h1 className="font-bold">ALREADY A MEMBER</h1>
         <div className="mt-2">
-          <a href="#!" className="text-lg text-amber-500 p-2">
-            {" "}
-            Log In
-          </a>
+          <Link to={"/login"}>
+            <span className="text-xs text-amber-500 p-2">LOGIN</span>
+          </Link>
         </div>
       </div>
 

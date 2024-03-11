@@ -2,6 +2,7 @@ import React from "react";
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
 import Hfotter from "./Hfotter";
+import {Link,useNavigate} from 'react-router-dom'
 
 const Login = () => {
   const addImg = {
@@ -59,10 +60,11 @@ const Login = () => {
       <div className="flex flex-col items-center justify-center mt-6">
         <h1 className="font-bold">DO NOT HAVE AN ACCOUNT?</h1>
         <div className="mt-2">
-          <a href="#!" className="text-xs text-amber-500 p-2">
-            {" "}
-            CREATE AN ACCOUNT
-          </a>
+          <Link to={"/register"}>
+                      <span className="text-xs text-amber-500 p-2">
+                          CREATE AN ACCOUNT
+            </span>
+          </Link>
         </div>
       </div>
       <div className="mt-12">
