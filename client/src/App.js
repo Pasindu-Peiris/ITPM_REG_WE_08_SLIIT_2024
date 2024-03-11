@@ -4,7 +4,7 @@ import Home from "./component/clientside/Home";
 import Register  from "./component/clientside/Register"; 
 import Dashboard from "./component/adminside/Dashboard";
 import Map from "./component/clientside/Map";
-
+import View from "./component/clientside/360View";
 function App() {
 
   return (
@@ -20,10 +20,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
-
-
           <Route path="/map" element={<Map/>}></Route>
-
+          <Route path="/view" element={<View/>}></Route>
         </Routes>
 
       </BrowserRouter>

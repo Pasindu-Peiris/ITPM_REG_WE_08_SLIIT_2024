@@ -76,10 +76,12 @@ const HsectionOne = () => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered max-w-2xl">
+        <div className="modal-dialog modal-dialog-centered max-w-2xl ">
           <div className="modal-content ">
             <div className="modal-header flex justify-between items-center">
-              <h1 className="text-black text-2xl font-semibold flex justify-center w-full">LOGIN</h1>
+              <h1 className="text-black text-2xl font-semibold flex justify-center w-full">
+                LOGIN
+              </h1>
               <button
                 className="btn-close"
                 data-bs-dismiss="modal"
@@ -126,11 +128,6 @@ const HsectionOne = () => {
                       </button>
                     </div>
                   </form>
-                </div>
-                <div className="flex float-end mt-2">
-                  <p className="text-amber-500 text-sm">
-                    <a href="#!">Forgot password </a>
-                  </p>
                 </div>
               </div>
             </div>
