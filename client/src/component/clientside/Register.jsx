@@ -18,7 +18,7 @@ const Register = () => {
   };
 
   const [formData, setFormData] = useState({});
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -31,6 +31,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      console.log("Password and confirm password do not match");
+      return;
+    }
     try {
       const res = await fetch("http://localhost:8090/user/reg", {
         method: "post",
@@ -41,9 +45,12 @@ const Register = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        return;
+        console.log("Signup unsuccessful:", data.error);
+      } else {
+        console.log("Signup successful");
+        navigate("/login");
       }
-      console.log(data);
+      
     } catch (error) {
       console.error("Error creating user", error);
     }
