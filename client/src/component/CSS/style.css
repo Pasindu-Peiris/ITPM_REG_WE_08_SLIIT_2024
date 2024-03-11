@@ -1,6 +1,6 @@
 /* --------- Start nav css for line animation -----------*/
 
-#menu li a{
+#menu li a {
     width: auto;
     display: inline-block;
     position: relative;
@@ -24,8 +24,42 @@
 /* --------- End nav css for line animation -----------*/
 
 
+/* -----------Start animation shake -----------------------*/
 
-  
-  
-  
-  
+.shake {
+    animation: shake 1.2s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    animation-name: shake;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+
+}
+
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(0px, -5px, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(0px, 5px, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(0px, -5px, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(0px, 5px, 0);
+    }
+}
+
+/* ----------- End animation shake -----------------------*/
