@@ -6,15 +6,15 @@ const Nav = () => {
 
     const style = {
         menu: {
-            backgoundColor:"red",
-            color:"white"
-            
+            backgoundColor: "red",
+            color: "white"
+
         },
         button: {
             backgroundColor: "red",
         }
     }
-    
+
 
     return (
 
@@ -24,7 +24,7 @@ const Nav = () => {
                 <img className='object-contain' src={logo} alt="logo.png" width={80} />
             </div>
 
-            <div  className="menu" >
+            <div className="menu" >
                 <ul className='flex justify-between items-center ' id='menu'>
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Home</a></li>
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour List</a></li>
@@ -35,8 +35,10 @@ const Nav = () => {
             </div>
 
             <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500" >
-                <a href="#!" className='text-lg p-2'> Log In</a>
+                <a href="#!" className='text-lg p-2'  type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">  Log In</a>
             </div>
+
+
 
 
         </div>

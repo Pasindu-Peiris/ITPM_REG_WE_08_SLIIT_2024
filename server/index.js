@@ -38,7 +38,9 @@ connection.once("open", () => {
 const test = require('./Routes/test');
 app.use("/test", test);
 
-
+//user route
+const user = require('./Routes/user');
+app.use("/user", user);
 
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
