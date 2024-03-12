@@ -52,7 +52,7 @@ const Login = () => {
           </div>
           <div className="mt-6">
             <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">
-              Sign Up
+              Sign In
             </button>
           </div>
         </form>
