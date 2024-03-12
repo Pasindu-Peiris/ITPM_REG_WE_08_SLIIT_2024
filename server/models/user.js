@@ -24,15 +24,17 @@ const userSchema = new Schema({
         required:true,
     },
     birthdate: {
-        type: String,
-        required:true,
+      type: String,
+      required:true
+        
     },
     country: {
-        type: String,
-        required:true,
+      type: String,
+      required: true,
+        
     }
 
-});
+},{timeStamps:true});
 
 
 const user = mongoose.model("user", userSchema);
