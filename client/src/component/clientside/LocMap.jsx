@@ -3,50 +3,55 @@ import { GoogleMap, InfoWindowF, MarkerF, useJsApiLoader } from '@react-google-m
 import LocIcon from '../../Images/loc.png'
 import bot from '../../Images/chatbot.png'
 import doc from '../../Images/document.png'
+import mic from '../../Images/microphone.png'
+import mic2 from '../../Images/microphone.png'
 
 const LocMap = () => {
 
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: `AIzaSyBrAJXUQ_Z-q2l3X-yhLNvOfVB0KS7bqSU`
-    })
+
 
     const style = {
         section: {
             position: "absolute",
-            top: "20px",
-            width: "450px",
+            top: "60px",
+            left: '120px',
+            width: "400px",
             height: "580px",
             overflow: "hidden",
-            zIndex: "1"
+            zIndex: "1",
+            display: "none",
+          
+
         },
         section2: {
 
             position: "absolute",
             width: "80px",
-            display:"block",
-            alineItem:"center",
-            height: "200px",
-            backgroundColor:"red",
-            bottom:"25px",
-            left:"2px",
+            display: "block",
+            alineItem: "center",
+            height: "500px",
+            backgroundColor: "",
+            bottom: "25px",
+            left: "20px",
             zIndex: "1",
             alignItems: "center"
 
         },
-        section3 :{
-            padding:"5px",
-            borderRadius:"20%",
+        section3: {
+            padding: "5px",
+            borderRadius: "20%",
         },
-        section4:{
-            marginBottom:"12px"
+        section4: {
+            marginBottom: "12px"
         }
 
 
     }
 
-
-
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: `AIzaSyBrAJXUQ_Z-q2l3X-yhLNvOfVB0KS7bqSU`
+    })
 
     const markers = [
         {
@@ -84,7 +89,20 @@ const LocMap = () => {
             name: "Nivithigala",
             position: { lat: 6.5959, lng: 80.4578 },
             des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+        },
+        {
+            id: 7,
+            name: "Hatton",
+            position: { lat: 6.9003, lng: 80.5966 },
+            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+        },
+        {
+            id: 8,
+            name: "Belihuloya",
+            position: { lat: 6.7184, lng: 80.7741 },
+            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
         }
+
 
     ]
 
@@ -96,10 +114,27 @@ const LocMap = () => {
 
     }
 
+    const handledownload = () => {
+
+    }
+
 
     const handleClick = () => {
-        document.getElementById('boxBot').style.display = "none"
-        document.getElementById('boxbotHead').style.display = "none"
+
+        // var bot = document.getElementById('bot');
+
+        var a = document.getElementById('boxBot')
+        var b = document.getElementById('boxbotHead')
+
+        if (a.style.display === "block") {
+            // Close the bot
+            a.style.display = "none";
+            b.style.display = "none";
+        } else {
+            // Open the bot
+            a.style.display = "block";
+            b.style.display = "block";
+        }
 
     }
 
@@ -149,24 +184,32 @@ const LocMap = () => {
             </GoogleMap> : null
 
             }
-            <div className='' style={style.section} id='boxbotHead' >
+
+            <div className='' style={style.section} id='boxbotHead'  >
                 <iframe id='boxBot'
                     src="https://www.chatbase.co/chatbot-iframe/ZPDiUfqgdQ8IgqBz4c63i"
                     title="Pasindu"
                     width=""
-                    style={{ width: "450px", height: "600px", position: "absolute", borderRadius: "12px" }}
+                    style={{ width: "400px", height: "600px", position: "absolute", borderRadius: "12px", display: "none" }}
                     frameborder="0"
                 ></iframe>
 
 
+
+
+            </div>
+            <div className='' style={style.section2}>
+
+                <button id='bot' onClick={handleClick} style={style.section3} className='shake mb-6 bg-red-500 '><img src={bot} alt="" width={100} /></button>
+
+                <a href={mic2} download >
+                    <button onClick={handledownload} style={style.section3} className=' shake2 mt-1 mb-6 bg-amber-500'><img src={doc} alt="" width={70} /></button>
+
+                </a>
+
+                <button onClick={handledownload} style={style.section3} className='shake2  mt-1 mb-6 bg-emerald-500'><img src={mic} alt="" width={70} className='p-2' /></button>
             </div>
 
-            <div style={style.section2}>
-            <button onClick={handleClick}  style={style.section3 } className='shake mb-6'><img src={bot} alt="" width={100} /></button>
-            <button onClick={handleClick}  style={style.section3 }  className=' shake mt-1'><img src={doc} alt="" width={70} /></button>
-            </div>
-
-            
         </div>
     )
 }
