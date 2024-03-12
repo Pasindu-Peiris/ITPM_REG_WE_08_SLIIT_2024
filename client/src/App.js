@@ -7,6 +7,7 @@ import Map from "./component/clientside/Map";
 import View from "./component/clientside/360View";
 import LocMap from "./component/clientside/LocMap";
 import Login from "./component/clientside/Login";
+import Tours from "./component/clientside/Tours";
 function App() {
 
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/view" element={<View/>}></Route>
           <Route path="/map2" element={<LocMap />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/tours" element={<Tours />}></Route>
         </Routes>
 
       </BrowserRouter>
