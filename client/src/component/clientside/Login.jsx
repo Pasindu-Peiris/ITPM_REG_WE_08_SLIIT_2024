@@ -18,7 +18,7 @@ const Login = () => {
   };
 
   const [formData, setformData] = useState({});
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setformData({
       ...formData,
@@ -45,6 +45,7 @@ const Login = () => {
         return;
       }
       console.log(data);
+      navigate('/')
     } catch (error) {
       console.error("error", error);
     }
