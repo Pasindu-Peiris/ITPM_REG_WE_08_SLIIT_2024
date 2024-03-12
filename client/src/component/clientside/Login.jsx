@@ -41,11 +41,13 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (data.success === false) {
-        return;
+      if (data._id) {
+        console.log(data);
+        navigate("/");
+      } else {
+        console.error("Login failed:", data.error);
       }
-      console.log(data);
-      navigate('/')
+      
     } catch (error) {
       console.error("error", error);
     }
