@@ -42,6 +42,10 @@ app.use("/test", test);
 const user = require('./Routes/user');
 app.use("/user", user);
 
+//signin route
+const login = require('./Routes/login');
+app.use("/login",login)
+
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
 });

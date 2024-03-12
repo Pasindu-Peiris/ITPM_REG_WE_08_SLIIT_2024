@@ -135,11 +135,11 @@ const HsectionOne = () => {
               <div className="text-center">
                 <h2 className="text-black font-bold">DO NOT HAVE AN ACCOUNT</h2>
                 <p className="text-amber-500  mt-1">
-                  <Link to={"/register"}>
+                  <a href="/register">
                     <span className="text-xs text-amber-500 p-2">
                       CREATE AN ACCOUNT
                     </span>
-                  </Link>
+                  </a>
                 </p>
               </div>
             </div>

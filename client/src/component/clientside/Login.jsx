@@ -2,7 +2,8 @@ import React from "react";
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
 import Hfotter from "./Hfotter";
-import {Link,useNavigate} from 'react-router-dom'
+import { Link, json, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Login = () => {
   const addImg = {
@@ -16,6 +17,41 @@ const Login = () => {
     backgroundPosition: "center",
   };
 
+  const [formData, setformData] = useState({});
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:8090/login/log", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data._id) {
+        console.log(data);
+        navigate("/");
+      } else {
+        console.error("Login failed:", data.error);
+      }
+      
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
   return (
     <div>
       <Nav />
@@ -25,7 +61,7 @@ const Login = () => {
         </h1>
       </div>
       <div className="w-[60%] mx-auto mt-4 border-b border-gray-400 pb-8">
-        <form className="gap gap-3 w-[100%]">
+        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit}>
           <div className="flex mt-6">
             <div className="w-1/2 mr-6">
               <label htmlFor="username" className="block text-md font-medium">
@@ -36,6 +72,7 @@ const Login = () => {
                 id="username"
                 name="username"
                 className="mt-1 p-2 border w-full"
+                onChange={handleChange}
               />
             </div>
             <div className="w-1/2 ">
@@ -47,12 +84,13 @@ const Login = () => {
                 name="password"
                 id="password"
                 className="mt-1 p-2 border w-full"
+                onChange={handleChange}
               />
             </div>
           </div>
           <div className="mt-6">
             <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">
-              Sign Up
+              Sign In
             </button>
           </div>
         </form>
@@ -61,8 +99,8 @@ const Login = () => {
         <h1 className="font-bold">DO NOT HAVE AN ACCOUNT?</h1>
         <div className="mt-2">
           <Link to={"/register"}>
-                      <span className="text-xs text-amber-500 p-2">
-                          CREATE AN ACCOUNT
+            <span className="text-xs text-amber-500 p-2">
+              CREATE AN ACCOUNT
             </span>
           </Link>
         </div>
