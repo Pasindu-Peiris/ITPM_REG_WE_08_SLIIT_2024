@@ -16,7 +16,7 @@ router.route("/reg").post(async (req, res) => {
   if (password !== confirmPassword) {
     return res.status(400).json({ error: "passwords need to be same" });
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = bcrypt.hashSync(password, 10);
   
   const newUser = new user({
     username,
