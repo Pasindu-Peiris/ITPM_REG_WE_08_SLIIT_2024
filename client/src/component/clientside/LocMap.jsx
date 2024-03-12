@@ -29,7 +29,7 @@ const LocMap = () => {
             width: "80px",
             display: "block",
             alineItem: "center",
-            height: "500px",
+            height: "300px",
             backgroundColor: "",
             bottom: "25px",
             left: "20px",
@@ -207,7 +207,8 @@ const LocMap = () => {
 
                 </a>
 
-                <button onClick={handledownload} style={style.section3} className='shake2  mt-1 mb-6 bg-emerald-500'><img src={mic} alt="" width={70} className='p-2' /></button>
+                {/* <button onClick={handledownload} style={style.section3} className='shake2  mt-1 mb-6 bg-emerald-500'><img src={mic} alt="" width={70} className='p-2' /></button>
+             */}
             </div>
 
         </div>
