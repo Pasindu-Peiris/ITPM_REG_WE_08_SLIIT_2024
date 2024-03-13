@@ -36,12 +36,9 @@ function App() {
           <Route path="/view" element={<View/>}></Route>
           <Route path="/map2" element={<LocMap />}></Route>
           <Route path="/login" element={<Login />}></Route>
-<<<<<<< Updated upstream
           <Route path="/tours" element={<Tours />}></Route>
           <Route path="/alltours" element={<AllTours />}></Route>
-=======
           <Route path="/adddes" element={<AddDest/>}></Route>
->>>>>>> Stashed changes
         </Routes>
 
       </BrowserRouter>
