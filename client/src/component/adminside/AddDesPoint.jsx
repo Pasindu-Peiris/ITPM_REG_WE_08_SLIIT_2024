@@ -6,6 +6,8 @@ const AddDesPoint = () => {
 
     const [name, SetName] = useState('');
 
+    const [po1, setpo1] = useState('')
+
     const addImg = {
         width: "100%",
         height: "200vh",
