@@ -7,16 +7,13 @@ import Map from "./component/clientside/Map";
 import View from "./component/clientside/360View";
 import LocMap from "./component/clientside/LocMap";
 import Login from "./component/clientside/Login";
-<<<<<<< Updated upstream
 import Tours from "./component/clientside/Tours";
 import AllTours from "./component/adminside/AllTours";
-=======
 import AddDest from "./component/adminside/AddDesPoint.jsx"
 
 
 
 
->>>>>>> Stashed changes
 function App() {
 
   return (
