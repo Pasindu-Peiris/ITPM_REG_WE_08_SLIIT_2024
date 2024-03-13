@@ -9,7 +9,7 @@ import LocMap from "./component/clientside/LocMap";
 import Login from "./component/clientside/Login";
 import Tours from "./component/clientside/Tours";
 import AllTours from "./component/adminside/AllTours";
-import AddDest from "./component/adminside/AddDesPoint.jsx"
+import AddDest from "./component/adminside/AddDesPoint"
 
 
 
