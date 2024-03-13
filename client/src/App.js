@@ -7,8 +7,16 @@ import Map from "./component/clientside/Map";
 import View from "./component/clientside/360View";
 import LocMap from "./component/clientside/LocMap";
 import Login from "./component/clientside/Login";
+<<<<<<< Updated upstream
 import Tours from "./component/clientside/Tours";
 import AllTours from "./component/adminside/AllTours";
+=======
+import AddDest from "./component/adminside/AddDesPoint.jsx"
+
+
+
+
+>>>>>>> Stashed changes
 function App() {
 
   return (
@@ -28,8 +36,12 @@ function App() {
           <Route path="/view" element={<View/>}></Route>
           <Route path="/map2" element={<LocMap />}></Route>
           <Route path="/login" element={<Login />}></Route>
+<<<<<<< Updated upstream
           <Route path="/tours" element={<Tours />}></Route>
           <Route path="/alltours" element={<AllTours />}></Route>
+=======
+          <Route path="/adddes" element={<AddDest/>}></Route>
+>>>>>>> Stashed changes
         </Routes>
 
       </BrowserRouter>
