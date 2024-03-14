@@ -7,6 +7,13 @@ import Map from "./component/clientside/Map";
 import View from "./component/clientside/360View";
 import LocMap from "./component/clientside/LocMap";
 import Login from "./component/clientside/Login";
+import Tours from "./component/clientside/Tours";
+import AllTours from "./component/adminside/AllTours";
+import AddDest from "./component/adminside/AddDesPoint"
+
+
+
+
 function App() {
 
   return (
@@ -26,6 +33,9 @@ function App() {
           <Route path="/view" element={<View/>}></Route>
           <Route path="/map2" element={<LocMap />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/tours" element={<Tours />}></Route>
+          <Route path="/alltours" element={<AllTours />}></Route>
+          <Route path="/adddes" element={<AddDest/>}></Route>
         </Routes>
 
       </BrowserRouter>

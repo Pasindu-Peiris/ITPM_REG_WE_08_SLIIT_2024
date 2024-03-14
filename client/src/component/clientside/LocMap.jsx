@@ -43,6 +43,7 @@ const LocMap = () => {
         },
         section4: {
             marginBottom: "12px"
+            
         }
 
 
@@ -203,7 +204,7 @@ const LocMap = () => {
                 <button id='bot' onClick={handleClick} style={style.section3} className='shake mb-6 bg-red-500 '><img src={bot} alt="" width={100} /></button>
 
                 <a href={mic2} download >
-                    <button onClick={handledownload} style={style.section3} className=' shake2 mt-1 mb-6 bg-amber-500'><img src={doc} alt="" width={70} /></button>
+                    <button onClick={handledownload} style={style.section3} className=' shake2 mt-1 mb-6 bg-emerald-500'><img src={doc} alt="" width={70} /></button>
 
                 </a>
 

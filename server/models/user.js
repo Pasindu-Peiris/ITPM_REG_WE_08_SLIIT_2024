@@ -14,27 +14,27 @@ const userSchema = new Schema({
   lastname: {
     type: String,
     required: true,
-    },
-    password: {
-        type: String,
-        required:true,
-    },
-    confirmPassword: {
-        type: String,
-        required:true,
-    },
-    birthdate: {
-      type: String,
-      required:true
-        
-    },
-    country: {
-      type: String,
-      required: true,
-        
-    }
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  confirmPassword: {
+    type: String,
+    required: true,
+  },
+  birthdate: {
+    type: String,
+    required: true
 
-},{timeStamps:true});
+  },
+  country: {
+    type: String,
+    required: true,
+
+  }
+
+}, { timeStamps: true });
 
 
 const user = mongoose.model("user", userSchema);
