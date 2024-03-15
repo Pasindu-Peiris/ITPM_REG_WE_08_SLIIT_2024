@@ -6,6 +6,8 @@ import { Link, json, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+
 const Login = () => {
   const addImg = {
     width: "100%",
@@ -101,7 +103,7 @@ const Login = () => {
         </h1>
       </div>
       <div className="w-[60%] mx-auto mt-4 border-b border-gray-400 pb-8">
-        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit}>
+        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit} >
           <div className="flex mt-6">
             <div className="w-1/2 mr-6">
               <label htmlFor="username" className="block text-md font-medium">

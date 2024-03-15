@@ -9,6 +9,7 @@ import Hfotter from './Hfotter';
 import Hsection6 from './Hsection6';
 import Hsection7 from './Hsection7';
 import Hsction8 from './Hsction8';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -20,6 +21,7 @@ const Home = () => {
 
     <>
       <Nav />
+      <ToastContainer />
       <HsectionOne/>
       <HsectionSecond/>
       <HSectionThird/>

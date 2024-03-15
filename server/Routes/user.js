@@ -50,7 +50,7 @@ router.route("/reg").post(async (req, res) => {
 
     await newUser.save();
 
-    // Respond with success message
+    
     res.json("User registered successfully");
   } catch (error) {
     console.error("Error registering user:", error);
