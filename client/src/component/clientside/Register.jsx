@@ -4,7 +4,8 @@ import Img from "../../Images/page-title-bg.png";
 import Hfotter from "./Hfotter";
 import { useState,useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+ import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const addImg = {
     width: "100%",
@@ -29,37 +30,133 @@ const Register = () => {
     console.log(formData);
   }, [formData]); 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      console.log("Password and confirm password do not match");
-      return;
-    }
-    try {
-      const res = await fetch("http://localhost:8090/user/reg", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (
+    !formData.username ||
+    !formData.password ||
+    !formData.confirmPassword ||
+    !formData.firstname ||
+    !formData.lastname ||
+    !formData.phone ||
+    !formData.email ||
+    !formData.country
+  ) {
+    toast.error("Please complete all form fields to continue", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+    return;
+  }
+
+  if (formData.password !== formData.confirmPassword) {
+    console.log("Password and confirm password do not match");
+    toast.error("Password and confirm password do not match", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:8090/user/reg", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json(); // Define data here
+
+    if (res.status === 400 && data.error === "Username is already taken") {
+      console.log("Username is already taken");
+      toast.error("Username is already taken. Please choose another one.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
       });
-      const data = await res.json();
-      if (data.success === false) {
-        console.log("Signup unsuccessful:", data.error);
-      } else {
-        console.log("Signup successful");
-        navigate("/login");
-      }
-      
-    } catch (error) {
-      console.error("Error creating user", error);
+    } else if (
+      res.status === 400 &&
+      data.error === "Email is already associated with an account"
+    ) {
+      console.log("Email is already associated with an account");
+      toast.error(
+        "Email is already associated with an account. Please use a different email address.",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        }
+      );
+    } else if (data.success === false) {
+      console.log("Signup unsuccessful:", data.error);
+      toast.error("Signup unsuccessful: " + data.error, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    } else {
+      console.log("Signup successful");
+      toast.success("Account created successfully!", {
+        position: "top-center",
+        theme: "dark",
+        transition: Bounce,
+        onClose: () => navigate("/login"),
+      });
     }
-  };
+  } catch (error) {
+    console.error("Error creating user", error);
+    toast.error("Signup unsuccessful", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+  }
+};
 
   return (
     <div style={{ position: "relative" }}>
       <Nav />
-
+      <ToastContainer />
       <div className="flex items-center " style={addImg}>
         <h1 className=" text-center text-4xl font-semibold text-black">
           Register
@@ -194,6 +291,7 @@ const Register = () => {
                 className="mt-1 p-[12px] border w-full"
                 onChange={handleChange}
               >
+                <option value="">Select a country</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
