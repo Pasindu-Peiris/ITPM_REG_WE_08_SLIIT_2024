@@ -4,7 +4,8 @@ import Nav from "./Nav";
 import Hfotter from "./Hfotter";
 import { Link, json, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const addImg = {
     width: "100%",
@@ -43,18 +44,57 @@ const Login = () => {
       const data = await res.json();
       if (data._id) {
         console.log(data);
-        navigate("/");
+        toast.success("Login Successfull!", {
+          position: "top-center",
+          theme: "dark",
+          transition: Bounce,
+          onClose: () => navigate("/"),
+        });
+      } else if (data.error === "Password incorrect") {
+        toast.error("Incorrect password. Please try again.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       } else {
         console.error("Login failed:", data.error);
+        toast.error("User Does not exist", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
-      
     } catch (error) {
       console.error("error", error);
+       toast.error("An error occurred. Please try again later.", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "dark",
+         transition: Bounce,
+       });
     }
   };
   return (
     <div>
       <Nav />
+      <ToastContainer />
       <div className="flex items-center " style={addImg}>
         <h1 className=" text-center text-4xl font-semibold text-black">
           Login
