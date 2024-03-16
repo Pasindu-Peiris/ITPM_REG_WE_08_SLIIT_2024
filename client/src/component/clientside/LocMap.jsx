@@ -16,7 +16,7 @@ const LocMap = () => {
             top: "60px",
             left: '120px',
             width: "400px",
-            height: "580px",
+            height: "570px",
             overflow: "hidden",
             zIndex: "1",
             display: "none",
