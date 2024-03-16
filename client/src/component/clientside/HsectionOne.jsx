@@ -1,7 +1,12 @@
 import React from "react";
 import Img from "../../Images/herobg.jpg";
 import { TypeAnimation } from "react-type-animation";
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 const HsectionOne = () => {
   const addImg = {
     width: "100%",
@@ -26,6 +31,80 @@ const HsectionOne = () => {
     },
   };
 
+  const [formData, setformData] = useState({});
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:8090/login/log", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data._id) {
+        console.log(data);
+        toast.success("Login Successfull!", {
+          position: "top-center",
+          theme: "dark",
+          transition: Bounce,
+          onClose: () => navigate("/tours"),
+        });
+      } else if (data.error === "Password incorrect") {
+        toast.error("Incorrect password. Please try again.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      } else {
+        console.error("Login failed:", data.error);
+        toast.error("User Does not exist", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+    } catch (error) {
+      console.error("error", error);
+      toast.error("An error occurred. Please try again later.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+  };
+  
   return (
     <div
       className="flex items-center justify-center  text-gray-100"
@@ -92,7 +171,7 @@ const HsectionOne = () => {
             <div className="modal-body">
               <div className=" mt-2 ">
                 <div>
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="flex mt-6">
                       <div className="w-full mr-6">
                         <label
@@ -105,7 +184,7 @@ const HsectionOne = () => {
                           type="text"
                           name="username"
                           className="mt-1 p-2 border w-full text-black"
-                          t
+                          onChange={handleChange}
                         />
                       </div>
                       <div class="w-full ">
@@ -119,6 +198,7 @@ const HsectionOne = () => {
                           type="password"
                           name="password"
                           className="mt-1 p-2 border w-full text-black"
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
