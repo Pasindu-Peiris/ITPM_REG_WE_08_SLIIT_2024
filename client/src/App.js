@@ -9,7 +9,8 @@ import LocMap from "./component/clientside/LocMap";
 import Login from "./component/clientside/Login";
 import Tours from "./component/clientside/Tours";
 import AllTours from "./component/adminside/AllTours";
-import AddDest from "./component/adminside/AddDesPoint"
+import AddDest from "./component/adminside/AddDesPoint";
+import AddTours from "./component/adminside/AddTours"
 import ContactUs from "./component/clientside/ContactUs";
 import ClientsDetails from "./component/adminside/ClientsDetails";
 
@@ -38,6 +39,8 @@ function App() {
           <Route path="/tours" element={<Tours />}></Route>
           <Route path="/alltours" element={<AllTours />}></Route>
           <Route path="/adddes" element={<AddDest/>}></Route>
+          <Route path="/addTours" element={<AddTours />}></Route>
+
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
         </Routes>
