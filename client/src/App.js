@@ -38,6 +38,7 @@ function App() {
           <Route path="/alltours" element={<AllTours />}></Route>
           <Route path="/adddes" element={<AddDest/>}></Route>
           <Route path="/contactus" element={<ContactUs />}></Route>
+          
         </Routes>
 
       </BrowserRouter>
