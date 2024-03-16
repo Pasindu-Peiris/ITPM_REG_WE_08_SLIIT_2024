@@ -11,6 +11,7 @@ import Tours from "./component/clientside/Tours";
 import AllTours from "./component/adminside/AllTours";
 import AddDest from "./component/adminside/AddDesPoint"
 import ContactUs from "./component/clientside/ContactUs";
+import ClientsDetails from "./component/adminside/ClientsDetails";
 
 
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/alltours" element={<AllTours />}></Route>
           <Route path="/adddes" element={<AddDest/>}></Route>
           <Route path="/contactus" element={<ContactUs />}></Route>
+          <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
         </Routes>
 
       </BrowserRouter>
