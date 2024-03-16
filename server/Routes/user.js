@@ -11,31 +11,50 @@ router.route("/reg").post(async (req, res) => {
     confirmPassword,
     birthdate,
     country,
+    email
   } = req.body;
 
   if (password !== confirmPassword) {
     return res.status(400).json({ error: "passwords need to be same" });
   }
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  
-  const newUser = new user({
-    username,
-    firstname,
-    lastname,
-    password: hashedPassword,
-    confirmPassword:hashedPassword,
-    birthdate,
-    country,
-  });
 
-  newUser
-    .save()
-    .then(() => {
-      res.json("User registered successfully");
-    })
-    .catch((err) => {
-      res.json("cant register the user");
+  try {
+    
+    const existingUser = await user.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username is already taken" });
+    }
+
+   
+    const existingEmail = await user.findOne({ email });
+    if (existingEmail) {
+      return res
+        .status(400)
+        .json({ error: "Email is already associated with an account" });
+    }
+
+    
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+
+    const newUser = new user({
+      username,
+      firstname,
+      lastname,
+      password: hashedPassword,
+      confirmPassword: hashedPassword, 
+      birthdate,
+      country,
+      email,
     });
-});
 
+    await newUser.save();
+
+    
+    res.json("User registered successfully");
+  } catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).json("Cannot register the user");
+  }
+});
 module.exports = router;

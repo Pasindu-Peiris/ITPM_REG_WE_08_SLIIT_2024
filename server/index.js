@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 require("dotenv").config();
 const app = express();
+const toursRouter = require('./Routes/tours')
 
 // //upload images
 // app.use(express.json());
@@ -45,6 +46,9 @@ app.use("/user", user);
 //signin route
 const login = require('./Routes/login');
 app.use("/login",login)
+
+// Tours Route
+app.use('/tours', toursRouter);
 
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
