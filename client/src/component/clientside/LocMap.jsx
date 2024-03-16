@@ -187,13 +187,16 @@ const LocMap = () => {
             }
 
             <div className='' style={style.section} id='boxbotHead'  >
-                <iframe id='boxBot'
-                    src="https://www.chatbase.co/chatbot-iframe/ZPDiUfqgdQ8IgqBz4c63i"
-                    title="Pasindu"
-                    width=""
-                    style={{ width: "400px", height: "600px", position: "absolute", borderRadius: "12px", display: "none" }}
-                    frameborder="0"
-                ></iframe>
+                
+
+<iframe id='boxBot'
+src="https://www.chatbase.co/chatbot-iframe/ZPDiUfqgdQ8IgqBz4c63i"
+title="CAMPER"
+width="100%"
+style={{ width: "400px", height: "600px", position: "absolute", borderRadius: "12px", display: "none" }}
+                   
+frameborder="0"
+></iframe>
 
 
 
