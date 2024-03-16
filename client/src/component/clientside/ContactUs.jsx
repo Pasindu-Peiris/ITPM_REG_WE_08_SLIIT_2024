@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "./Nav";
 import Img from "../../Images/page-title-bg.png";
 import Hfotter from "./Hfotter";
 import Img1 from "../../Images/phone.png";
 import Img2 from "../../Images/mail.png";
 import Img3 from "../../Images/location.png";
+import axios from "axios";
+
+
 
 const ContactUs = () => {
   const addImg = {
@@ -36,6 +39,80 @@ const ContactUs = () => {
     width: "50%",
   };
 
+  const[name,setName]=useState('')
+  const[email,setEmail]=useState('')
+  const[phone,setPhone]=useState('')
+  const[subject,setSubject]=useState('')
+  const[message,setMessage]=useState('')
+
+  const [nameValid, setNameValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(true);
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [subjectValid, setSubjectValid] = useState(true);
+  const [messageValid, setMessageValid] = useState(true);
+
+  const validateName = (value) => {
+    const isValid = /^[A-Za-z\s]+$/.test(value);
+    setNameValid(isValid);
+    return isValid;
+  };
+  const validateEmail = (value) => {
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    setEmailValid(isValid);
+    return isValid;
+  };
+  const validatePhone = (value) => {
+    const isValid = /^\d{10}$/.test(value);
+    setPhoneValid(isValid);
+    return isValid;
+  };
+  const validateSubject = (value) => {
+    const isValid = /^[A-Za-z\s]+$/.test(value);
+    setSubjectValid(isValid);
+    return isValid;
+  };
+  const validateMessage = (value) => {
+    const isValid = /^[A-Za-z\s]+$/.test(value);
+    setMessageValid(isValid);
+    return isValid;
+  };
+
+  const sendData = (e) => {
+    e.preventDefault();
+
+    const isValidName = validateName(name);
+    const isValidEmail = validateEmail(email);
+    const isValidPhone = validatePhone(phone);
+    const isValidSubject = validateSubject(subject);
+    const isValidMessage = validateMessage(message);
+
+    if (!isValidName || !isValidEmail || !isValidPhone || !isValidSubject || !isValidMessage) {
+      const newQuestion = {
+        name: name,
+        email: email,
+        phone: phone,
+        subject: subject,
+        message: message,
+      };
+      
+      axios
+        .post("http://localhost:8090/test/add", newQuestion)
+        .then(() => {
+          alert("Success");
+          setName('')
+          setEmail('')
+          setPhone('')
+          setSubject('')
+          setMessage('')
+        })
+        .catch((err) => {
+          alert(err + "An error occurred while adding the question. Please try again later.");
+        });
+      }else{
+        alert("Please fill in all the required fields.")
+      }
+    };
+      
   return (
     <div style={{ position: "relative" }}>
       <Nav />
@@ -50,7 +127,7 @@ const ContactUs = () => {
           <tr>
             <th style={th}>
               <p className=" text-xl text-black text-center mr-10">
-                We're here to help!IF you have any questions or concerns, please
+                We're here to help!If you have any questions or concerns, please
                 don't hesitate to reach out to us.
               </p>
               <br />
@@ -104,31 +181,95 @@ const ContactUs = () => {
 
             <td style={th}>
               <div className="w-[60%] mx-auto mt-4 border-b border-gray-400 pb-8">
-                <form>
+                <form onSubmit={sendData}>
                   <label className="block text-md font-medium">Full Name</label>
                   <br />
-                  <input type="text" className="mt-1 p-2 border w-full" />
+                  <input 
+                     type="text" 
+                     className={`"mt-1 p-2 border w-full"
+                     ${nameValid ? "" : "is-invalid"}`}
+                     id="Name"
+                     value={name}
+                     onChange={(e) => {
+                      setName(e.target.value);
+                      validateName(e.target.value);
+                    }}
+                  />
+                  {!nameValid && <p className="text-red-500">Invalid name</p>}
                   <br />
                   <label className="block text-md font-medium">Email</label>
                   <br />
-                  <input type="email" className="mt-1 p-2 border w-full" />
+                  <input type="email" 
+                  className={`"mt-1 p-2 border w-full" 
+                  ${emailValid ? "" : "is-invalid"}`}
+                  id="Email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    validateEmail(e.target.value);
+                  }}
+                  />
+                  {!emailValid && <p className="text-red-500">Invalid email</p>}
+                  <br />
+                  <label className="block text-md font-medium">Phone</label>
+                  <br />
+                  <input
+                    type="text"
+                    className={`"mt-1 p-2 border w-full"
+                    ${phoneValid ? "" : "is-invalid"}`}
+                    id="Phone"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      validatePhone(e.target.value);
+                    }}
+                  />
+                  {!phoneValid && <p className="text-red-500">Invalid phone</p>}
                   <br />
                   <label className="block text-md font-medium">
                     Phone Number
                   </label>
                   <br />
-                  <input type="text" className="mt-1 p-2 border w-full" />
+                  <input type="text" 
+                  className={`"mt-1 p-2 border w-full" 
+                  ${phoneValid ? "" : "is-invalid"}`}
+                  id="Phone"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    validatePhone(e.target.value);
+                  }}
+                  />
+                  {!phoneValid && <p className="text-red-500">Invalid phone number</p>}
                   <br />
                   <label className="block text-md font-medium">Subject</label>
                   <br />
-                  <input type="text" className="mt-1 p-2 border w-full" />
+                  <input type="text" 
+                  className={`"mt-1 p-2 border w-full" 
+                  ${subjectValid ? "" : "is-invalid"}`}
+                  id="Subject"
+                  value={subject}
+                  onChange={(e) => {
+                    setSubject(e.target.value);
+                  }}
+                  />
+                  {!subjectValid && <p className="text-red-500">Invalid subject</p>}
                   <br />
                   <label className="block text-md font-medium">Message</label>
                   <br />
-                  <textarea type="text" className="mt-1 p-3 border w-full" />
+                  <textarea type="text" 
+                  className="mt-1 p-3 border w-full" 
+                  id="Message"
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                    validateMessage(e.target.value);
+                  }}
+                  />
+                  {!messageValid && <p className="text-red-500">Invalid message</p>}
                   <br />
 
-                  <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">
+                  <button type ="submit" className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">
                     Submit Now
                   </button>
                 </form>
