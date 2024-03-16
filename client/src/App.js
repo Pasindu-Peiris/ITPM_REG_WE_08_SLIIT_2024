@@ -11,7 +11,6 @@ import Tours from "./component/clientside/Tours";
 import AllTours from "./component/adminside/AllTours";
 import AddDest from "./component/adminside/AddDesPoint";
 import AddTours from "./component/adminside/AddTours"
-import AddDest from "./component/adminside/AddDesPoint"
 import ContactUs from "./component/clientside/ContactUs";
 
 
@@ -40,7 +39,6 @@ function App() {
           <Route path="/alltours" element={<AllTours />}></Route>
           <Route path="/adddes" element={<AddDest/>}></Route>
           <Route path="/addTours" element={<AddTours />}></Route>
-          <Route path="/adddes" element={<AddDest />}></Route>
 
           <Route path="/contactus" element={<ContactUs />}></Route>
         </Routes>
