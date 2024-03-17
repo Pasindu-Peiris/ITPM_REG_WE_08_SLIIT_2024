@@ -9,7 +9,9 @@ import axios from "axios";
 
 
 
+
 const ContactUs = () => {
+  // Styles
   const addImg = {
     width: "100%",
     minHeight: "40vh",
@@ -39,6 +41,7 @@ const ContactUs = () => {
     width: "50%",
   };
 
+  // State variables for form inputs and validations
   const[name,setName]=useState('')
   const[email,setEmail]=useState('')
   const[phone,setPhone]=useState('')
@@ -51,6 +54,7 @@ const ContactUs = () => {
   const [subjectValid, setSubjectValid] = useState(true);
   const [messageValid, setMessageValid] = useState(true);
 
+  // Validation functions
   const validateName = (value) => {
     const isValid = /^[A-Za-z\s]+$/.test(value);
     setNameValid(isValid);
@@ -72,14 +76,16 @@ const ContactUs = () => {
     return isValid;
   };
   const validateMessage = (value) => {
-    const isValid = /^[A-Za-z\s]+$/.test(value);
+    const isValid = value.trim() !== '';
     setMessageValid(isValid);
     return isValid;
   };
-
+ 
+  // Function to handle form submission
   const sendData = (e) => {
     e.preventDefault();
 
+    // Perform validation
     const isValidName = validateName(name);
     const isValidEmail = validateEmail(email);
     const isValidPhone = validatePhone(phone);
@@ -87,7 +93,8 @@ const ContactUs = () => {
     const isValidMessage = validateMessage(message);
 
     if (!isValidName || !isValidEmail || !isValidPhone || !isValidSubject || !isValidMessage) {
-      const newQuestion = {
+      
+      const newContact = {
         name: name,
         email: email,
         phone: phone,
@@ -96,7 +103,7 @@ const ContactUs = () => {
       };
       
       axios
-        .post("http://localhost:8090/test/add", newQuestion)
+        .post("http://localhost:8090/contactus/add", newContact)
         .then(() => {
           alert("Success");
           setName('')
@@ -106,10 +113,10 @@ const ContactUs = () => {
           setMessage('')
         })
         .catch((err) => {
-          alert(err + "An error occurred while adding the question. Please try again later.");
-        });
+          alert("Please fill in all required fields and try again. "+ err);
+        }); 
       }else{
-        alert("Please fill in all the required fields.")
+        alert("Please fill in all required fields and try again.")
       }
     };
       
@@ -122,9 +129,11 @@ const ContactUs = () => {
           Contact Us
         </h1>
       </div>
+      {/* Form section */}
       <div>
         <table style={table}>
           <tr>
+            {/* Left Column */}
             <th style={th}>
               <p className=" text-xl text-black text-center mr-10">
                 We're here to help!If you have any questions or concerns, please
@@ -136,6 +145,7 @@ const ContactUs = () => {
                 EST
               </p>
             </th>
+            {/* Right Column - Form */}
             <th style={th}>
               <p className=" text-xl text-black text-center ">
                 Or use the form below
@@ -186,7 +196,7 @@ const ContactUs = () => {
                   <br />
                   <input 
                      type="text" 
-                     className={`"mt-1 p-2 border w-full"
+                     className={`"mt-1 p-2 border w-full
                      ${nameValid ? "" : "is-invalid"}`}
                      id="Name"
                      value={name}
@@ -200,7 +210,7 @@ const ContactUs = () => {
                   <label className="block text-md font-medium">Email</label>
                   <br />
                   <input type="email" 
-                  className={`"mt-1 p-2 border w-full" 
+                  className={`"mt-1 p-2 border w-full 
                   ${emailValid ? "" : "is-invalid"}`}
                   id="Email"
                   value={email}
@@ -211,27 +221,13 @@ const ContactUs = () => {
                   />
                   {!emailValid && <p className="text-red-500">Invalid email</p>}
                   <br />
-                  <label className="block text-md font-medium">Phone</label>
-                  <br />
-                  <input
-                    type="text"
-                    className={`"mt-1 p-2 border w-full"
-                    ${phoneValid ? "" : "is-invalid"}`}
-                    id="Phone"
-                    value={phone}
-                    onChange={(e) => {
-                      setPhone(e.target.value);
-                      validatePhone(e.target.value);
-                    }}
-                  />
-                  {!phoneValid && <p className="text-red-500">Invalid phone</p>}
-                  <br />
+    
                   <label className="block text-md font-medium">
                     Phone Number
                   </label>
                   <br />
                   <input type="text" 
-                  className={`"mt-1 p-2 border w-full" 
+                  className={`"mt-1 p-2 border w-full 
                   ${phoneValid ? "" : "is-invalid"}`}
                   id="Phone"
                   value={phone}
@@ -245,7 +241,7 @@ const ContactUs = () => {
                   <label className="block text-md font-medium">Subject</label>
                   <br />
                   <input type="text" 
-                  className={`"mt-1 p-2 border w-full" 
+                  className={`"mt-1 p-2 border w-full 
                   ${subjectValid ? "" : "is-invalid"}`}
                   id="Subject"
                   value={subject}
@@ -278,6 +274,7 @@ const ContactUs = () => {
           </tr>
         </table>
       </div>
+      {/* Footer Section */}
       <div className="mt-10">
         <Hfotter />
       </div>
