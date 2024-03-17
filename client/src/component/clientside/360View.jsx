@@ -8,7 +8,7 @@ const View = () => {
         <Nav />
 
         <div className="container">
-         <SphereViewer imageUrl={image} />
+          <SphereViewer imageUrl={image} />
         </div>
       </div>
     );
