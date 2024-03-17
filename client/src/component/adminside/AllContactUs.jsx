@@ -17,7 +17,7 @@ function AllContactUs() {
         })
         .catch((err) => {
           console.log(err);
-        });
+          alert("Something went wrong" + err);});
     };
     getContacts();
   }, []);
@@ -101,7 +101,7 @@ function AllContactUs() {
           >
             <p style={{ fontWeight: "bold", fontSize: "30px", paddingBottom: "20px" }}>Recived Submissions</p>
             <button
-              className="mt-1 w-60 p-2 border bg-amber-500 text-white  font-bold"
+              className="mt-1 w-60 p-2 border bg-amber-500 text-white  font-bold rounded-md"
               onClick={handleExportReport}
             >
               Export Report
@@ -111,8 +111,7 @@ function AllContactUs() {
           </div>
           <table className="table table-striped">
             <thead>
-              <tr>
-                <th scope="col">No</th>
+              <tr>  
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone Number</th>
@@ -126,7 +125,6 @@ function AllContactUs() {
             <tbody>
               {contacts.map((massage) => (
                 <tr key={massage._id}>
-                  <td>{massage._id}</td>
                   <td>{massage.name}</td>
                   <td>{massage.email}</td>
                   <td>{massage.phone}</td>
@@ -134,7 +132,7 @@ function AllContactUs() {
                   <td>{massage.subject}</td>
                   <td>{massage.message}</td>
                   <td>
-                    <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">Response</button>
+                    <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold rounded-lg">Response</button>
                   </td>                
                   <td>
                     <img
