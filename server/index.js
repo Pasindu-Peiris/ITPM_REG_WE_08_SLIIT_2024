@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 const toursRouter = require('./Routes/tours')
 
+
 // //upload images
 // app.use(express.json());
 // app.use(express.static('public'));
@@ -50,6 +51,11 @@ app.use("/login",login)
 // Tours Route
 app.use('/tours', toursRouter);
 
+//contactus Route
+const Contactus = require('./Routes/contactus');
+app.use('/contactus',Contactus);
+
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
 });
+
