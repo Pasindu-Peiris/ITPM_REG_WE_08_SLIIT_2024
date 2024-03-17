@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@googlemaps/markerclusterer": "^2.5.3",
     "@photo-sphere-viewer/autorotate-plugin": "^5.7.2",
     "@photo-sphere-viewer/compass-plugin": "^5.7.2",

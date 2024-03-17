@@ -20,7 +20,7 @@ const LocMap = () => {
             overflow: "hidden",
             zIndex: "1",
             display: "none",
-          
+
 
         },
         section2: {
@@ -43,7 +43,7 @@ const LocMap = () => {
         },
         section4: {
             marginBottom: "12px"
-            
+
         }
 
 
@@ -186,17 +186,19 @@ const LocMap = () => {
 
             }
 
-            <div className='' style={style.section} id='boxbotHead'  >
-                
+            <div className=' rounded' style={style.section} id='boxbotHead'  >
 
-<iframe id='boxBot'
-src="https://www.chatbase.co/chatbot-iframe/ZPDiUfqgdQ8IgqBz4c63i"
-title="CAMPER"
-width="100%"
-style={{ width: "400px", height: "600px", position: "absolute", borderRadius: "12px", display: "none" }}
-                   
-frameborder="0"
-></iframe>
+
+                <iframe id='boxBot'
+                    src="https://www.chatbase.co/chatbot-iframe/ZPDiUfqgdQ8IgqBz4c63i"
+                    title="CAMPER"
+                    width="100%"
+                    style={{ width: "400px", height: "600px", position: "absolute", borderRadius: "12px", display: "none" }}
+
+                    frameborder="0"
+                ></iframe>
+
+                
 
 
 

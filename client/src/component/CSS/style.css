@@ -109,13 +109,5 @@
 }
 /* ----------- End animation shake -----------------------*/
 
-
-.audio-player {
-  display: none;
-}
-
-.custom-icon-button:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-}
+/* chatbot ai second */
 
