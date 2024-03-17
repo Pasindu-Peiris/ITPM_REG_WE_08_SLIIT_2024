@@ -5,6 +5,9 @@
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@googlemaps/markerclusterer": "^2.5.3",
+    "@photo-sphere-viewer/autorotate-plugin": "^5.7.2",
+    "@photo-sphere-viewer/compass-plugin": "^5.7.2",
+    "@photo-sphere-viewer/core": "^5.7.2",
     "@react-google-maps/api": "^2.19.3",
     "@react-google-maps/marker-clusterer": "^2.19.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -12,6 +15,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-countup": "^6.5.0",
@@ -24,6 +29,8 @@
     "react-toastify": "^10.0.5",
     "react-type-animation": "^3.2.0",
     "redux": "^5.0.1",
+    "three": "^0.162.0",
+    "three.js": "^0.77.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
