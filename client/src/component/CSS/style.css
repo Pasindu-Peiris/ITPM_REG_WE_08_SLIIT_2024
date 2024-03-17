@@ -1,111 +1,101 @@
 /* --------- Start nav css for line animation -----------*/
 
 #menu li a {
-    width: auto;
-    display: inline-block;
-    position: relative;
+  width: auto;
+  display: inline-block;
+  position: relative;
 }
 
 #menu li a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: rgb(253 230 138);
-    top: 30px;
-    display: block;
-    transition: .3s;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: rgb(253 230 138);
+  top: 30px;
+  display: block;
+  transition: 0.3s;
 }
 
 #menu li a:hover:after {
-    width: 100%;
+  width: 100%;
 }
 
 /* --------- End nav css for line animation -----------*/
 
-
 /* -----------Start animation shake -----------------------*/
 
 .shake {
-    animation: shake 1.2s cubic-bezier(.36, .07, .19, .97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    animation-name: shake;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-
+  animation: shake 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  animation-name: shake;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
 }
 .shake2 {
-    animation: shake2 1.2s cubic-bezier(.36, .07, .19, .97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    animation-name: shake2;
-    animation-duration: 10s;
-  
-    
-
+  animation: shake2 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  animation-name: shake2;
+  animation-duration: 10s;
 }
 
 @keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(0px, -5px, 0);
+  }
 
-    10%,
-    90% {
-        transform: translate3d(0px, -5px, 0);
-    }
+  20%,
+  80% {
+    transform: translate3d(0px, 5px, 0);
+  }
 
-    20%,
-    80% {
-        transform: translate3d(0px, 5px, 0);
-    }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(0px, -5px, 0);
+  }
 
-    30%,
-    50%,
-    70% {
-        transform: translate3d(0px, -5px, 0);
-    }
-
-    40%,
-    60% {
-        transform: translate3d(0px, 5px, 0);
-    }
+  40%,
+  60% {
+    transform: translate3d(0px, 5px, 0);
+  }
 }
 
 /* ----------- End animation shake -----------------------*/
 
-
-
-  
 @keyframes shake2 {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
 
-    10%,
-    90% {
-        transform: translate3d(-1px, 0, 0);
-    }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
 
-    20%,
-    80% {
-        transform: translate3d(2px, 0, 0);
-    }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
 
-    30%,
-    50%,
-    70% {
-        transform: translate3d(-4px, 0, 0);
-    }
-
-    40%,
-    60% {
-        transform: translate3d(4px, 0, 0);
-    }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
-.show{
-    display: none;
+.show {
+  display: none;
 }
-.hide{
-    display: block;
+.hide {
+  display: block;
 }
 /* ----------- End animation shake -----------------------*/
 
@@ -249,3 +239,11 @@ header {
     height: 100%;
   
   }
+.custom-icon-button:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.audio-player {
+  display: none;
+}
