@@ -32,7 +32,7 @@ const Tours = () => {
                   <div className="col">
                     <a href="#">
                       <img
-                        src={tour.images[1]} 
+                        src={tour.images[0]} 
                         alt="Tour Image"
                         className="img-fluid"
                         style={{

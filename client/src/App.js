@@ -13,6 +13,7 @@ import AddDest from "./component/adminside/AddDesPoint";
 import AddTours from "./component/adminside/AddTours"
 import ContactUs from "./component/clientside/ContactUs";
 import ClientsDetails from "./component/adminside/ClientsDetails";
+import UpdateTours from "./component/adminside/UpdateTours";
 
 
 
@@ -40,13 +41,10 @@ function App() {
           <Route path="/alltours" element={<AllTours />}></Route>
           <Route path="/adddes" element={<AddDest/>}></Route>
           <Route path="/addTours" element={<AddTours />}></Route>
-
+          <Route path="/updateTours" element={<UpdateTours />}></Route>
+          <Route path="/updateTours/:id" element={<UpdateTours />} />
           <Route path="/contactus" element={<ContactUs />}></Route>
-<<<<<<< HEAD
-          
-=======
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
->>>>>>> bf5f64cb958f9e0abe6076f688939055c30cf3f2
         </Routes>
 
       </BrowserRouter>
