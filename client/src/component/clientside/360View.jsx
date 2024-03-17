@@ -3,14 +3,14 @@ import Nav from './Nav';
 
 const View = () => {
     return (
+      <div>
+        <Nav />
+
         <div>
-            <Nav />
-
-            <div>
-
-            </div>
+         
         </div>
-    )
+      </div>
+    );
 }
 
 export default View;

@@ -17,6 +17,7 @@ import ClientsDetails from "./component/adminside/ClientsDetails";
 
 
 
+
 function App() {
 
   return (
@@ -40,13 +41,9 @@ function App() {
           <Route path="/alltours" element={<AllTours />}></Route>
           <Route path="/adddes" element={<AddDest/>}></Route>
           <Route path="/addTours" element={<AddTours />}></Route>
-
+          <Route path="/view" element={<View/>}></Route>
           <Route path="/contactus" element={<ContactUs />}></Route>
-<<<<<<< HEAD
-          
-=======
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
->>>>>>> bf5f64cb958f9e0abe6076f688939055c30cf3f2
         </Routes>
 
       </BrowserRouter>
