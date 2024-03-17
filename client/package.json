@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@googlemaps/markerclusterer": "^2.5.3",
+    "@photo-sphere-viewer/autorotate-plugin": "^5.7.2",
+    "@photo-sphere-viewer/compass-plugin": "^5.7.2",
+    "@photo-sphere-viewer/core": "^5.7.2",
     "@react-google-maps/api": "^2.19.3",
     "@react-google-maps/marker-clusterer": "^2.19.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -25,6 +28,8 @@
     "react-toastify": "^10.0.5",
     "react-type-animation": "^3.2.0",
     "redux": "^5.0.1",
+    "three": "^0.162.0",
+    "three.js": "^0.77.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
