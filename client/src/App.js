@@ -16,6 +16,7 @@ import ClientsDetails from "./component/adminside/ClientsDetails";
 import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
+import ContactUsRes from "./component/adminside/ContactUsRes";
 
 
 
@@ -51,6 +52,7 @@ function App() {
 
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/allcontactus" element={<AllContactUs/>}></Route>
+          <Route path="/contactusres" element={<ContactUsRes />} />
 
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
 
