@@ -239,6 +239,11 @@ header {
     height: 100%;
   
   }
+
+
+/* ----------- 360 view css -----------------------*/
+
+
 .custom-icon-button:hover {
   transform: scale(1.2);
   cursor: pointer;
@@ -246,4 +251,9 @@ header {
 
 .audio-player {
   display: none;
+}
+
+.main-container {
+  min-height: 100vh;
+ 
 }

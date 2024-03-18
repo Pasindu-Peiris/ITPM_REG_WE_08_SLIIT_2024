@@ -10,6 +10,7 @@
     "@photo-sphere-viewer/core": "^5.7.2",
     "@photo-sphere-viewer/gallery-plugin": "^5.7.2",
     "@photo-sphere-viewer/map-plugin": "^5.7.2",
+    "@photo-sphere-viewer/virtual-tour-plugin": "^5.7.2",
     "@react-google-maps/api": "^2.19.3",
     "@react-google-maps/marker-clusterer": "^2.19.2",
     "@testing-library/jest-dom": "^5.17.0",

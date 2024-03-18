@@ -8,14 +8,18 @@ import { MapPlugin } from "@photo-sphere-viewer/map-plugin";
 import "@photo-sphere-viewer/map-plugin/index.css";
 import { GalleryPlugin } from "@photo-sphere-viewer/gallery-plugin";
 import "@photo-sphere-viewer/gallery-plugin/index.css";
+import { VirtualTourPlugin } from "@photo-sphere-viewer/virtual-tour-plugin";
+import "@photo-sphere-viewer/virtual-tour-plugin/index.css";
 import image from "../../Images/photo1.jpg";
 import image2 from "../../Images/photo2.jpg";
+import image3 from "../../Images/photo3.jpg";
 import audio from "../../music/hevisi.mp3";
 import "../CSS/style.css";
 
 const SphereViewer = ({ imageUrl }) => {
   const viewerRef = useRef(null);
   const [muted, setMuted] = useState(false);
+
 
   useEffect(() => {
     if (viewerRef.current) {
@@ -73,15 +77,48 @@ const SphereViewer = ({ imageUrl }) => {
                 {
                   id: "pano-1",
                   name: "Panorama 1",
-                  panorama: image,
-                  thumbnail: image,
+                  panorama: image3,
+                  thumbnail: image3,
                 },
                 {
                   id: "pano-2",
                   name: "Panorama 2",
                   panorama: image2,
                   thumbnail: image2,
-                  
+                },
+                {
+                  id: "pano-3",
+                  name: "Panorama 3",
+                  panorama: image,
+                  thumbnail: image,
+                },
+              ],
+            },
+          ],
+          [
+            VirtualTourPlugin,
+            {
+              renderMode: "3d",
+              nodes: [
+                {
+                  id: "node-1",
+                  panorama: image3,
+                  links: [
+                    {
+                      nodeId: "node-2",
+                      position: { textureX: 1500, textureY: 800 },
+                    },
+                  ],
+                },
+                {
+                  id: "node-2",
+                  panorama: image2,
+                  links: [
+                    {
+                      nodeId: "node-1",
+                      position: { yaw: 150, pitch: 0 },
+                    },
+                  ],
                 },
               ],
             },
