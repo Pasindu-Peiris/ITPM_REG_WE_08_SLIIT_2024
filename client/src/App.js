@@ -21,7 +21,7 @@ import EditDes from "./component/adminside/EditDes";
 import UpdateDes from "./component/adminside/UpdateDes";
 import OneUpdateDes from "./component/adminside/OneUpdateDes";
 import ReviewForm from "./component/clientside/ReviewForm";
-import OneTourSection1 from "./component/clientside/OneTourSection1";
+import Onedest from "./component/adminside/Onedest";
 
 
 
