@@ -97,25 +97,31 @@ const AllTours = () => {
           alignItems: "center",
         }}
       >
-        <p style={{ fontWeight: "bold", fontSize: "30px", paddingBottom: "20px" }}>
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "30px",
+            paddingBottom: "20px",
+          }}
+        >
           All Tour Details
         </p>
         <img src={pdfIcn} alt="PDF" style={{ width: "40px", height: "40px" }} />
       </div>
       <Link to="/AddTours">
-          <button
-            style={{
-              backgroundColor: "green",
-              color: "white",
-              padding: "6px 12px",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            ADD
-          </button>
-        </Link>
+        <button
+          style={{
+            backgroundColor: "green",
+            color: "white",
+            padding: "6px 12px",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          ADD
+        </button>
+      </Link>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -137,7 +143,11 @@ const AllTours = () => {
               <td>{tour.price} $</td>
               <td>
                 <Link to={`/UpdateTours/${tour._id}`}>
-                  <img src={updateIcn} alt="Update" style={{ width: "20px", height: "20px" }} />
+                  <img
+                    src={updateIcn}
+                    alt="Update"
+                    style={{ width: "20px", height: "20px" }}
+                  />
                 </Link>
               </td>
               <td>
@@ -149,19 +159,25 @@ const AllTours = () => {
                 />
               </td>
               <td>
-                
-                <button
-                  style={{
-                    backgroundColor: "green",
-                    color: "white",
-                    padding: "1px 10px",
-                    border: "none",
-                    borderRadius: "4px",
-                    cursor: "pointer",
+                <Link
+                  to={{
+                    pathname: "/addDes",
+                    state: { tourId: tour._id },
                   }}
                 >
-                  Add
-                </button>
+                  <button
+                    style={{
+                      backgroundColor: "green",
+                      color: "white",
+                      padding: "1px 10px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Add
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}
