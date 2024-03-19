@@ -16,11 +16,7 @@ import ClientsDetails from "./component/adminside/ClientsDetails";
 import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
-import ContactUsRes from "./component/adminside/ContactUsRes";
 import AddVirtualTour from "./component/adminside/AddVirtualTour";
-import FAQ from "./component/clientside/FAQ";
-
-
 
 
 
@@ -42,11 +38,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/map" element={<Map/>}></Route>
           <Route path="/view" element={<View/>}></Route>
-          <Route path="/map2" element={<LocMap />}></Route>
+          <Route path="/map2/:id" element={<LocMap />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/tours" element={<Tours />}></Route>
           <Route path="/alltours" element={<AllTours />}></Route>
-          <Route path="/adddes" element={<AddDest/>}></Route>
+          <Route path="/adddes/:id" element={<AddDest/>}></Route>
           <Route path="/addTours" element={<AddTours />}></Route>
           <Route path="/updateTours" element={<UpdateTours />}></Route>
           <Route path="/updateTours/:id" element={<UpdateTours />} />
@@ -62,6 +58,12 @@ function App() {
           
           <Route path="/addvirtualtour" element={<AddVirtualTour />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
+          <Route path="/getdes" element={<Onedest/>}></Route>
+          <Route path="/tours/:id" element={<OneTourSection1 />} />
+          <Route path="/reviewform" element={<ReviewForm/>}></Route>
+          <Route path="/reviewpage" element={<ReviewPage/>}></Route>
+
+
 
         </Routes>
 

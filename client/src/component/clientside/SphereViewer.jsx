@@ -9,7 +9,7 @@ import "@photo-sphere-viewer/map-plugin/index.css";
 import { GalleryPlugin } from "@photo-sphere-viewer/gallery-plugin";
 import "@photo-sphere-viewer/gallery-plugin/index.css";
 //import { VirtualTourPlugin } from "@photo-sphere-viewer/virtual-tour-plugin";
-import "@photo-sphere-viewer/virtual-tour-plugin/index.css";
+//import "@photo-sphere-viewer/virtual-tour-plugin/index.css";
 import image from "../../Images/photo1.jpg";
 import image2 from "../../Images/photo2.jpg";
 import image3 from "../../Images/photo3.jpg";

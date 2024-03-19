@@ -97,25 +97,31 @@ const AllTours = () => {
           alignItems: "center",
         }}
       >
-        <p style={{ fontWeight: "bold", fontSize: "30px", paddingBottom: "20px" }}>
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "30px",
+            paddingBottom: "20px",
+          }}
+        >
           All Tour Details
         </p>
         <img src={pdfIcn} alt="PDF" style={{ width: "40px", height: "40px" }} />
       </div>
       <Link to="/AddTours">
-          <button
-            style={{
-              backgroundColor: "green",
-              color: "white",
-              padding: "6px 12px",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            ADD
-          </button>
-        </Link>
+        <button
+          style={{
+            backgroundColor: "green",
+            color: "white",
+            padding: "6px 12px",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          ADD
+        </button>
+      </Link>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -137,7 +143,11 @@ const AllTours = () => {
               <td>{tour.price} $</td>
               <td>
                 <Link to={`/UpdateTours/${tour._id}`}>
-                  <img src={updateIcn} alt="Update" style={{ width: "20px", height: "20px" }} />
+                  <img
+                    src={updateIcn}
+                    alt="Update"
+                    style={{ width: "20px", height: "20px" }}
+                  />
                 </Link>
               </td>
               <td>
@@ -149,19 +159,51 @@ const AllTours = () => {
                 />
               </td>
               <td>
-                
-                <button
-                  style={{
-                    backgroundColor: "green",
-                    color: "white",
-                    padding: "1px 10px",
-                    border: "none",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Add
-                </button>
+                <a href={`/adddes/${tour._id}`}>
+                  <button className=" bg-green-600"
+                    style={{
+                      backgroundColor: "",
+                      color: "white",
+                      padding: "1px 10px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Add
+                  </button>
+                </a>
+
+                <a href={`/map2/${tour._id}`} className="ml-3 bg-amber-400">
+                  <button className=" bg-amber-400"
+                    style={{
+                      backgroundColor: "",
+                      color: "black",
+                      padding: "1px 10px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    View
+                  </button>
+                </a>
+
+                <a href={`/map2/${tour._id}`} className="ml-3 ">
+                  <button className=" bg-blue-700"
+                    style={{
+                      backgroundColor: "",
+                      color: "white",
+                      padding: "1px 10px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Edit
+                  </button>
+                </a>
+
               </td>
             </tr>
           ))}

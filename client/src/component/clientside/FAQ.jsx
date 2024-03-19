@@ -4,7 +4,7 @@ import Img from "../../Images/page-title-bg.png";
 import Hfotter from "./Hfotter";
 import axios from "axios";
 
-function FAQ() {
+const FAQ =() => {
   /*const [userDetails, setUserDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
