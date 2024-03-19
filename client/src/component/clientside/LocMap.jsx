@@ -49,7 +49,7 @@ const LocMap = () => {
         fetchData();
     }, []); // Empty array means this effect runs once on mount and not on updates
 
-
+    
 
 
 

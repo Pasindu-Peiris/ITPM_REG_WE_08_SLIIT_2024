@@ -19,6 +19,9 @@ import AllContactUs from "./component/adminside/AllContactUs";
 import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
 import AddVirtualTour from "./component/adminside/AddVirtualTour";
+import EditDes from "./component/adminside/EditDes";
+import UpdateDes from "./component/adminside/UpdateDes";
+import OneUpdateDes from "./component/adminside/OneUpdateDes";
 
 
 
@@ -58,6 +61,10 @@ function App() {
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
           <Route path="/getdes" element={<Onedest/>}></Route>
           <Route path="/tours/:id" element={<OneTourSection1 />} />
+          <Route path="/editdes/:id" element={<EditDes/>}></Route>
+          <Route path="/updatedes/:id" element={<UpdateDes/>}></Route>
+          <Route path="/oneupdatedes/:id" element={<OneUpdateDes/>}></Route>
+
 
 
 

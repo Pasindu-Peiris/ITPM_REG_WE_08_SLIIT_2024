@@ -1,13 +1,233 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
+import axios from "axios"
+import Img from "../../Images/hp-blog-bg.jpg";
+import LocIcon from '../../Images/loc.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditDes = () => {
+
+
+  function Notify(mes) {
+    toast.success(mes, {
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      position: "top-right",
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      style: {
+        width: '300px',         // Set the width
+        height: '100px',        // Set the height
+        fontSize: '20px',       // Set the font size
+        alignItems: 'center',   // Center align items vertically
+        fontFamily: '"Josefin Sans", sans-serif',
+        display: 'flex',        // Use flexbox to align items
+        justifyContent: 'center', // Center align items horizontally
+        color: 'white',          // White text color
+      },
+      bodyClassName: 'custom-toast-body'
+
+    });
+  }
+
+  function Notify2() {
+    toast.error("Faild", {
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      position: "top-right",
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      style: {
+        width: '300px',         // Set the width
+        height: '100px',        // Set the height
+        fontSize: '20px',       // Set the font size
+        alignItems: 'center',   // Center align items vertically
+        fontFamily: '"Josefin Sans", sans-serif',
+        display: 'flex',        // Use flexbox to align items
+        justifyContent: 'center', // Center align items horizontally
+        color: 'white',          // White text color
+        borderRadius: '8px'
+      },
+      bodyClassName: 'custom-toast-body'
+
+    });
+  }
+
+  const [listPoints, setListPoints] = useState([]);
+
+  const { id } = useParams();
+
+  
+
+  const [p1, setp1] = useState([4]);
+  const [p2, setp2] = useState([4]);
+  const [p3, setp3] = useState([4]);
+  const [p4, setp4] = useState([4]);
+  const [p5, setp5] = useState([4]);
+  const [p6, setp6] = useState([4]);
+  const [p7, setp7] = useState([4]);
+  const [p8, setp8] = useState([4]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      const response = await axios.get("http://localhost:8090/dest/getdest/" + id);
+
+      setListPoints(response.data)
+      setp1(response.data.points1)
+      setp2(response.data.points2)
+      setp3(response.data.points3)
+      setp4(response.data.points4)
+      setp5(response.data.points5)
+      setp6(response.data.points6)
+      setp7(response.data.points7)
+      setp8(response.data.points8)
+
+    }
+
+    fetchData();
+  }, []); // Empty array means this effect runs once on mount and not on updates
+
+  if(p1 === undefined){
+    window.location.href = "/alltours";
+  }
+
+  const addImg = {
+    width: "100%",
+    height: "120vh",
+    backgroundImage: `url(${Img})`,
+    backgroundSize: "cover",
+  };
+
+  const style = {
+    boxShadow: "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px"
+
+  }
+
+  const handleDelete = () => {
+    axios.delete('http://localhost:8090/dest/deletedest/' + id).then(() => {
+      let mess = "Deleted successfully"
+      Notify(mess)
+      setTimeout(function () {
+        window.location.href = "/alltours";
+    }, 2000); // 2000 milliseconds (2 seconds) 
+    }).catch((err) => {
+      Notify2()
+    })
+  }
+
   return (
-    <div>
+    <div className=' ' style={addImg} >
+
+      <div className="heading w-[85%] h-[15vh] bg-white place-items-start mx-auto mt-5 flex items-center justify-between">
+        <h1 className=' text-4xl fw-bold'>Destination Points</h1>
+        <div className="box">
+          <button className=' bg-amber-400 p-2 me-2 rounded text-white'><a href={`/map2/${listPoints.trid}`}>View</a></button>
+          <button className='bg-green-600 p-2 me-2 rounded text-white'><a href={`/updatedes/${listPoints.trid}`}>Update</a></button>
+          <button className=' bg-red-600 p-2 rounded text-white' onClick={handleDelete}>Delete</button>
+        </div>
+      </div>
+
+      <div className="box d-flex align-middle justify-center items-center">
+        <table class="table w-[85%] h-[auto] bg-white rounded table-bordered table-striped table-hover" style={style}>
+          <thead class="table-dark rounded">
+            <tr className='text-xl rounded p-4'>
+              <th scope="col">Point name </th>
+              <th scope="col">Destination name</th>
+              <th scope="col">Latitude</th>
+              <th scope="col">Longitude</th>
+              <th scope="col">Description</th>
+              <th scope="col">PDF file</th>
+
+            </tr>
+          </thead>
+          <tbody class="table-group-divider rounded">
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 1 </span> </td>
+              <td>{p1[0]}</td>
+              <td>{p1[1]}</td>
+              <td>{p1[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p1[3]}></textarea></td>
+              <td rowSpan={8} className=' items-center text-center'><button className=' p-1 text-blue-50 bg-blue-600 rounded'>Download</button></td>
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 2 </span></td>
+              <td>{p2[0]}</td>
+              <td>{p2[1]}</td>
+              <td>{p2[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p2[3]}></textarea></td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 3 </span></td>
+              <td>{p3[0]}</td>
+              <td>{p3[1]}</td>
+              <td>{p3[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p3[3]}></textarea></td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 4 </span></td>
+              <td>{p4[0]}</td>
+              <td>{p4[1]}</td>
+              <td>{p4[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p4[3]}></textarea></td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 5 </span></td>
+              <td>{p5[0]}</td>
+              <td>{p5[1]}</td>
+              <td>{p5[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p5[3]}></textarea></td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 6 </span></td>
+              <td>{p6[0]}</td>
+              <td>{p6[1]}</td>
+              <td>{p6[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p6[3]}></textarea></td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 7 </span></td>
+              <td>{p7[0]}</td>
+              <td>{p7[1]}</td>
+              <td>{p7[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p7[3]}></textarea></td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 8 </span></td>
+              <td>{p8[0]}</td>
+              <td>{p8[1]}</td>
+              <td>{p8[2]}</td>
+              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p8[3]}></textarea></td>
+
+            </tr>
 
 
+          </tbody>
+        </table>
+      </div>
+      <ToastContainer />
+    </div >
 
-        
-    </div>
   )
 }
 

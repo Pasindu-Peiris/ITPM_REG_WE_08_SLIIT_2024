@@ -36,4 +36,38 @@ router.route('/getdest/:id').get(async (req, res) => {
     }
 });
 
+
+router.route('/updatedest/:id').post(async (req, res) => {
+
+    const trid = req.params.id;
+
+    const { points1, points2, points3, points4, points5, points6, points7, points8, pdf } = req.body
+
+    try {
+        const updatedDes = await dest.findOneAndUpdate({ trid: trid }, { points1, points2, points3, points4, points5, points6, points7, points8, pdf });
+        res.json(updatedDes);
+    } catch (error) {
+        res.json(error);
+    }
+
+});
+
+router.route('/deletedest/:id').delete(async (req, res) => {
+    const trid = req.params.id;
+    console.log(trid);
+
+    try {
+        const deletedDes = await dest.findOneAndDelete({ trid: trid });
+        if (deletedDes) {
+            res.json("Destination deleted successfully");
+        } else {
+            res.json("Destination not found");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+});
+
+
+
 module.exports = router

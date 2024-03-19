@@ -189,7 +189,7 @@ const AllTours = () => {
                   </button>
                 </a>
 
-                <a href={`/map2/${tour._id}`} className="ml-3 ">
+                <a href={`/editdes/${tour._id}`} className="ml-3 ">
                   <button className=" bg-blue-700"
                     style={{
                       backgroundColor: "",
