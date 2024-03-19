@@ -55,6 +55,10 @@ app.use('/tours', toursRouter);
 const Contactus = require('./Routes/contactus');
 app.use('/contactus',Contactus);
 
+//dest
+const Dest = require('./Routes/Dest');
+app.use('/dest', Dest);
+
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
 });

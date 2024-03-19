@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 import { GoogleMap, InfoWindowF, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import LocIcon from '../../Images/loc.png'
 import bot from '../../Images/chatbot.png'
@@ -6,8 +7,49 @@ import doc from '../../Images/document.png'
 import mic from '../../Images/send-message.png'
 import mic2 from '../../Images/microphone.png'
 import "../CSS/style.css"
+import axios from "axios"
 
 const LocMap = () => {
+
+
+    const [listPoints, setListPoints] = useState([]);
+
+    const { id } = useParams();
+
+    const [p1, setp1] = useState([4]);
+    const [p2, setp2] = useState([4]);
+    const [p3, setp3] = useState([4]);
+    const [p4, setp4] = useState([4]);
+    const [p5, setp5] = useState([4]);
+    const [p6, setp6] = useState([4]);
+    const [p7, setp7] = useState([4]);
+    const [p8, setp8] = useState([4]);
+
+
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const response = await axios.get("http://localhost:8090/dest/getdest/" + id);
+
+            setListPoints(response.data)
+            setp1(response.data.points1)
+            setp2(response.data.points2)
+            setp3(response.data.points3)
+            setp4(response.data.points4)
+            setp5(response.data.points5)
+            setp6(response.data.points6)
+            setp7(response.data.points7)
+            setp8(response.data.points8)
+
+        }
+
+        fetchData();
+    }, []); // Empty array means this effect runs once on mount and not on updates
+
+
 
 
 
@@ -55,58 +97,60 @@ const LocMap = () => {
         googleMapsApiKey: `AIzaSyBrAJXUQ_Z-q2l3X-yhLNvOfVB0KS7bqSU`
     })
 
+    const la1 = parseFloat(p1[1]);
+    const ln1 = parseFloat(p1[2]);
+
     const markers = [
+
         {
             id: 1,
-            name: "eheliaygoda",
-            position: { lat: 6.7056, lng: 80.3847 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name: p1[0],
+            position: { lat: la1, lng: ln1 },
+            des: p1[3]
         },
         {
             id: 2,
-            name: "sivali",
-            position: { lat: 6.8486, lng: 80.2600 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb",
+            name: p2[0],
+            position: { lat: parseFloat(p1[1]), lng: parseFloat(p2[2]) },
+            des: p2[3]
         },
         {
             id: 3,
-            name: "kuruwita",
-            position: { lat: 6.8218, lng: 80.3615 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name: p3[0],
+            position: { lat: parseFloat(p3[1]), lng: parseFloat(p3[2]) },
+            des: p3[3]
         },
         {
             id: 4,
-            name: "homagama",
-            position: { lat: 6.8433, lng: 80.0032 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name: p4[0],
+            position: { lat: parseFloat(p4[1]), lng: parseFloat(p4[2]) },
+            des: p4[3]
         },
         {
             id: 5,
-            name: "horana",
-            position: { lat: 6.7230, lng: 80.0647 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name: p5[0],
+            position: { lat: parseFloat(p5[1]), lng: parseFloat(p5[2]) },
+            des: p5[3]
         },
         {
             id: 6,
-            name: "Nivithigala",
-            position: { lat: 6.5959, lng: 80.4578 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name: p6[0],
+            position:{ lat: parseFloat(p6[1]), lng: parseFloat(p6[2]) },
+            des: p6[3]
         },
         {
             id: 7,
-            name: "Hatton",
-            position: { lat: 6.9003, lng: 80.5966 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name:p7[0],
+            position: { lat: parseFloat(p7[1]), lng: parseFloat(p7[2]) },
+            des: p7[3]
         },
         {
             id: 8,
-            name: "Belihuloya",
-            position: { lat: 6.7184, lng: 80.7741 },
-            des: "This is a sample description Loradfdb dbfbddgbddvdagvdvfgrgbgfdgbfffbfbfffbfdbfggbsgbfbbfbgdfbdfgbdfb"
+            name: p8[0],
+            position: { lat: parseFloat(p8[1]), lng: parseFloat(p8[2]) },
+            des: p8[3]
         }
-
-
-    ]
+    ];
 
     const displayOut = (id) => {
         if (id === actvemark) {
@@ -263,7 +307,7 @@ const LocMap = () => {
             {isLoaded ? <GoogleMap
                 mapContainerStyle={{ width: "100%", height: "100vh" }}
                 center={
-                    { lat: 6.8486, lng: 80.2600 }
+                    { lat: 6.7184, lng: 80.7741 }
                 }
                 zoom={10}
 
@@ -316,12 +360,12 @@ const LocMap = () => {
 
 
 
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style={{backgroundColor:"#0b0b0b58"}}>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style={{ backgroundColor: "#0b0b0b58" }}>
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
-                        <div class="modal-header" style={{ backgroundColor: "#ffd54c", textAlign: "center", justifyContent:"space-between", display: "flex" }}>
+                        <div class="modal-header" style={{ backgroundColor: "#ffd54c", textAlign: "center", justifyContent: "space-between", display: "flex" }}>
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">ChatBot</h1>
-                            <button type="button" class=" bg-black p-2 text-blue-500 rounded" data-bs-dismiss="modal" aria-label="Close" style={{color:"white"}}>Close</button>
+                            <button type="button" class=" bg-black p-2 text-blue-500 rounded" data-bs-dismiss="modal" aria-label="Close" style={{ color: "white" }}>Close</button>
                         </div>
                         <div class="modal-body bg-white">
 
