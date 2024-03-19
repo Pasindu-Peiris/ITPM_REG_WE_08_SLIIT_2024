@@ -7,7 +7,8 @@ import Img2 from "../../Images/mail.png";
 import Img3 from "../../Images/location.png";
 import axios from "axios";
 
-
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const ContactUs = () => {
@@ -113,17 +114,23 @@ const ContactUs = () => {
           setMessage('')
         })
         .catch((err) => {
-          alert("Please fill in all required fields and try again. "+ err);
+          alert("Please fill in all required fields and try again. " + err);
+          console.log(err);
         }); 
       }else{
-        alert("Please fill in all required fields and try again.")
+      toast.success("Message sent successfully!", {
+        position: "top-center",
+        theme: "dark",
+        transition: Bounce,
+      });
+      console.log("added")
       }
     };
       
   return (
     <div style={{ position: "relative" }}>
       <Nav />
-
+      <ToastContainer />
       <div className="flex items-center " style={addImg}>
         <h1 className=" text-center text-4xl font-semibold text-black ">
           Contact Us

@@ -51,12 +51,12 @@ const ReviewForm = () => {
           creating a tapestry of travel tales – your story begins here!"
         </p>
       </div>
-      <form>
-        <div class="p-4 flex justify-between mx-36">
-          <div class=" w-1/2 h-96 mr-36 bg-red-500 ">Div 1</div>
-          <div class=" w-1/2 h-96 bg-blue-500">Div 2</div>
-        </div>
-      </form>
+<form>
+      <div class="p-4 flex justify-between mx-36">
+        <div class=" w-1/2 h-96 mr-36 bg-red-500 ">Div 1</div>
+        <div class=" w-1/2 h-96 bg-blue-500">Div 2</div>
+      </div>
+</form>
       <div className="mt-10">
         <Hfotter />
       </div>
