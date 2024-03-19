@@ -6,26 +6,42 @@ const AddDesPoint = () => {
 
     const [name, SetName] = useState('');
 
-    
 
     const addImg = {
         width: "100%",
         height: "200vh",
         backgroundImage: `url(${Img})`,
         backgroundSize: "cover",
-   };
+    };
 
     const style = {
         boxShadow: "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px"
- 
+
     }
-    const  handleSubmit = (e) => {
+
+
+    const [listPoints, setListPoints] = useState({
+        trid: "1",
+        name: [],
+        lat: [],
+        log: [],
+        des: [],
+        pdf: " "
+    })
+
+    const handleChange = (e) => {
+        const { name, value, type, files } = e.target;
+        
+        
+      };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         alert(name)
     }
-    
-    
+
+
 
 
     return (
@@ -114,7 +130,7 @@ const AddDesPoint = () => {
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                <h3 className='text-xl mb-2'>Destination Points PDF</h3>
+                                    <h3 className='text-xl mb-2'>Destination Points PDF</h3>
                                     <input type="file" name="" id="" />
                                 </div>
 
@@ -125,7 +141,7 @@ const AddDesPoint = () => {
 
                                 </div>
 
-                                
+
 
                             </form>
                         </div>

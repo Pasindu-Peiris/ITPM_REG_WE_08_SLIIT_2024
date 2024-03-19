@@ -17,6 +17,10 @@ import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
 import ContactUsRes from "./component/adminside/ContactUsRes";
+import AddVirtualTour from "./component/adminside/AddVirtualTour";
+import FAQ from "./component/clientside/FAQ";
+
+
 
 
 
@@ -53,7 +57,10 @@ function App() {
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/allcontactus" element={<AllContactUs/>}></Route>
           <Route path="/contactusres" element={<ContactUsRes />} />
-
+          
+          <Route path="/faq" element={<FAQ/>}></Route>
+          
+          <Route path="/addvirtualtour" element={<AddVirtualTour />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
 
         </Routes>

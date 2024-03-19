@@ -8,6 +8,7 @@ const app = express();
 const toursRouter = require('./Routes/tours')
 
 
+
 // //upload images
 // app.use(express.json());
 // app.use(express.static('public'));
@@ -52,8 +53,8 @@ app.use("/login",login)
 app.use('/tours', toursRouter);
 
 //contactus Route
-const Contactus = require('./Routes/contactus');
-app.use('/contactus',Contactus);
+const contactus = require('./Routes/contactus');
+app.use('/contactus',contactus);
 
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
