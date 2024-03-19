@@ -16,6 +16,7 @@ import ClientsDetails from "./component/adminside/ClientsDetails";
 import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
+import OneTourSection1 from "./component/clientside/OneTourSection1";
 
 
 
@@ -53,6 +54,9 @@ function App() {
           <Route path="/allcontactus" element={<AllContactUs/>}></Route>
 
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
+          <Route path="/tours/:id" element={<OneTourSection1 />} />
+
+
 
         </Routes>
 
