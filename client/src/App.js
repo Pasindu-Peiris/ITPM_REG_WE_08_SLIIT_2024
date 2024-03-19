@@ -17,6 +17,8 @@ import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
 import Onedest from "./component/adminside/Onedest";
+import OneTourSection1 from "./component/clientside/OneTourSection1";
+import AddVirtualTour from "./component/adminside/AddVirtualTour";
 
 
 
@@ -51,10 +53,13 @@ function App() {
           <Route path="/chat" element={<Chatbot/>}></Route>
 
           <Route path="/contactus" element={<ContactUs />}></Route>
-          <Route path="/allcontactus" element={<AllContactUs/>}></Route>
-
+          <Route path="/allcontactus" element={<AllContactUs />}></Route>
+          <Route path="/addvirtualtour" element={<AddVirtualTour />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
           <Route path="/getdes" element={<Onedest/>}></Route>
+          <Route path="/tours/:id" element={<OneTourSection1 />} />
+
+
 
         </Routes>
 
