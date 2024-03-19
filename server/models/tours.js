@@ -1,3 +1,5 @@
+// tourModel.js
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -18,6 +20,9 @@ const toursSchema = new Schema({
   price: {
     type: Number,
     required: true,
+  },
+  dayDetails: {
+    type: [String],
   },
   images: {
     type: [String], // Assuming you'll store image URLs as strings

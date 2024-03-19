@@ -13,6 +13,12 @@ import AddDest from "./component/adminside/AddDesPoint";
 import AddTours from "./component/adminside/AddTours"
 import ContactUs from "./component/clientside/ContactUs";
 import ClientsDetails from "./component/adminside/ClientsDetails";
+import UpdateTours from "./component/adminside/UpdateTours";
+import Chatbot from "./component/clientside/Chatbot";
+import AllContactUs from "./component/adminside/AllContactUs";
+import Onedest from "./component/adminside/Onedest";
+import OneTourSection1 from "./component/clientside/OneTourSection1";
+import AddVirtualTour from "./component/adminside/AddVirtualTour";
 
 
 
@@ -34,15 +40,27 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/map" element={<Map/>}></Route>
           <Route path="/view" element={<View/>}></Route>
-          <Route path="/map2" element={<LocMap />}></Route>
+          <Route path="/map2/:id" element={<LocMap />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/tours" element={<Tours />}></Route>
           <Route path="/alltours" element={<AllTours />}></Route>
-          <Route path="/adddes" element={<AddDest/>}></Route>
+          <Route path="/adddes/:id" element={<AddDest/>}></Route>
           <Route path="/addTours" element={<AddTours />}></Route>
-
+          <Route path="/updateTours" element={<UpdateTours />}></Route>
+          <Route path="/updateTours/:id" element={<UpdateTours />} />
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
+          <Route path="/chat" element={<Chatbot/>}></Route>
+
+          <Route path="/contactus" element={<ContactUs />}></Route>
+          <Route path="/allcontactus" element={<AllContactUs />}></Route>
+          <Route path="/addvirtualtour" element={<AddVirtualTour />}></Route>
+          <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
+          <Route path="/getdes" element={<Onedest/>}></Route>
+          <Route path="/tours/:id" element={<OneTourSection1 />} />
+
+
+
         </Routes>
 
       </BrowserRouter>

@@ -9,6 +9,15 @@ const AddTours = () => {
     description: "",
     numberOfDays: 0,
     price: 0,
+    dayDetails: {
+      day1: "",
+      day2: "",
+      day3: "",
+      day4: "",
+      day5: "",
+      day6: "",
+      day7: ""
+    },
     images: []
   });
 
@@ -18,6 +27,14 @@ const AddTours = () => {
       const selectedImages = Array.from(files).slice(0, 5);
       const imageUrls = selectedImages.map(image => URL.createObjectURL(image));
       setTourData({ ...tourData, images: imageUrls });
+    } else if (name.startsWith("day")) {
+      setTourData({
+        ...tourData,
+        dayDetails: {
+          ...tourData.dayDetails,
+          [name]: value
+        }
+      });
     } else {
       setTourData({ ...tourData, [name]: value });
     }
@@ -32,15 +49,19 @@ const AddTours = () => {
   const handleSubmit = async () => {
     try {
       console.log("Submitting tour data:", tourData);
-      const response = await axios.post('http://localhost:8090/tours', tourData);
+      const response = await axios.post('http://localhost:8090/tours', {
+        ...tourData,
+        dayDetails: Object.values(tourData.dayDetails) // Ensure dayDetails is an array
+      });
       console.log("Tour created:", response.data);
     } catch (error) {
       console.error("Error creating tour:", error);
     }
   };
+  
 
   return (
-    <div style={{ backgroundImage: `url(${ImgBac})`, padding: '100px' }}>
+    <div style={{ backgroundImage: `url(${ImgBac})`, paddingTop: '80px', paddingLeft:"200px", paddingRight:"200px", paddingBottom:"80px" }}>
       <div className="card" style={{ padding: '20px', position: 'relative' }}>
         <div style={{ marginBottom: '20px', textAlign: 'center' }}>
           <h2 style={{ fontWeight: 'bold', fontSize: '24px', marginBottom: '10px' }}>Add Tour Details</h2>
@@ -89,6 +110,19 @@ const AddTours = () => {
             onChange={handleChange}
           />
         </div>
+        {Array.from({ length: tourData.numberOfDays }, (_, i) => (
+          <div key={i} style={{ marginBottom: '10px' }}>
+            <label style={{ display: 'block', marginBottom: '5px' }}>{`Day ${i + 1} Details:`}</label>
+            <textarea
+              className="form-control"
+              id={`day${i + 1}`}
+              rows="3"
+              name={`day${i + 1}`}
+              value={tourData.dayDetails[`day${i + 1}`]}
+              onChange={handleChange}
+            ></textarea>
+          </div>
+        ))}
         <div style={{ marginBottom: '10px', display: 'flex', flexWrap: 'wrap' }}>
           {tourData.images.map((image, index) => (
             <div key={index} style={{ position: 'relative', marginRight: '10px', marginBottom: '10px', maxWidth: '200px' }}>

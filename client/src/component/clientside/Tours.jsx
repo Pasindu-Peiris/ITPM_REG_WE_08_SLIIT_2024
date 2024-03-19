@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Nav from "../clientside/Nav";
 import Hfotter from "./Hfotter";
 
@@ -30,9 +31,9 @@ const Tours = () => {
               <div key={tour._id} className="col-md-4 mb-4">
                 <div className="row">
                   <div className="col">
-                    <a href="#">
+                  <Link to={`/tours/${tour._id}`}>
                       <img
-                        src={tour.images[1]} 
+                        src={tour.images[0]} 
                         alt="Tour Image"
                         className="img-fluid"
                         style={{
@@ -41,7 +42,7 @@ const Tours = () => {
                           borderRadius: "10px",
                         }}
                       />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="row">

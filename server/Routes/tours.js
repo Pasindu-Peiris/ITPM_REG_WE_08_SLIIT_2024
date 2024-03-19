@@ -5,11 +5,24 @@ const Tour = require('../models/tours');
 // Create a new tour
 router.post('/', async (req, res) => {
     try {
-        const newTour = await Tour.create(req.body);
+        console.log("Received tour data:", req.body);
+        const { tourName, description, numberOfDays, price, dayDetails, images } = req.body;
+        
+        const newTour = await Tour.create({
+            tourName,
+            description,
+            numberOfDays,
+            price,
+            dayDetails, // Ensure dayDetails is an array
+            images
+        });
+        
+        console.log("New tour created:", newTour);
+        
         res.status(201).json(newTour);
     } catch (error) {
-        console.error("Error creating tour:", error); // Log detailed error
-        res.status(500).json({ message: "Failed to create tour", error: error.message }); // Send detailed error message to client
+        console.error("Error creating tour:", error);
+        res.status(500).json({ message: "Failed to create tour", error: error.message });
     }
 });
 
