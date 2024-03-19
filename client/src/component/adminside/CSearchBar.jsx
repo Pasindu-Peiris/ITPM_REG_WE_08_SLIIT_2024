@@ -22,7 +22,6 @@ function SearchBar({onSearch}) {
       const searchbtn = {
         borderRadius: "5px",
         cursor: "pointer",
-        hover: "bg-amber-600",
       }
 
       return (
@@ -39,5 +38,6 @@ function SearchBar({onSearch}) {
         </div>
       );
     }
+    
     
     export default SearchBar;
