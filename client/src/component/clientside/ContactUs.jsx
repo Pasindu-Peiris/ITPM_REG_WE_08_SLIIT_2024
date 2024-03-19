@@ -10,7 +10,6 @@ import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const ContactUs = () => {
   // Styles
   const addImg = {
@@ -43,11 +42,11 @@ const ContactUs = () => {
   };
 
   // State variables for form inputs and validations
-  const[name,setName]=useState('')
-  const[email,setEmail]=useState('')
-  const[phone,setPhone]=useState('')
-  const[subject,setSubject]=useState('')
-  const[message,setMessage]=useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
   const [nameValid, setNameValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
@@ -77,11 +76,11 @@ const ContactUs = () => {
     return isValid;
   };
   const validateMessage = (value) => {
-    const isValid = value.trim() !== '';
+    const isValid = value.trim() !== "";
     setMessageValid(isValid);
     return isValid;
   };
- 
+
   // Function to handle form submission
   const sendData = (e) => {
     e.preventDefault();
@@ -93,40 +92,48 @@ const ContactUs = () => {
     const isValidSubject = validateSubject(subject);
     const isValidMessage = validateMessage(message);
 
-    if (!isValidName || !isValidEmail || !isValidPhone || !isValidSubject || !isValidMessage) {
-      
+    if (
+      isValidName &&
+      isValidEmail &&
+      isValidPhone &&
+      isValidSubject &&
+      isValidMessage
+    ) {
       const newContact = {
-        name: name,
-        email: email,
-        phone: phone,
-        subject: subject,
-        message: message,
+         name,
+         email,
+         phone,
+         subject,
+         message,
       };
-      
+
       axios
         .post("http://localhost:8090/contactus/add", newContact)
         .then(() => {
-          alert("Success");
-          setName('')
-          setEmail('')
-          setPhone('')
-          setSubject('')
-          setMessage('')
+          toast.success("Message sent successfully!", {
+            position: "top-center",
+            theme: "dark",
+            transition: Bounce,
+          });
+          setName("");
+          setEmail("");
+          setPhone("");
+          setSubject("");
+          setMessage("");
         })
         .catch((err) => {
-          alert("Please fill in all required fields and try again. " + err);
+          alert(err + "Please fill in all required fields and try again. " );
           console.log(err);
-        }); 
-      }else{
-      toast.success("Message sent successfully!", {
+        });
+    } else {
+      toast.error("Please fill in all required fields correctly!", {
         position: "top-center",
         theme: "dark",
         transition: Bounce,
       });
-      console.log("added")
-      }
-    };
-      
+    }
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <Nav />
@@ -201,13 +208,13 @@ const ContactUs = () => {
                 <form onSubmit={sendData}>
                   <label className="block text-md font-medium">Full Name</label>
                   <br />
-                  <input 
-                     type="text" 
-                     className={`"mt-1 p-2 border w-full
+                  <input
+                    type="text"
+                    className={`"mt-1 p-2 border w-full
                      ${nameValid ? "" : "is-invalid"}`}
-                     id="Name"
-                     value={name}
-                     onChange={(e) => {
+                    id="Name"
+                    value={name}
+                    onChange={(e) => {
                       setName(e.target.value);
                       validateName(e.target.value);
                     }}
@@ -216,63 +223,76 @@ const ContactUs = () => {
                   <br />
                   <label className="block text-md font-medium">Email</label>
                   <br />
-                  <input type="email" 
-                  className={`"mt-1 p-2 border w-full 
+                  <input
+                    type="email"
+                    className={`"mt-1 p-2 border w-full 
                   ${emailValid ? "" : "is-invalid"}`}
-                  id="Email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    validateEmail(e.target.value);
-                  }}
+                    id="Email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      validateEmail(e.target.value);
+                    }}
                   />
                   {!emailValid && <p className="text-red-500">Invalid email</p>}
                   <br />
-    
+
                   <label className="block text-md font-medium">
                     Phone Number
                   </label>
                   <br />
-                  <input type="text" 
-                  className={`"mt-1 p-2 border w-full 
+                  <input
+                    type="text"
+                    className={`"mt-1 p-2 border w-full 
                   ${phoneValid ? "" : "is-invalid"}`}
-                  id="Phone"
-                  value={phone}
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                    validatePhone(e.target.value);
-                  }}
+                    id="Phone"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      validatePhone(e.target.value);
+                    }}
                   />
-                  {!phoneValid && <p className="text-red-500">Invalid phone number</p>}
+                  {!phoneValid && (
+                    <p className="text-red-500">Invalid phone number</p>
+                  )}
                   <br />
                   <label className="block text-md font-medium">Subject</label>
                   <br />
-                  <input type="text" 
-                  className={`"mt-1 p-2 border w-full 
+                  <input
+                    type="text"
+                    className={`"mt-1 p-2 border w-full 
                   ${subjectValid ? "" : "is-invalid"}`}
-                  id="Subject"
-                  value={subject}
-                  onChange={(e) => {
-                    setSubject(e.target.value);
-                  }}
+                    id="Subject"
+                    value={subject}
+                    onChange={(e) => {
+                      setSubject(e.target.value);
+                    }}
                   />
-                  {!subjectValid && <p className="text-red-500">Invalid subject</p>}
+                  {!subjectValid && (
+                    <p className="text-red-500">Invalid subject</p>
+                  )}
                   <br />
                   <label className="block text-md font-medium">Message</label>
                   <br />
-                  <textarea type="text" 
-                  className="mt-1 p-3 border w-full" 
-                  id="Message"
-                  value={message}
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                    validateMessage(e.target.value);
-                  }}
+                  <textarea
+                    type="text"
+                    className="mt-1 p-3 border w-full"
+                    id="Message"
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                      validateMessage(e.target.value);
+                    }}
                   />
-                  {!messageValid && <p className="text-red-500">Invalid message</p>}
+                  {!messageValid && (
+                    <p className="text-red-500">Invalid message</p>
+                  )}
                   <br />
 
-                  <button type ="submit" className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">
+                  <button
+                    type="submit"
+                    className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold"
+                  >
                     Submit Now
                   </button>
                 </form>
