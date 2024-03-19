@@ -3,7 +3,7 @@ import Nav from "./Nav";
 import Img from "../../Images/page-title-bg.png";
 import Hfotter from "./Hfotter";
 
-function ReviewForm() {
+const ReviewForm=()=> {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
