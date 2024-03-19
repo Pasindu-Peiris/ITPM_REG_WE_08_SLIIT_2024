@@ -160,9 +160,9 @@ const AllTours = () => {
               </td>
               <td>
                 <a href={`/adddes/${tour._id}`}>
-                  <button
+                  <button className=" bg-green-600"
                     style={{
-                      backgroundColor: "green",
+                      backgroundColor: "",
                       color: "white",
                       padding: "1px 10px",
                       border: "none",
