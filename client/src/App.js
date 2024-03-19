@@ -50,17 +50,10 @@ function App() {
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
           <Route path="/chat" element={<Chatbot/>}></Route>
-
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/allcontactus" element={<AllContactUs/>}></Route>
-          <Route path="/contactusres" element={<ContactUsRes />} />
-          
-          <Route path="/faq" element={<FAQ/>}></Route>
-          
           <Route path="/addvirtualtour" element={<AddVirtualTour />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
-          <Route path="/getdes" element={<Onedest/>}></Route>
-          <Route path="/tours/:id" element={<OneTourSection1 />} />
           <Route path="/reviewform" element={<ReviewForm/>}></Route>
          
 
