@@ -159,12 +159,7 @@ const AllTours = () => {
                 />
               </td>
               <td>
-                <Link
-                  to={{
-                    pathname: "/addDes",
-                    state: { tourId: tour._id },
-                  }}
-                >
+                <a href={`/adddes/${tour._id}`}>
                   <button
                     style={{
                       backgroundColor: "green",
@@ -177,7 +172,38 @@ const AllTours = () => {
                   >
                     Add
                   </button>
-                </Link>
+                </a>
+
+                <a href={`/map2/${tour._id}`} className="ml-3 bg-amber-400">
+                  <button className=" bg-amber-400"
+                    style={{
+                      backgroundColor: "",
+                      color: "black",
+                      padding: "1px 10px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    View
+                  </button>
+                </a>
+
+                <a href={`/map2/${tour._id}`} className="ml-3 ">
+                  <button className=" bg-blue-700"
+                    style={{
+                      backgroundColor: "",
+                      color: "white",
+                      padding: "1px 10px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Edit
+                  </button>
+                </a>
+
               </td>
             </tr>
           ))}
