@@ -21,6 +21,7 @@ import EditDes from "./component/adminside/EditDes";
 import UpdateDes from "./component/adminside/UpdateDes";
 import OneUpdateDes from "./component/adminside/OneUpdateDes";
 import ReviewForm from "./component/clientside/ReviewForm";
+import OneTourSection1 from "./component/clientside/OneTourSection1";
 
 
 
@@ -62,7 +63,7 @@ function App() {
           <Route path="/editdes/:id" element={<EditDes/>}></Route>
           <Route path="/updatedes/:id" element={<UpdateDes/>}></Route>
           <Route path="/oneupdatedes/:id" element={<OneUpdateDes/>}></Route>
-
+          <Route path="/oneTour" element={<OneTourSection1/>}> </Route>
 
           <Route path="/reviewform" element={<ReviewForm/>}></Route>
          
