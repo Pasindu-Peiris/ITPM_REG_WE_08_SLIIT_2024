@@ -52,6 +52,10 @@ app.use("/login",login)
 // Tours Route
 app.use('/tours', toursRouter);
 
+//Booking Route 
+const Booking = require('./Routes/Bookings');
+app.use('/bookings', Booking);
+
 //contactus Route
 const contactus = require('./Routes/contactus');
 app.use('/contactus',contactus);
