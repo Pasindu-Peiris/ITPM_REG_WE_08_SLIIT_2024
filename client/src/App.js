@@ -27,6 +27,14 @@ import AdminAllBookings from "./component/adminside/AdminAllBookings";
 import ViewBooking from "./component/adminside/ViewBooking";
 import UpdateBooking from "./component/adminside/UpdateBooking";
 import PaymentPage from "./component/clientside/PaymentPage";
+import ContactUsRes from "./component/adminside/ContactUsRes";
+
+import AddBlog from "./component/adminside/AddBlog";
+import UpdateBlog from "./component/adminside/UpdateBlog";
+import AllBlog from "./component/adminside/AllBlog";
+import Blogs from "./component/clientside/Blogs";
+import SingleBlog from "./component/clientside/SingleBlog";
+
 
 
 
@@ -75,6 +83,12 @@ function App() {
           <Route path="/bookings/:id" element={<ViewBooking/>}></Route>
           <Route path="/update/:id"  element={<UpdateBooking/>} ></Route>
           <Route path="/payment"  element={<PaymentPage/>} ></Route>
+          <Route path="/addBlog" element={<AddBlog />}></Route>
+          <Route path="/updateBlog" element={<UpdateBlog />}></Route>
+          <Route path="/AllBlog" element={<AllBlog />}></Route>
+          <Route path="/updateBlog/:id" element={<UpdateBlog />} />
+          <Route path="/blogs" element={<Blogs />}></Route>
+          <Route path="/singleBlog/:id" element={<SingleBlog/>}> </Route>
          
 
 
