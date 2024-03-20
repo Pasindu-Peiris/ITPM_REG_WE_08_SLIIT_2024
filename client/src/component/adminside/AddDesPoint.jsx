@@ -318,7 +318,10 @@ const AddDesPoint = () => {
 
     useEffect(() => {
         document.getElementById('err').style.display = 'flex';
-        document.getElementsByClassName('boxinput')[0].style.border = '2px solid red';
+        let iBox = document.getElementsByClassName('boxinput');
+
+
+        
     })
 
 
