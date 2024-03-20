@@ -90,4 +90,17 @@ router.route("/delete/:id").delete(async (req, res) => {
     });
 });
 
+// Update the route to handle response submission
+router.route("/respond").post(async (req, res) => {
+  try {
+      const { id, response } = req.body;
+      await contactus.findByIdAndUpdate(id, { response });
+      res.status(200).send({ status: "Response submitted successfully!" });
+  } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: "Error submitting response", error: err.message });
+  }
+});
+
+
 module.exports = router;

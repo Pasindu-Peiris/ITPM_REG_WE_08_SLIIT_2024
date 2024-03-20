@@ -22,6 +22,7 @@ const contactusSchema = new Schema({
         type: String,
         required: true,
     },
+    response: String,
 });
 
 const Contactus = mongoose.model("Contactus", contactusSchema);
