@@ -282,7 +282,7 @@ const AddDesPoint = () => {
 
             });
 
-        
+
 
 
     };
@@ -313,16 +313,132 @@ const AddDesPoint = () => {
 
     const borStyle = {
         border: 'none',
-        outline:"none"
+        outline: "none"
     }
 
-    useEffect(() => {
-        document.getElementById('err').style.display = 'flex';
+
+
+
+    const Check = (name, val) => {
+        let err1 = document.getElementsByClassName('err');
         let iBox = document.getElementsByClassName('boxinput');
 
+        let regex = /^[a-zA-Z0-9]*[^{}()/!#@$%^&]+[a-zA-Z0-9]*$/;
 
-        
-    })
+        if (name.length < 3) {
+            err1[0].innerHTML = "Name must be more than 3 characters";
+            err1[0].style.color = "red";
+            iBox[0].style.border = "2px solid red";
+        } else if (/^\d/.test(name)) {
+            err1[0].innerHTML = "Name must be start with character";
+            err1[0].style.color = "red";
+            iBox[0].style.border = "2px solid red";
+        }
+        else if (!regex.test(name)) {
+            err1[0].innerHTML = "Name must not contain {}, (), /, !, #, @, $, %, ^, &";
+            err1[0].style.color = "red";
+            iBox[0].style.border = "2px solid red";
+        }
+        else {
+            err1[0].innerHTML = "Success";
+            err1[0].style.color = "#00FF00";
+            iBox[0].style.border = "2px solid #1a191a00";
+        }
+        setTimeout(function () {
+            err1[0].innerHTML = " ";
+        }, 12000); // 2000 milliseconds (2 seconds)
+    }
+
+
+    const Check2 = (name) => {
+        let err1 = document.getElementsByClassName('err');
+        let iBox = document.getElementsByClassName('boxinput');
+
+        // Regular expression to match letters, numbers, and disallow specific characters
+        let regex = /^[a-zA-Z0-9]*[^{}()/!#@$%^&]+[a-zA-Z0-9]*$/;
+
+        if (name.length < 3) {
+            err1[0].innerHTML = "Name must be more than 3 characters";
+            err1[0].style.color = "red";
+            iBox[1].style.border = "2px solid red";
+
+        } else if (!regex.test(name)) {
+            err1[0].innerHTML = "Name must not contain {}, (), /, !, #, @, $, %, ^, &";
+            err1[0].style.color = "red";
+            iBox[1].style.border = "2px solid red";
+        }
+        else {
+            err1[0].innerHTML = "Success";
+            err1[0].style.color = "#00FF00";
+            iBox[1].style.border = "2px solid #1a191a00";
+        }
+        setTimeout(function () {
+            err1[0].innerHTML = " ";
+        }, 12000); // 2000 milliseconds (2 seconds)
+    }
+
+
+    const Check3 = (name) => {
+        let err1 = document.getElementsByClassName('err');
+        let iBox = document.getElementsByClassName('boxinput');
+
+        // Regular expression to match only dots and numbers
+        let regex = /^[0-9.]+$/;
+
+        if (name.length < 3) {
+            err1[0].innerHTML = "Name must be more than 3 characters";
+            err1[0].style.color = "red";
+            iBox[2].style.border = "2px solid red";
+        } else if (!regex.test(name)) {
+            err1[0].innerHTML = "Name must only contain dots and numbers";
+            err1[0].style.color = "red";
+            iBox[2].style.border = "2px solid red";
+        } else if (!regex.test(name)) {
+            err1[0].innerHTML = "Name must not contain {}, (), /, !, #, @, $, %, ^, &";
+            err1[0].style.color = "red";
+            iBox[0].style.border = "2px solid red";
+        }
+        else {
+            err1[0].innerHTML = "Success";
+            err1[0].style.color = "#00FF00";
+            iBox[2].style.border = "2px solid #1a191a00";
+        }
+        setTimeout(function () {
+            err1[0].innerHTML = " ";
+        }, 12000); // 2000 milliseconds (2 seconds)
+    }
+
+    const Check4 = (name) => {
+
+        let err1 = document.getElementsByClassName('err');
+        let iBox = document.getElementsByClassName('boxinput');
+
+        let regex = /^[a-zA-Z0-9]*[^{}()/!#@$%^&]+[a-zA-Z0-9]*$/;
+
+        if (name.length < 3) {
+            err1[0].innerHTML = "Name must be more than 3 characters";
+            err1[0].style.color = "red";
+            iBox[3].style.border = "2px solid red";
+        } else if (/^\d/.test(name)) {
+            err1[0].innerHTML = "Name must be start with character";
+            err1[0].style.color = "red";
+            iBox[3].style.border = "2px solid red";
+        }
+        else if (!regex.test(name)) {
+            err1[0].innerHTML = "Name must not contain {}, (), /, !, #, @, $, %, ^, &";
+            err1[0].style.color = "red";
+            iBox[3].style.border = "2px solid red";
+        }
+        else {
+            err1[0].innerHTML = "Success";
+            err1[0].style.color = "#00FF00";
+            iBox[3].style.border = "2px solid #1a191a00";
+        }
+        setTimeout(function () {
+            err1[0].innerHTML = " ";
+        }, 12000); // 2000 milliseconds (2 seconds)
+    }
+
 
 
     return (
@@ -353,67 +469,67 @@ const AddDesPoint = () => {
 
                             <form action="" onSubmit={handleSubmit} >
                                 <div className="box-input-row  mb-4 ">
-                                    <h3 className='text-xl mb-2 flex items-center justify-between'><span>Destination Point 1</span> <span id='err' className=' text-red-500 me-1'>Error</span></h3>
-                                    <input type="text" name={`point1 m1`} placeholder='Point name' className='boxinput w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
-                                    <input type="text" name={`point1 m2`} placeholder='Point Latitude' className='boxinput w-[220px] h-[45px] ml-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point1 m3`} placeholder='Point Longitude' className='boxinput w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point1 m4`} placeholder='Small description' className='boxinput w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2 flex items-center justify-between'><span>Destination Point 1</span> <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point1 m1`} placeholder='Point name' className='boxinput w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} pattern="^[a-zA-Z][a-zA-Z0-9]*$" onKeyUp={(e) => { Check(e.target.value, e.target.name); }} />
+                                    <input type="text" name={`point1 m2`} placeholder='Point Latitude' className='boxinput w-[220px] h-[45px] ml-3 p-2' onChange={handleChange} style={borStyle} pattern='/^[0-9.]+$/' onKeyUp={(e) => { Check2(e.target.value); }} />
+                                    <input type="text" name={`point1 m3`} placeholder='Point Longitude' className='boxinput w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} pattern='/^[0-9.]+$/' onKeyUp={(e) => { Check3(e.target.value); }} />
+                                    <input type="text" name={`point1 m4`} placeholder='Small description' className='boxinput w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle} pattern="^[a-zA-Z][a-zA-Z0-9]*$" onKeyUp={(e) => { Check4(e.target.value); }} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 2</h3>
-                                    <input type="text" name={`point2 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point2 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point2 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point2 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 2 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point2 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point2 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point2 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point2 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 3</h3>
-                                    <input type="text" name={`point3 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point3 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point3 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point3 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 3 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point3 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point3 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point3 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point3 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 4</h3>
-                                    <input type="text" name={`point4 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point4 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point4 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point4 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 4 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point4 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point4 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point4 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point4 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 5</h3>
-                                    <input type="text" name={`point5 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point5 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point5 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point5 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 5 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point5 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point5 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point5 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point5 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 6</h3>
-                                    <input type="text" name={`point6 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point6 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point6 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point6 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 6 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point6 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point6 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point6 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point6 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 7</h3>
-                                    <input type="text" name={`point7 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point7 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point7 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point7 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 7 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point7 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point7 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point7 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point7 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
-                                    <h3 className='text-xl mb-2'>Destination Point 8</h3>
-                                    <input type="text" name={`point8 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point8 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point8 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
-                                    <input type="text" name={`point8 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <h3 className='text-xl mb-2'>Destination Point 8 <span id='err' className='err text-red-500 me-1'></span></h3>
+                                    <input type="text" name={`point8 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point8 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point8 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle} />
+                                    <input type="text" name={`point8 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
