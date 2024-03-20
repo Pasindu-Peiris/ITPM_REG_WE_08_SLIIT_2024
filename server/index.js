@@ -68,6 +68,13 @@ app.use('/contactus',contactus);
 const Dest = require('./Routes/Dest');
 app.use('/dest', Dest);
 
+//Add virtual tour
+const imageRoutes = require("./Routes/imageRoutes");
+app.use("/api/images", imageRoutes);
+
+
+
+
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
 });
