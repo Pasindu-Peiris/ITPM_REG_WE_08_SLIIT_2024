@@ -9,10 +9,10 @@ const toursRouter = require('./Routes/tours')
 
 
 
-// //upload images
-// app.use(express.json());
-// app.use(express.static('public'));
-// app.use('/Upload/images', express.static('Upload/images'));
+//upload images
+app.use(express.json());
+app.use(express.static('public'));
+app.use('/Upload/images', express.static('Upload/images'));
 
 const PORT = process.env.PORT || 8090;
 

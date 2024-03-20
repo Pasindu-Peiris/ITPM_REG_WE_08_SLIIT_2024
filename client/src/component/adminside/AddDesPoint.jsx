@@ -154,6 +154,30 @@ const AddDesPoint = () => {
 
     });
 
+    
+
+    const formdata = new FormData()
+    formdata.append('file', listPoints.pdf)
+
+    console.log(listPoints.pdf)
+
+
+    const upload = () => {
+       
+
+        axios.post("http://localhost:8090/member/UploadShad/" + id, formdata)
+            .then(res => {
+
+                console.log(res);
+                alert("Add")
+
+            }).catch(err => {
+
+                console.log(err);
+            })
+
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
