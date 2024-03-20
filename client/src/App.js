@@ -25,6 +25,12 @@ import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
 import ContactUsRes from "./component/adminside/ContactUsRes";
 
+import AddBlog from "./component/adminside/AddBlog";
+import UpdateBlog from "./component/adminside/UpdateBlog";
+import AllBlog from "./component/adminside/AllBlog";
+import Blogs from "./component/clientside/Blogs";
+import SingleBlog from "./component/clientside/SingleBlog";
+
 
 
 
@@ -68,6 +74,13 @@ function App() {
           <Route path="/oneTour" element={<OneTourSection1/>}> </Route>
           <Route path="/contactusres" element={<ContactUsRes/>} />
           <Route path="/reviewform" element={<ReviewForm/>}></Route>
+
+          <Route path="/addBlog" element={<AddBlog />}></Route>
+          <Route path="/updateBlog" element={<UpdateBlog />}></Route>
+          <Route path="/AllBlog" element={<AllBlog />}></Route>
+          <Route path="/updateBlog/:id" element={<UpdateBlog />} />
+          <Route path="/blogs" element={<Blogs />}></Route>
+          <Route path="/singleBlog/:id" element={<SingleBlog/>}> </Route>
          
 
 

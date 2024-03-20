@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 const app = express();
 const toursRouter = require('./Routes/tours')
+const blogsRouter = require('./Routes/blogs')
 
 
 
@@ -51,6 +52,9 @@ app.use("/login",login)
 
 // Tours Route
 app.use('/tours', toursRouter);
+
+// Blogs Route
+app.use('/blogs', blogsRouter);
 
 //Booking Route 
 const Booking = require('./Routes/Bookings');
