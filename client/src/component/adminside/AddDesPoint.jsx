@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Img from "../../Images/hp-blog-bg.jpg";
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
@@ -154,29 +154,9 @@ const AddDesPoint = () => {
 
     });
 
-    
-
-    const formdata = new FormData()
-    formdata.append('file', listPoints.pdf)
-
-    console.log(listPoints.pdf)
 
 
-    const upload = () => {
-       
 
-        axios.post("http://localhost:8090/member/UploadShad/" + id, formdata)
-            .then(res => {
-
-                console.log(res);
-                alert("Add")
-
-            }).catch(err => {
-
-                console.log(err);
-            })
-
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -268,6 +248,7 @@ const AddDesPoint = () => {
 
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
         console.log(listPoints);
 
@@ -283,9 +264,13 @@ const AddDesPoint = () => {
             points8: Object.values(listPoints.points8)
         })
 
+
+
             .then(response => {
                 console.log(response.data);
                 Notify();
+                upload();
+
                 setTimeout(function () {
                     window.location.reload();
                 }, 2000); // 2000 milliseconds (2 seconds) 
@@ -293,10 +278,48 @@ const AddDesPoint = () => {
             })
             .catch(error => {
                 console.log(error);
-               Notify2();
+                Notify2();
 
             });
+
+        
+
+
     };
+
+
+    const [file, setfile] = useState("");
+
+
+
+    const upload = () => {
+        const formdata = new FormData()
+        formdata.append('file', file)
+
+
+        console.log(formdata)
+        axios.post("http://localhost:8090/dest/updatepdf/" + id, formdata)
+            .then(res => {
+
+                console.log(res);
+                // alert("Add")
+
+            }).catch(err => {
+
+                console.log(err);
+            })
+
+    }
+
+    const borStyle = {
+        border: 'none',
+        outline:"none"
+    }
+
+    useEffect(() => {
+        document.getElementById('err').style.display = 'flex';
+        document.getElementsByClassName('boxinput')[0].style.border = '2px solid red';
+    })
 
 
     return (
@@ -308,7 +331,7 @@ const AddDesPoint = () => {
                 <div className="head-text flex items-center justify-between p-5">
 
                     <div className="button-pre">
-                    <button className='p-3 bg-amber-400 rounded'> <a href={`/alltours`}>Previous</a></button>
+                        <button className='p-3 bg-amber-400 rounded'> <a href={`/alltours`}>Previous</a></button>
                     </div>
 
                     <div className="text-heading text-3xl font-bold">
@@ -327,72 +350,74 @@ const AddDesPoint = () => {
 
                             <form action="" onSubmit={handleSubmit} >
                                 <div className="box-input-row  mb-4 ">
-                                    <h3 className='text-xl mb-2 flex items-center justify-between'><span>Destination Point 1</span> <span className=' text-red-500 me-1'>Error</span></h3>
-                                    <input type="text" name={`point1 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point1 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] ml-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point1 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point1 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} />
+                                    <h3 className='text-xl mb-2 flex items-center justify-between'><span>Destination Point 1</span> <span id='err' className=' text-red-500 me-1'>Error</span></h3>
+                                    <input type="text" name={`point1 m1`} placeholder='Point name' className='boxinput w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} style={borStyle}/>
+                                    <input type="text" name={`point1 m2`} placeholder='Point Latitude' className='boxinput w-[220px] h-[45px] ml-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point1 m3`} placeholder='Point Longitude' className='boxinput w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point1 m4`} placeholder='Small description' className='boxinput w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 2</h3>
-                                    <input type="text" name={`point2 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point2 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} />
-                                    <input type="text" name={`point2 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point2 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} />
+                                    <input type="text" name={`point2 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point2 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point2 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point2 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 3</h3>
-                                    <input type="text" name={`point3 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point3 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point3 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point3 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
+                                    <input type="text" name={`point3 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point3 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point3 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point3 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 4</h3>
-                                    <input type="text" name={`point4 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point4 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point4 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point4 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
+                                    <input type="text" name={`point4 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point4 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point4 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point4 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 5</h3>
-                                    <input type="text" name={`point5 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point5 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point5 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point5 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
+                                    <input type="text" name={`point5 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point5 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point5 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point5 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 6</h3>
-                                    <input type="text" name={`point6 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point6 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point6 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point6 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
+                                    <input type="text" name={`point6 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point6 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point6 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point6 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 7</h3>
-                                    <input type="text" name={`point7 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point7 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point7 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point7 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
+                                    <input type="text" name={`point7 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point7 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point7 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point7 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 8</h3>
-                                    <input type="text" name={`point8 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} />
-                                    <input type="text" name={`point8 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" name={`point8 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />
-                                    <input type="text" name={`point8 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
+                                    <input type="text" name={`point8 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point8 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point8 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
+                                    <input type="text" name={`point8 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle}/>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Points PDF</h3>
-                                    <input type="file" id="" name={`pdf`} onChange={handleChange} />
+                                    <input type="file" id="" name={`pdf`} onChange={(e) => {
+                                        setfile(e.target.files[0])
+                                    }} accept=".pdf" />
                                 </div>
 
                                 <div className="box-input-row  mb-4">

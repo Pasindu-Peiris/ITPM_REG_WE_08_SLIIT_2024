@@ -292,9 +292,35 @@ const UpdateDes = () => {
 
             });
 
+            upload();
+
         //alert(listPoints.points1.m1 + " " + listPoints.points1.m2);
         console.log(listPoints)
     };
+
+    const [file, setfile] = useState("");
+
+
+
+
+    const upload = () => {
+        const formdata = new FormData()
+        formdata.append('file', file)
+
+
+        console.log(formdata)
+        axios.post("http://localhost:8090/dest/updatepdf/" + id, formdata)
+            .then(res => {
+
+                console.log(res);
+                // alert("Add")
+
+            }).catch(err => {
+
+                console.log(err);
+            })
+
+    }
 
 
     return (
@@ -614,12 +640,11 @@ const UpdateDes = () => {
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Points PDF</h3>
-                                    <input type="file" id="" placeholder={listPoints.pdf} name={`pdf`} onChange={(e) => setListPoints2((prevState) => ({
-                                        ...prevState,
-                                        pdf: e.target.value,
-                                        
-                                    }))} />
-                                    <button className='btn btn-primary'><a href='listPoints.pdf' download className=' text-white'>Download</a></button>
+                                    <input type="file" id="" placeholder={listPoints.pdf} name={`pdf`} 
+                                    onChange={(e) => {
+                                        setfile(e.target.files[0])
+                                    }} accept=".pdf" />
+                                    <button className='btn btn-primary'><a href={`http://localhost:8090/Upload/images/` + listPoints.pdf } download className=' text-white'>Download</a></button>
                                 </div>
 
                                 <div className="box-input-row  mb-4">
