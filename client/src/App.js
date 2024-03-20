@@ -16,9 +16,13 @@ import ClientsDetails from "./component/adminside/ClientsDetails";
 import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
+import AddVirtualTour from "./component/adminside/AddVirtualTour";
+import EditDes from "./component/adminside/EditDes";
+import UpdateDes from "./component/adminside/UpdateDes";
+import OneUpdateDes from "./component/adminside/OneUpdateDes";
+import ReviewForm from "./component/clientside/ReviewForm";
 import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
-import AddVirtualTour from "./component/adminside/AddVirtualTour";
 
 
 
@@ -51,14 +55,19 @@ function App() {
           <Route path="/contactus" element={<ContactUs />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
           <Route path="/chat" element={<Chatbot/>}></Route>
-
           <Route path="/contactus" element={<ContactUs />}></Route>
-          <Route path="/allcontactus" element={<AllContactUs />}></Route>
+          <Route path="/allcontactus" element={<AllContactUs/>}></Route>
           <Route path="/addvirtualtour" element={<AddVirtualTour />}></Route>
           <Route path="/clientsdetails" element={<ClientsDetails/>}> </Route>
           <Route path="/getdes" element={<Onedest/>}></Route>
           <Route path="/tours/:id" element={<OneTourSection1 />} />
+          <Route path="/editdes/:id" element={<EditDes/>}></Route>
+          <Route path="/updatedes/:id" element={<UpdateDes/>}></Route>
+          <Route path="/oneupdatedes/:id" element={<OneUpdateDes/>}></Route>
+          <Route path="/oneTour" element={<OneTourSection1/>}> </Route>
 
+          <Route path="/reviewform" element={<ReviewForm/>}></Route>
+         
 
 
         </Routes>

@@ -8,10 +8,11 @@ const app = express();
 const toursRouter = require('./Routes/tours')
 
 
-// //upload images
-// app.use(express.json());
-// app.use(express.static('public'));
-// app.use('/Upload/images', express.static('Upload/images'));
+
+//upload images
+app.use(express.json());
+app.use(express.static('public'));
+app.use('/Upload/images', express.static('Upload/images'));
 
 const PORT = process.env.PORT || 8090;
 
@@ -51,9 +52,13 @@ app.use("/login",login)
 // Tours Route
 app.use('/tours', toursRouter);
 
+//Booking Route 
+const Booking = require('./Routes/Bookings');
+app.use('/bookings', Booking);
+
 //contactus Route
-const Contactus = require('./Routes/contactus');
-app.use('/contactus',Contactus);
+const contactus = require('./Routes/contactus');
+app.use('/contactus',contactus);
 
 //dest
 const Dest = require('./Routes/Dest');

@@ -49,7 +49,7 @@ const LocMap = () => {
         fetchData();
     }, []); // Empty array means this effect runs once on mount and not on updates
 
-
+    
 
 
 
@@ -160,9 +160,7 @@ const LocMap = () => {
 
     }
 
-    const handledownload = () => {
-
-    }
+   
 
 
     const handleClick = () => {
@@ -329,7 +327,7 @@ const LocMap = () => {
                                     <div class="card" style={{ width: "22rem" }}>
 
                                         <div class="card-body">
-                                            <h1 className='bold'>{name}</h1>
+                                            <h1 className='card-text fs-4 font-bold text-amber-500'>{name}</h1>
                                             <p class="card-text fs-3 font-bold">{des}</p>
                                         </div>
                                     </div>
@@ -414,7 +412,7 @@ const LocMap = () => {
                 </button>
 
                 <a href={mic2} download >
-                    <button onClick={handledownload} style={style.section3} className=' shake2  mb-6 bg-amber-400'><img src={doc} alt="" width={50} /></button>
+                    <button style={style.section3} className=' shake2  mb-6 bg-amber-400'><a href={`http://localhost:8090/Upload/images/` + listPoints.pdf } download ><img src={doc} alt="" width={50} /></a></button>
 
                 </a>
 
