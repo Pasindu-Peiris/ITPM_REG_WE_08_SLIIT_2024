@@ -5,9 +5,11 @@ import Img from "../../Images/hp-blog-bg.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 const UpdateDes = () => {
+
+
+    const { id } = useParams();
+
 
     function Notify() {
         toast.success('Successful', {
@@ -87,38 +89,66 @@ const UpdateDes = () => {
     }
 
 
-    const [listPoint, setListPoint] = useState([]);
+    const [listPoints, setListPoints] = useState({
+        trid: id,
+        points1: [],
+        points2: [],
+        points3: [],
+        points4: [],
+        points5: [],
+        points6: [],
+        points7: [],
+        points8: [],
+        pdf: ""
 
-    const { id } = useParams();
+    });
 
-    const [p1, setp1] = useState([4]);
-    const [p2, setp2] = useState([4]);
-    const [p3, setp3] = useState([4]);
-    const [p4, setp4] = useState([4]);
-    const [p5, setp5] = useState([4]);
-    const [p6, setp6] = useState([4]);
-    const [p7, setp7] = useState([4]);
-    const [p8, setp8] = useState([4]);
+
+
+
 
     useEffect(() => {
         const fetchData = async () => {
 
             const response = await axios.get("http://localhost:8090/dest/getdest/" + id);
 
-            setListPoint(response.data)
-            setp1(response.data.points1)
-            setp2(response.data.points2)
-            setp3(response.data.points3)
-            setp4(response.data.points4)
-            setp5(response.data.points5)
-            setp6(response.data.points6)
-            setp7(response.data.points7)
-            setp8(response.data.points8)
-
+            setListPoints(response.data);
         }
 
         fetchData();
-    }, []); // Empty array means this effect runs once on mount and not on updates
+    }, [id]); // Include 'id' in the dependency array
+
+
+    const [listPoints2, setListPoints2] = useState({
+        trid: id,
+        points1: [4],
+        points2: [4],
+        points3: [4],
+        points4: [4],
+        points5: [4],
+        points6: [4],
+        points7: [4],
+        points8: [4],
+        pdf: ""
+
+    });
+
+
+    useEffect(() => {
+        setListPoints2(prevState => ({
+            ...prevState,
+            points1: listPoints.points1,
+            points2: listPoints.points2,
+            points3: listPoints.points3,
+            points4: listPoints.points4,
+            points5: listPoints.points5,
+            points6: listPoints.points6,
+            points7: listPoints.points7,
+            points8: listPoints.points8,
+            pdf: listPoints.pdf
+        }));
+    }, [listPoints]);
+
 
 
     const addImg = {
@@ -134,59 +164,6 @@ const UpdateDes = () => {
     }
 
 
-    const [listPoints, setListPoints] = useState({
-        trid: id,
-        points1: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points2: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points3: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points4: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points5: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points6: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points7: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        points8: {
-            m1: "",
-            m2: "",
-            m3: "",
-            m4: ""
-        },
-        pdf: ""
-
-    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -278,23 +255,25 @@ const UpdateDes = () => {
 
     };
 
-    const val = p1[0]
+
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(listPoints);
+        console.log(listPoints2);
+        console.log(listPoints.points1);
 
-        axios.post('http://localhost:8090/dest/updatedest' + id, {
-            ...listPoints,
-            points1: Object.values(listPoints.points1),
-            points2: Object.values(listPoints.points2),
-            points3: Object.values(listPoints.points3),
-            points4: Object.values(listPoints.points4),
-            points5: Object.values(listPoints.points5),
-            points6: Object.values(listPoints.points6),
-            points7: Object.values(listPoints.points7),
-            points8: Object.values(listPoints.points8)
+
+        axios.post('http://localhost:8090/dest/updatedest/' + id, {
+            ...listPoints2,
+            points1: Object.values(listPoints2.points1),
+            points2: Object.values(listPoints2.points2),
+            points3: Object.values(listPoints2.points3),
+            points4: Object.values(listPoints2.points4),
+            points5: Object.values(listPoints2.points5),
+            points6: Object.values(listPoints2.points6),
+            points7: Object.values(listPoints2.points7),
+            points8: Object.values(listPoints2.points8)
         })
 
             .then(response => {
@@ -310,24 +289,14 @@ const UpdateDes = () => {
                 Notify2();
 
             });
+
+        //alert(listPoints.points1.m1 + " " + listPoints.points1.m2);
+        console.log(listPoints)
     };
-
-    useEffect(() => {
-
-        document.getElementById('po10').value = p1[0];
-        document.getElementById('po11').value = p1[1];
-        document.getElementById('po12').value = p1[2];
-        document.getElementById('po13').value = p1[3];
-
-
-
-
-    })
-
 
 
     return (
-
+    
 
         <div className='flex items-center justify-center' style={addImg}>
 
@@ -353,69 +322,292 @@ const UpdateDes = () => {
                     <div className="box-head">
                         <div className="des-add-box ">
 
-                            <form action=""  >
+                            <form onSubmit={handleSubmit}  >
                                 <div className="box-input-row  mb-4 ">
                                     <h3 className='text-xl mb-2'>Destination Point 1</h3>
-                                    <input type="text" id="po10" name={`point1 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
-                                    <input type="text" id="po11" name={`point1 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] ml-3 p-2' onChange={handleChange}  />
-                                    <input type="text" id="po12" name={`point1 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange}  />
-                                    <input type="text" id="po13" name={`point1 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange}  />
+                                    <input type="text" id="po10" name="point1 m1" placeholder={listPoints.points1[0]} className='w-[220px] h-[45px] p-2' onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points1: {
+                                            ...prevState.points1,
+                                            0: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po11" name={`point1 m2`} placeholder={listPoints.points1[1]} className='w-[220px] h-[45px] ml-3 p-2'
+                                        onChange={(e) => setListPoints2((prevState) => ({
+                                            ...prevState,
+                                            points1: {
+                                                ...prevState.points1,
+                                                1: e.target.value,
+                                            },
+                                        }))} />
+                                    <input type="text" id="po12" name={`point1 m3`}  placeholder={listPoints.points1[2]} className='w-[220px] h-[45px] mx-3 p-2'
+                                        onChange={(e) => setListPoints2((prevState) => ({
+                                            ...prevState,
+                                            points1: {
+                                                ...prevState.points1,
+                                                2: e.target.value,
+                                            },
+                                        }))} />
+                                    <input type="text" id="po13" name={`point1 m4`}  placeholder={listPoints.points1[3]} className='w-[220px] h-[45px] p-2 '
+                                        onChange={(e) => setListPoints2((prevState) => ({
+                                            ...prevState,
+                                            points1: {
+                                                ...prevState.points1,
+                                                3: e.target.value,
+                                            },
+                                        }))} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 2</h3>
-                                    <input type="text" id="po" name={`point2 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p2[0]} />
-                                    <input type="text" id="po" name={`point2 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} value={p2[1]} />
-                                    <input type="text" id="po" name={`point2 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p2[2]} />
-                                    <input type="text" id="po" name={`point2 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' onChange={handleChange} value={p2[3]} />
+                                    <input type="text" id="po" name={`point2 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points2: {
+                                            ...prevState.points2,
+                                            0: e.target.value,
+                                        },
+                                    }))}  />
+                                    <input type="text" id="po" name={`point2 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2 ' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points2: {
+                                            ...prevState.points2,
+                                            1: e.target.value,
+                                        },
+                                    }))}  />
+                                    <input type="text" id="po" name={`point2 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2'
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points2: {
+                                            ...prevState.points2,
+                                            2: e.target.value,
+                                        },
+                                    }))}  />
+                                    <input type="text" id="po" name={`point2 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2 ' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points2: {
+                                            ...prevState.points2,
+                                            3: e.target.value,
+                                        },
+                                    }))}  />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 3</h3>
-                                    <input type="text" id="po" name={`point3 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p3[0]} />
-                                    <input type="text" id="po" name={`point3 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p3[1]} />
-                                    <input type="text" id="po" name={`point3 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p3[2]} />
-                                    <input type="text" id="po" name={`point3 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p3[3]} />
+                                    <input type="text" id="po" name={`point3 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            0: e.target.value,
+                                        },
+                                    }))}  />
+                                    <input type="text" id="po" name={`point3 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            1: e.target.value,
+                                        },
+                                    }))}  />
+                                    <input type="text" id="po" name={`point3 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            2: e.target.value,
+                                        },
+                                    }))}  />
+                                    <input type="text" id="po" name={`point3 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))}  />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 4</h3>
-                                    <input type="text" id="po" name={`point4 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p4[0]} />
-                                    <input type="text" id="po" name={`point4 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p4[1]} />
-                                    <input type="text" id="po" name={`point4 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p4[2]} />
-                                    <input type="text" id="po" name={`point4 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p4[3]} />
+                                    
+                                    <input type="text" id="po" name={`point4 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points4: {
+                                            ...prevState.points4,
+                                            0: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point4 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points4: {
+                                            ...prevState.points4,
+                                            1: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point4 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points4: {
+                                            ...prevState.points4,
+                                            2: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point4 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points4: {
+                                            ...prevState.points4,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 5</h3>
-                                    <input type="text" id="po" name={`point5 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p5[0]} />
-                                    <input type="text" id="po" name={`point5 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p5[1]} />
-                                    <input type="text" id="po" name={`point5 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p5[2]} />
-                                    <input type="text" id="po" name={`point5 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p5[3]} />
+                                    <input type="text" id="po" name={`point5 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points5: {
+                                            ...prevState.points5,
+                                            0: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point5 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points5: {
+                                            ...prevState.points5,
+                                            1: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point5 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points5: {
+                                            ...prevState.points5,
+                                            2: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point5 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points5: {
+                                            ...prevState.points5,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 6</h3>
-                                    <input type="text" id="po" name={`point6 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p6[0]} />
-                                    <input type="text" id="po" name={`point6 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p6[1]} />
-                                    <input type="text" id="po" name={`point6 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p6[2]} />
-                                    <input type="text" id="po" name={`point6 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p6[3]} />
+                                    <input type="text" id="po" name={`point6 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points6: {
+                                            ...prevState.points6,
+                                            0: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point6 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points6: {
+                                            ...prevState.points6,
+                                            1: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point6 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points6: {
+                                            ...prevState.points6,
+                                            2: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point6 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points6: {
+                                            ...prevState.points6,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 7</h3>
-                                    <input type="text" id="po" name={`point7 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p7[0]} />
-                                    <input type="text" id="po" name={`point7 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p7[1]} />
-                                    <input type="text" id="po" name={`point7 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p7[2]} />
-                                    <input type="text" id="po" name={`point7 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p7[3]} />
+                                    <input type="text" id="po" name={`point7 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point7 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point7 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point7 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
                                     <h3 className='text-xl mb-2'>Destination Point 8</h3>
-                                    <input type="text" id="po" name={`point8 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' onChange={handleChange} value={p8[0]} />
-                                    <input type="text" id="po" name={`point8 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p8[1]} />
-                                    <input type="text" id="po" name={`point8 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} value={p8[2]} />
-                                    <input type="text" id="po" name={`point8 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' onChange={handleChange} value={p8[3]} />
+                                    <input type="text" id="po" name={`point8 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2 me-3' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point8 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point8 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
+                                    <input type="text" id="po" name={`point8 m4`} placeholder='Small description' className='w-[220px] h-[45px] p-2' 
+                                    onChange={(e) => setListPoints2((prevState) => ({
+                                        ...prevState,
+                                        points3: {
+                                            ...prevState.points3,
+                                            3: e.target.value,
+                                        },
+                                    }))} />
                                 </div>
 
                                 <div className="box-input-row  mb-4">
