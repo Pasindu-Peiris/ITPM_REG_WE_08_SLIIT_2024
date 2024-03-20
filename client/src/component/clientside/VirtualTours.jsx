@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
+import { Link } from "react-router-dom";
+
+
+
 const VirtualTours = () => {
   const [images, setImages] = useState([]);
 
@@ -36,11 +40,13 @@ const VirtualTours = () => {
       <div class="mt-4 flex justify-center flex-wrap">
         {images.map((image, index) => (
           <div class=" w-80 h-80 relative overflow-hidden" key={index}>
-            <img
-              src={`http://localhost:8090/${image.imagePath}`}
-              alt=""
-              className="absolute h-72 w-72 object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
-            />
+            <Link to={`/view/${image._id}`}>
+              <img
+                src={`http://localhost:8090/${image.imagePath}`}
+                alt=""
+                className="absolute h-72 w-72 object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
+              />
+            </Link>
           </div>
         ))}
       </div>
