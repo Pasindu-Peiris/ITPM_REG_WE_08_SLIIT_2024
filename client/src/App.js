@@ -23,7 +23,10 @@ import OneUpdateDes from "./component/adminside/OneUpdateDes";
 import ReviewForm from "./component/clientside/ReviewForm";
 import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
-
+import AdminAllBookings from "./component/adminside/AdminAllBookings";
+import ViewBooking from "./component/adminside/ViewBooking";
+import UpdateBooking from "./component/adminside/UpdateBooking";
+import PaymentPage from "./component/clientside/PaymentPage";
 
 
 
@@ -67,6 +70,11 @@ function App() {
           <Route path="/oneTour" element={<OneTourSection1/>}> </Route>
 
           <Route path="/reviewform" element={<ReviewForm/>}></Route>
+
+          <Route path="/bookings" element={<AdminAllBookings/>}></Route>
+          <Route path="/bookings/:id" element={<ViewBooking/>}></Route>
+          <Route path="/update/:id"  element={<UpdateBooking/>} ></Route>
+          <Route path="/payment"  element={<PaymentPage/>} ></Route>
          
 
 
