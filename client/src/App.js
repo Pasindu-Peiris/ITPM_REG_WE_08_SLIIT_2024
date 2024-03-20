@@ -34,7 +34,7 @@ import UpdateBlog from "./component/adminside/UpdateBlog";
 import AllBlog from "./component/adminside/AllBlog";
 import Blogs from "./component/clientside/Blogs";
 import SingleBlog from "./component/clientside/SingleBlog";
-
+import VirtualTours from "./component/clientside/VirtualTours"
 
 
 
@@ -90,7 +90,7 @@ function App() {
           <Route path="/blogs" element={<Blogs />}></Route>
           <Route path="/singleBlog/:id" element={<SingleBlog/>}> </Route>
          
-
+<Route path="/virtualtours" element={<VirtualTours/>}></Route>
 
         </Routes>
 

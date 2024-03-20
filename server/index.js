@@ -16,6 +16,7 @@ app.use(express.static('public'));
 app.use('/Upload/images', express.static('Upload/images'));
 
 const PORT = process.env.PORT || 8090;
+app.use("/uploads", express.static("uploads"));
 
 app.use(bodyParser.json());
 app.use(cors({
@@ -72,8 +73,9 @@ app.use('/dest', Dest);
 const imageRoutes = require("./Routes/imageRoutes");
 app.use("/api/images", imageRoutes);
 
-
-
+//get all images
+const getAll = require("./Routes/getAll");
+app.use("/api/images", getAll);
 
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
