@@ -351,7 +351,7 @@ const AddDesPoint = () => {
                             <form action="" onSubmit={handleSubmit} >
                                 <div className="box-input-row  mb-4 ">
                                     <h3 className='text-xl mb-2 flex items-center justify-between'><span>Destination Point 1</span> <span id='err' className=' text-red-500 me-1'>Error</span></h3>
-                                    <input type="text" name={`point1 m1`} placeholder='Point name' className='boxinput w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} style={borStyle}/>
+                                    <input type="text" name={`point1 m1`} placeholder='Point name' className='boxinput w-[220px] h-[45px] p-2' onChange={handleChange} style={borStyle} />
                                     <input type="text" name={`point1 m2`} placeholder='Point Latitude' className='boxinput w-[220px] h-[45px] ml-3 p-2' onChange={handleChange} style={borStyle}/>
                                     <input type="text" name={`point1 m3`} placeholder='Point Longitude' className='boxinput w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} style={borStyle}/>
                                     <input type="text" name={`point1 m4`} placeholder='Small description' className='boxinput w-[220px] h-[45px] p-2 ' onChange={handleChange} style={borStyle}/>
