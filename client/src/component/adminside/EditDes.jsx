@@ -150,7 +150,7 @@ const EditDes = () => {
               <td className='p-3'>{p1[1]}</td>
               <td className='p-3'>{p1[2]}</td>
               <td className='p-3'> {p1[3]}</td>
-              <td rowSpan={8} className=' flex justify-center items-center text-center p-3'><button className=' p-1 text-blue-50 bg-blue-600 rounded'>Download</button></td>
+              <td rowSpan={8} className=' flex justify-center items-center text-center p-3'><button className=' p-1 text-blue-50 bg-blue-600 rounded'><a className=' text-white' href={`http://localhost:8090/Upload/images/` + listPoints.pdf } download>Download</a></button></td>
             </tr>
 
             <tr className='text-xl p-4 '>

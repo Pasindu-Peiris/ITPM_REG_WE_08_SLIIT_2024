@@ -69,5 +69,50 @@ router.route('/deletedest/:id').delete(async (req, res) => {
 });
 
 
+//strat profile Upload
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'Upload/images/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
+//update pdf
+router.route('/updatepdf/:id').post(upload.single('file'), async (req, res) => {
+    const id = req.params.id;
+
+    try {
+       
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const file = req.file.filename;
+
+        console.log(file)
+
+        const updatedDes = await dest.findOneAndUpdate({ trid: id }, { pdf: file }, { new: true });
+
+        if (!updatedDes) {
+            return res.status(404).json({ error: 'Document not found' });
+        }
+
+       
+        res.json(updatedDes);
+    } catch (error) {
+        
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
 
 module.exports = router
