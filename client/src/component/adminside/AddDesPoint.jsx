@@ -284,11 +284,11 @@ const AddDesPoint = () => {
                 <div className="head-text flex items-center justify-between p-5">
 
                     <div className="button-pre">
-                        <button className='p-3 bg-amber-400 rounded'>Previous</button>
+                    <button className='p-3 bg-amber-400 rounded'> <a href={`/alltours`}>Previous</a></button>
                     </div>
 
                     <div className="text-heading text-3xl font-bold">
-                        <h1>Destination point</h1>
+                        <h1>Add Destination point</h1>
                     </div>
 
                     <div className="button-finish">
@@ -303,7 +303,7 @@ const AddDesPoint = () => {
 
                             <form action="" onSubmit={handleSubmit} >
                                 <div className="box-input-row  mb-4 ">
-                                    <h3 className='text-xl mb-2'>Destination Point 1</h3>
+                                    <h3 className='text-xl mb-2 flex items-center justify-between'><span>Destination Point 1</span> <span className=' text-red-500 me-1'>Error</span></h3>
                                     <input type="text" name={`point1 m1`} placeholder='Point name' className='w-[220px] h-[45px] p-2' onChange={handleChange} />
                                     <input type="text" name={`point1 m2`} placeholder='Point Latitude' className='w-[220px] h-[45px] ml-3 p-2' onChange={handleChange} />
                                     <input type="text" name={`point1 m3`} placeholder='Point Longitude' className='w-[220px] h-[45px] mx-3 p-2' onChange={handleChange} />

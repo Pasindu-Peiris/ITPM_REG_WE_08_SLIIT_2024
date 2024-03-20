@@ -21,6 +21,9 @@
   width: 100%;
 }
 
+input::placeholder{
+  color: #0b0b0b;
+}
 /* --------- End nav css for line animation -----------*/
 
 /* -----------Start animation shake -----------------------*/

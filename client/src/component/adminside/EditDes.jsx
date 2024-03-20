@@ -64,8 +64,6 @@ const EditDes = () => {
 
   const { id } = useParams();
 
-  
-
   const [p1, setp1] = useState([4]);
   const [p2, setp2] = useState([4]);
   const [p3, setp3] = useState([4]);
@@ -95,9 +93,6 @@ const EditDes = () => {
     fetchData();
   }, []); // Empty array means this effect runs once on mount and not on updates
 
-  if(p1 === undefined){
-    window.location.href = "/alltours";
-  }
 
   const addImg = {
     width: "100%",
@@ -117,7 +112,7 @@ const EditDes = () => {
       Notify(mess)
       setTimeout(function () {
         window.location.href = "/alltours";
-    }, 2000); // 2000 milliseconds (2 seconds) 
+      }, 2000); // 2000 milliseconds (2 seconds) 
     }).catch((err) => {
       Notify2()
     })
@@ -129,9 +124,9 @@ const EditDes = () => {
       <div className="heading w-[85%] h-[15vh] bg-white place-items-start mx-auto mt-5 flex items-center justify-between">
         <h1 className=' text-4xl fw-bold'>Destination Points</h1>
         <div className="box">
-          <button className=' bg-amber-400 p-2 me-2 rounded text-white'><a href={`/map2/${listPoints.trid}`}>View</a></button>
-          <button className='bg-green-600 p-2 me-2 rounded text-white'><a href={`/updatedes/${listPoints.trid}`}>Update</a></button>
-          <button className=' bg-red-600 p-2 rounded text-white' onClick={handleDelete}>Delete</button>
+          <button className='btn btn-success p-2 me-3 rounded text-white'><a href={`/map2/${listPoints.trid}`} className='text-white'>View Map</a></button>
+          <button className='btn btn-primary p-2 me-5 rounded text-white'><a href={`/updatedes/${listPoints.trid}`} className='text-white'>Update</a></button>
+          <button className='btn btn-danger p-2 rounded text-white' onClick={handleDelete}>Delete</button>
         </div>
       </div>
 
@@ -139,85 +134,85 @@ const EditDes = () => {
         <table class="table w-[85%] h-[auto] bg-white rounded table-bordered table-striped table-hover" style={style}>
           <thead class="table-dark rounded">
             <tr className='text-xl rounded p-4'>
-              <th scope="col">Point name </th>
-              <th scope="col">Destination name</th>
-              <th scope="col">Latitude</th>
-              <th scope="col">Longitude</th>
-              <th scope="col">Description</th>
-              <th scope="col">PDF file</th>
+              <th className='p-3' scope="col">Point name </th>
+              <th className='p-3' scope="col">Destination name</th>
+              <th className='p-3' scope="col">Latitude</th>
+              <th className='p-3' scope="col">Longitude</th>
+              <th className='p-3' scope="col">Description</th>
+              <th className='p-3' scope="col">PDF file</th>
 
             </tr>
           </thead>
           <tbody class="table-group-divider rounded">
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 1 </span> </td>
-              <td>{p1[0]}</td>
-              <td>{p1[1]}</td>
-              <td>{p1[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p1[3]}></textarea></td>
-              <td rowSpan={8} className=' items-center text-center'><button className=' p-1 text-blue-50 bg-blue-600 rounded'>Download</button></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 1 </span> </td>
+              <td className='p-3'>{p1[0]}</td>
+              <td className='p-3'>{p1[1]}</td>
+              <td className='p-3'>{p1[2]}</td>
+              <td className='p-3'> {p1[3]}</td>
+              <td rowSpan={8} className=' flex justify-center items-center text-center p-3'><button className=' p-1 text-blue-50 bg-blue-600 rounded'>Download</button></td>
             </tr>
 
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 2 </span></td>
-              <td>{p2[0]}</td>
-              <td>{p2[1]}</td>
-              <td>{p2[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p2[3]}></textarea></td>
-
-            </tr>
-
-            <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 3 </span></td>
-              <td>{p3[0]}</td>
-              <td>{p3[1]}</td>
-              <td>{p3[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p3[3]}></textarea></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 2 </span></td>
+              <td className='p-3'>{p2[0]}</td>
+              <td className='p-3'>{p2[1]}</td>
+              <td className='p-3'>{p2[2]}</td>
+              <td className='p-3'> {p2[3]}</td>
 
             </tr>
 
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 4 </span></td>
-              <td>{p4[0]}</td>
-              <td>{p4[1]}</td>
-              <td>{p4[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p4[3]}></textarea></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 3 </span></td>
+              <td className='p-3'>{p3[0]}</td>
+              <td className='p-3'>{p3[1]}</td>
+              <td className='p-3'>{p3[2]}</td>
+              <td className='p-3'> {p3[3]}</td>
 
             </tr>
 
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 5 </span></td>
-              <td>{p5[0]}</td>
-              <td>{p5[1]}</td>
-              <td>{p5[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p5[3]}></textarea></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 4 </span></td>
+              <td className='p-3'>{p4[0]}</td>
+              <td className='p-3'>{p4[1]}</td>
+              <td className='p-3'>{p4[2]}</td>
+              <td className='p-3'> {p4[3]}</td>
 
             </tr>
 
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 6 </span></td>
-              <td>{p6[0]}</td>
-              <td>{p6[1]}</td>
-              <td>{p6[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p6[3]}></textarea></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 5 </span></td>
+              <td className='p-3'>{p5[0]}</td>
+              <td className='p-3'>{p5[1]}</td>
+              <td className='p-3'>{p5[2]}</td>
+              <td className='p-3'> {p5[3]}</td>
 
             </tr>
 
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 7 </span></td>
-              <td>{p7[0]}</td>
-              <td>{p7[1]}</td>
-              <td>{p7[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p7[3]}></textarea></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 6 </span></td>
+              <td className='p-3'>{p6[0]}</td>
+              <td className='p-3'>{p6[1]}</td>
+              <td className='p-3'>{p6[2]}</td>
+              <td className='p-3'> {p6[3]}</td>
 
             </tr>
 
             <tr className='text-xl p-4 '>
-              <td className=''><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 8 </span></td>
-              <td>{p8[0]}</td>
-              <td>{p8[1]}</td>
-              <td>{p8[2]}</td>
-              <td ><textarea disabled className=' overflow-y-scroll disabled: p-2' name="" id="" cols="40" rows="1" value={p8[3]}></textarea></td>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 7 </span></td>
+              <td className='p-3'>{p7[0]}</td>
+              <td className='p-3'>{p7[1]}</td>
+              <td className='p-3'>{p7[2]}</td>
+              <td className='p-3'> {p7[3]}</td>
+
+            </tr>
+
+            <tr className='text-xl p-4 '>
+              <td className='p-3'><span className='flex items-center justify-center'><img src={LocIcon} alt="" width={35} className='me-3' /> Point 8 </span></td>
+              <td className='p-3'>{p8[0]}</td>
+              <td className='p-3'>{p8[1]}</td>
+              <td className='p-3'>{p8[2]}</td>
+              <td className='p-3'> {p8[3]}</td>
 
             </tr>
 
