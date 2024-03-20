@@ -9,6 +9,9 @@ import pdfIcn from "../../Images/file-pdf.png";
 const AllTours = () => {
   const [toursData, setToursData] = useState([]);
 
+
+  
+
   const fetchToursData = async () => {
     try {
       const response = await fetch("http://localhost:8090/tours");
@@ -174,7 +177,7 @@ const AllTours = () => {
                   </button>
                 </a>
 
-                <a href={`/map2/${tour._id}`} className="ml-3 bg-amber-400">
+                {/* <a href={`/map2/${tour._id}`} className="ml-3 bg-amber-400">
                   <button className=" bg-amber-400"
                     style={{
                       backgroundColor: "",
@@ -187,7 +190,7 @@ const AllTours = () => {
                   >
                     View
                   </button>
-                </a>
+                </a> */}
 
                 <a href={`/editdes/${tour._id}`} className="ml-3 ">
                   <button className=" bg-blue-700"
@@ -200,7 +203,7 @@ const AllTours = () => {
                       cursor: "pointer",
                     }}
                   >
-                    Edit
+                    View & Edit
                   </button>
                 </a>
 

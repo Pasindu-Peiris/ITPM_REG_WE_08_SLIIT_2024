@@ -6,13 +6,14 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 const app = express();
 const toursRouter = require('./Routes/tours')
+const blogsRouter = require('./Routes/blogs')
 
 
 
-// //upload images
-// app.use(express.json());
-// app.use(express.static('public'));
-// app.use('/Upload/images', express.static('Upload/images'));
+//upload images
+app.use(express.json());
+app.use(express.static('public'));
+app.use('/Upload/images', express.static('Upload/images'));
 
 const PORT = process.env.PORT || 8090;
 
@@ -51,6 +52,9 @@ app.use("/login",login)
 
 // Tours Route
 app.use('/tours', toursRouter);
+
+// Blogs Route
+app.use('/blogs', blogsRouter);
 
 //Booking Route 
 const Booking = require('./Routes/Bookings');

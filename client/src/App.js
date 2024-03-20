@@ -23,10 +23,21 @@ import OneUpdateDes from "./component/adminside/OneUpdateDes";
 import ReviewForm from "./component/clientside/ReviewForm";
 import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
+<<<<<<< H
 import AdminAllBookings from "./component/adminside/AdminAllBookings";
 import ViewBooking from "./component/adminside/ViewBooking";
 import UpdateBooking from "./component/adminside/UpdateBooking";
 import PaymentPage from "./component/clientside/PaymentPage";
+=======
+import ContactUsRes from "./component/adminside/ContactUsRes";
+
+import AddBlog from "./component/adminside/AddBlog";
+import UpdateBlog from "./component/adminside/UpdateBlog";
+import AllBlog from "./component/adminside/AllBlog";
+import Blogs from "./component/clientside/Blogs";
+import SingleBlog from "./component/clientside/SingleBlog";
+
+>>>>>>> d4a05621d21a48accf5d815b0c7fe80a303970a6
 
 
 
@@ -68,13 +79,22 @@ function App() {
           <Route path="/updatedes/:id" element={<UpdateDes/>}></Route>
           <Route path="/oneupdatedes/:id" element={<OneUpdateDes/>}></Route>
           <Route path="/oneTour" element={<OneTourSection1/>}> </Route>
-
+          <Route path="/contactusres" element={<ContactUsRes/>} />
           <Route path="/reviewform" element={<ReviewForm/>}></Route>
 
+<<<<<<< HEAD
           <Route path="/bookings" element={<AdminAllBookings/>}></Route>
           <Route path="/bookings/:id" element={<ViewBooking/>}></Route>
           <Route path="/update/:id"  element={<UpdateBooking/>} ></Route>
           <Route path="/payment"  element={<PaymentPage/>} ></Route>
+=======
+          <Route path="/addBlog" element={<AddBlog />}></Route>
+          <Route path="/updateBlog" element={<UpdateBlog />}></Route>
+          <Route path="/AllBlog" element={<AllBlog />}></Route>
+          <Route path="/updateBlog/:id" element={<UpdateBlog />} />
+          <Route path="/blogs" element={<Blogs />}></Route>
+          <Route path="/singleBlog/:id" element={<SingleBlog/>}> </Route>
+>>>>>>> d4a05621d21a48accf5d815b0c7fe80a303970a6
          
 
 
