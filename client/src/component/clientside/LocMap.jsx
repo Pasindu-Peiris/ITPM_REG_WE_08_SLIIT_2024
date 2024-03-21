@@ -8,8 +8,54 @@ import mic from '../../Images/send-message.png'
 import mic2 from '../../Images/microphone.png'
 import "../CSS/style.css"
 import axios from "axios"
+import Joyride, { STATUS } from 'react-joyride';
 
 const LocMap = () => {
+
+
+    const [{ run, steps }, setState] = useState({
+        run: true,
+        steps:
+            [
+                {
+
+                    content: <h2 className='text-2xl'> Let's begin Tour 🛩️ </h2>,
+                    locale: { skip: 'Skip tutorial' },
+                    placement: 'center',
+                    target: "body"
+
+                },
+                {
+
+                    content: <h2 className='text-xl'>Explore travel with Ai Assistant 👾</h2>,
+                    locale: { skip: 'Skip tutorial' },
+                    placement: 'bottom',
+                    target: "#bot",
+                    title: "First Step"
+
+                },
+                {
+
+                    content: <h2 className='text-xl'>Explore travel with the document 📂</h2>,
+                    locale: { skip: 'Skip tutorial' },
+                    placement: 'bottom',
+                    target: "#step1",
+                    title: "First Step"
+
+                },
+                
+                {
+
+                    content: <h2 className='text-xl'>Explore the location , Drag the map man into the flag icon 🗺️ </h2>,
+                    locale: { skip: 'Skip tutorial' },
+                    placement: 'center',
+                    target: "#map1",
+                    title: "First Step"
+
+                }
+            ]
+
+    })
 
 
     const [listPoints, setListPoints] = useState([]);
@@ -49,7 +95,7 @@ const LocMap = () => {
         fetchData();
     }, []); // Empty array means this effect runs once on mount and not on updates
 
-    
+
 
 
 
@@ -135,12 +181,12 @@ const LocMap = () => {
         {
             id: 6,
             name: p6[0],
-            position:{ lat: parseFloat(p6[1]), lng: parseFloat(p6[2]) },
+            position: { lat: parseFloat(p6[1]), lng: parseFloat(p6[2]) },
             des: p6[3]
         },
         {
             id: 7,
-            name:p7[0],
+            name: p7[0],
             position: { lat: parseFloat(p7[1]), lng: parseFloat(p7[2]) },
             des: p7[3]
         },
@@ -160,7 +206,7 @@ const LocMap = () => {
 
     }
 
-   
+
 
 
     const handleClick = () => {
@@ -301,8 +347,24 @@ const LocMap = () => {
 
     return (
 
-        <div className=' w-[100%] h-[100vh] flex justify-center items-center'>
-            {isLoaded ? <GoogleMap
+        <div className=' w-[100%] h-[100vh] flex justify-center items-center overflow-hidden'>
+            
+
+        
+            <Joyride
+                continuous
+                callback={() => { }}
+                run={run}
+                steps={steps}
+                hideCloseButton
+                scrollToFirstStep
+                showSkipButton
+                showProgress />
+
+
+
+
+            {isLoaded ? <GoogleMap id="map1"
                 mapContainerStyle={{ width: "100%", height: "100vh" }}
                 center={
                     { lat: 6.7184, lng: 80.7741 }
@@ -313,7 +375,7 @@ const LocMap = () => {
             >
 
                 {markers.map(({ id, name, position, des }) => (
-                    <MarkerF key={id} position={position} icon={{
+                    <MarkerF id="mark1" key={id} position={position} icon={{
                         url: `${LocIcon}`,
                         scaledSize: { width: 50, height: 50 },
 
@@ -343,8 +405,6 @@ const LocMap = () => {
             </GoogleMap> : null
 
             }
-
-
 
 
             {/* <iframe id='boxBot'
@@ -412,9 +472,11 @@ const LocMap = () => {
                 </button>
 
                 <a href={mic2} download >
-                    <button style={style.section3} className=' shake2  mb-6 bg-amber-400'><a href={`http://localhost:8090/Upload/images/` + listPoints.pdf } download ><img src={doc} alt="" width={50} /></a></button>
+                    <button id={`step1`} style={style.section3} className=' shake2  mb-6 bg-amber-400'><a href={`http://localhost:8090/Upload/images/` + listPoints.pdf} download ><img src={doc} alt="" width={50} /></a></button>
 
                 </a>
+
+                <a href='/tours' className=' py-2 px-3 text-white rounded fw-bold mt-10 bg-red-600' >BACK</a>
 
             </div>
 
