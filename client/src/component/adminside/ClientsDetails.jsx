@@ -12,7 +12,7 @@ const TableComponent = () => {
     const [endDate, setEndDate] = useState(null);
     const [sortByDate, setSortByDate] = useState(false);
     const [userData, setusersData] = useState([]);
-
+    const [searchInput, setSearchInput] = useState('');
 
     const handleGenerateReport = () => {
         // Handle report generation logic here
@@ -82,9 +82,11 @@ const TableComponent = () => {
                 </div>
                 <div className="relative">
                     <input
-                        type="text"
-                        placeholder="Search..."
-                        className="px-4 py-2 border border-gray-300 rounded-lg w-64"
+                       type="text"
+                       placeholder="Search..."
+                       className="px-4 py-2 border border-gray-300 rounded-lg w-64"
+                       value={searchInput}
+                       onChange={(e) => setSearchInput(e.target.value)}
                     />
                     <button className="absolute inset-y-0 right-0 px-4 font-semibold bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">
                         Search
@@ -107,7 +109,10 @@ const TableComponent = () => {
                 </thead>
                 <tbody>
                     {/* Populate table rows with data */}
-                    {userData.map((user) => (
+                    {userData.filter((user) =>
+                    user.username.toLowerCase().includes(searchInput.toLowerCase()) ||
+                    user.email.toLowerCase().includes(searchInput.toLowerCase())
+    )               .map((user) => (
                     <tr key ={user._id}>
                         <td className="border px-4 py-2">{user._id.toString()}</td>
                         <td className="border px-4 py-2">{user.username}</td>
