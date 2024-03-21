@@ -3,9 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Nav from "../clientside/Nav";
 import Hfotter from "./Hfotter";
+import titelImg from "../../Images/page-title-bg.png";
 
 const Tours = () => {
   const [tours, setTours] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchTours = async () => {
     try {
@@ -20,14 +22,42 @@ const Tours = () => {
     fetchTours();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredTours = tours.filter((tour) =>
+    tour.tourName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <Nav />
-      <div style={{ padding: "140px" }}>
-        <div style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>Tours</div>
+      <div style={{ position: "relative" }}>
+        <input
+          type="text"
+          placeholder="Search Tours..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            padding: "5px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+        />
+        <img
+          src={titelImg}
+          alt="Page Title"
+          style={{ width: "100%", position: "absolute", top: "60px", left: 0, zIndex: -1 }}
+        />
+      </div>
+      <div style={{ paddingTop: "200px", paddingLeft: "140px", paddingRight: "140px" }}>
         <div className="container mt-0 mb-4">
           <div className="row">
-            {tours.map((tour) => (
+            {filteredTours.map((tour) => (
               <div key={tour._id} className="col-md-4 mb-4">
                 <div className="row">
                   <div className="col">
