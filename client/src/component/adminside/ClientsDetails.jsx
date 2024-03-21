@@ -80,7 +80,7 @@ const TableComponent = () => {
                         onClick={() => console.log('Calendar clicked')}
                     />
                 </div>
-                <div className="relative h-10 flex">
+                <div className="relative h- flex">
                     <input
                         type="text"
                         placeholder="Search..."
@@ -91,9 +91,10 @@ const TableComponent = () => {
                     {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
                         <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
                     )}
-                    <button className=" px-4 font-semibold bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">
+                    <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
                         Search
                     </button>
+
                 </div>
             </div>
 
