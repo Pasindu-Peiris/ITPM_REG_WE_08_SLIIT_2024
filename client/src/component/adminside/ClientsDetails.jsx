@@ -68,10 +68,10 @@ const TableComponent = () => {
             <div className="flex justify-between mb-4">
                 <div>
                     <button
-                        className="px-4 py-2 font-semibold bg-green-500 text-white rounded-lg hover:bg-green-600"
+                        className="px-4 py-2 font-semibold bg-yellow-500 text-black rounded-lg hover:bg-yellow-400"
                         onClick={handleGenerateReport}
                     >
-                        Generate Report
+                        Report PDF
                     </button>
                 </div>
                 <div>
@@ -80,22 +80,25 @@ const TableComponent = () => {
                         onClick={() => console.log('Calendar clicked')}
                     />
                 </div>
-                <div className="relative h- flex">
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className={`px-4 py-2 border rounded-l-lg flex-1 ${searchInput.length > 0 && /^[0-9]/.test(searchInput) ? 'border-red-500' : 'border-gray-300'}`}
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                    />
-                    {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
-                        <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
-                    )}
-                    <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
-                        Search
-                    </button>
+                <div className="relative flex">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className={`px-4 py-2 border rounded-l-lg flex-1 ${searchInput.length > 0 && /^[0-9]/.test(searchInput) ? 'border-red-500' : 'border-gray-300'}`}
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                        />
+                        {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+                            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+                        )}
+                        {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
+                            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
+                        )}
+                        <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
+                            Search
+                        </button>
+                    </div>
 
-                </div>
             </div>
 
             <table className="table-auto w-full">
