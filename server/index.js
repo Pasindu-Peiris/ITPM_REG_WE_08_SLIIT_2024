@@ -13,7 +13,6 @@ const blogsRouter = require('./Routes/blogs')
 //upload images
 app.use(express.json());
 app.use(express.static('public'));
-app.use('/Upload/images', express.static('Upload/images'));
 
 const PORT = process.env.PORT || 8090;
 
@@ -68,7 +67,22 @@ app.use('/contactus',contactus);
 const Dest = require('./Routes/Dest');
 app.use('/dest', Dest);
 
+//Add virtual tour
+const imageRoutes = require("./Routes/imageRoutes");
+app.use("/api/images", imageRoutes);
+
+//get all images
+const getAll = require("./Routes/getAll");
+app.use("/api/images", getAll);
+
+//get images with the id
+const getImage = require("./Routes/getImage");
+app.use("/api/image", getImage);
+
+
+
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
 });
 
+app.use("/uploads", express.static("uploads"));
