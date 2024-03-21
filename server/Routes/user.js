@@ -57,4 +57,35 @@ router.route("/reg").post(async (req, res) => {
     res.status(500).json("Cannot register the user");
   }
 });
+// Get all users
+router.get('/', async (req, res) => {
+  try {
+      const users = await user.find();
+      res.json(users);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+// Get a single tour by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const users = await user.findById(req.params.id);
+        if (!users) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+//delete 
+router.delete('/:id', async (req, res) => {
+  try {
+      await user.findByIdAndDelete(req.params.id);
+      res.json({ message: 'User deleted' });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
