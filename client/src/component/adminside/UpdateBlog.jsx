@@ -110,7 +110,7 @@ const UpdateBlog = () => {
             style={{ fontSize: '14px', padding: '5px' }}
           />
         </div>
-        {/* <div style={{ marginBottom: '5px' }}>
+         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Featured Image:</label>
           <input
             type="file"
@@ -119,7 +119,7 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-        </div> */}
+        </div> 
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Content:</label>
           <textarea

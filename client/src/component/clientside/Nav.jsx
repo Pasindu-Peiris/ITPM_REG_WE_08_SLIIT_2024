@@ -30,7 +30,7 @@ const Nav = () => {
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour List</a></li>
                     <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour Search</a></li>
                     <li className='px-4'><a href="./ContactUs" className='hover:text-yellow-400 text-lg'>Contact Us</a></li>
-                    <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Blog</a></li>
+                    <li className='px-4'><a href="./Blogs" className='hover:text-yellow-400 text-lg'>Blog</a></li>
                 </ul>
             </div>
 
