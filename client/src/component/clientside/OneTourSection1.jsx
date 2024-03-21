@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moreDetail from "../../Images/MoreDetails.PNG";
-
 
 const OneTourSection1 = () => {
   const { id } = useParams(); // Extract id from URL parameters
@@ -42,27 +41,21 @@ const OneTourSection1 = () => {
           <span className="tourmaster-tour-rating-text" style={{ fontWeight: "normal" }}>(2 Reviews)</span>
         </div>
       </h1>
-      <img src={moreDetail} alt="More Details" style={{ width: "50%", marginBottom: "20px" }} />
-      <div className="row">
-        <div className="col-lg-6 mb-4">
-          <img
-            src={tour.images[0]}
-            alt="Main Tour Image"
-            className="img-fluid rounded shadow"
-          />
-        </div>
-        <div className="col-lg-6">
-          <div className="row">
-            {tour.images.slice(1, 5).map((image, index) => (
-              <div key={index} className="col-6 mb-3">
-                <img
-                  src={image}
-                  alt={`Tour Image ${index + 2}`}
-                  className="img-fluid rounded shadow"
-                />
-              </div>
-            ))}
-          </div>
+      <Link to={`/tours/${id}`}>
+        <img src={moreDetail} alt="More Details" style={{ width: "50%", marginBottom: "20px" }} />
+      </Link>
+      <div className="row justify-content-center">
+        <div className="col-lg-8 mb-4 text-center">
+          {tour.images && ( // Check if tour.images exists
+            <Link to={`/tours/${id}`}>
+              <img
+                src={`http://localhost:8090/${tour.images}`} // Make sure tour.images is correctly accessed
+                alt="Main Tour Image"
+                className="img-fluid rounded shadow"
+                style={{ width: "100%" }}
+              />
+            </Link>
+          )}
         </div>
       </div>
       <div className="row mt-4">

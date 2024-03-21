@@ -25,7 +25,7 @@ const toursSchema = new Schema({
     type: [String],
   },
   images: {
-    type: [String], // Assuming you'll store image URLs as strings
+    type: String, 
   }
 }, { timestamps: true });
 

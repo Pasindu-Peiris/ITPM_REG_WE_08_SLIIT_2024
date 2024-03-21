@@ -31,9 +31,9 @@ const Tours = () => {
               <div key={tour._id} className="col-md-4 mb-4">
                 <div className="row">
                   <div className="col">
-                  <Link to={`/tours/${tour._id}`}>
+                    <Link to={`/tours/${tour._id}`}>
                       <img
-                        src={tour.images[0]} 
+                        src={`http://localhost:8090/${tour.images}`} 
                         alt="Tour Image"
                         className="img-fluid"
                         style={{
@@ -48,9 +48,9 @@ const Tours = () => {
                 <div className="row">
                   <div className="col">
                     <p style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>{tour.tourName}</p>
-                    <p style={{ marginTop: "10px" }}>{tour.numberOfDays} days</p>
+                    <p style={{ marginTop: "10px",fontSize: "18px" }}>{tour.numberOfDays} days</p>
                     <p style={{ marginTop: "10px", color: "#fcb900", fontWeight: "bold", fontSize: "20px" }}>
-                      From {tour.price} $
+                      From ${tour.price}
                     </p>
                   </div>
                 </div>
