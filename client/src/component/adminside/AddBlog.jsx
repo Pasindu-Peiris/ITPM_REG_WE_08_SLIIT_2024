@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ImgBac from "../../Images/hp-blog-bg.jpg";
 import close from "../../Images/remove.png";
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddBlogs = () => {
   const [blogData, setBlogData] = useState({
@@ -11,13 +13,13 @@ const AddBlogs = () => {
     FeaturedImage: "",
     Content: "",
     Excerpt: "",
-    PublishDate: new Date()
+    PublishDate: new Date().toISOString().split('T')[0] // Ensure ISO string format for date input
   });
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === "file") {
-      const selectedImage = files[0]; // Assuming only one featured image
+      const selectedImage = files[0];
       const imageUrl = URL.createObjectURL(selectedImage);
       setBlogData({ ...blogData, FeaturedImage: imageUrl });
     } else {
@@ -34,7 +36,6 @@ const AddBlogs = () => {
       console.log("Submitting blog data:", blogData);
       const response = await axios.post('http://localhost:8090/blogs', blogData);
       console.log("Blog created:", response.data);
-      // Reset form fields
       setBlogData({
         Title: "",
         Author: "",
@@ -42,14 +43,18 @@ const AddBlogs = () => {
         FeaturedImage: "",
         Content: "",
         Excerpt: "",
-        PublishDate: new Date()
+        PublishDate: new Date().toISOString().split('T')[0] // Reset date after successful submission
       });
-      // Show success message
-      alert("Blog successfully added!");
+      toast.success("Blog successfully added!"); // Moved this outside setTimeout as it's not necessary
+      // Navigating to AllBlog.jsx
+       // You might want to use React Router for navigation instead
     } catch (error) {
       console.error("Error creating blog:", error);
       // You can show an error message here if needed
     }
+    setTimeout(() => {
+      window.location.href = "/AllBlog";
+    }, 2000);
   };
 
   return (
@@ -162,6 +167,7 @@ const AddBlogs = () => {
           Submit
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
