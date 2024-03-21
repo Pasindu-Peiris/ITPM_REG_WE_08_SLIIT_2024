@@ -80,18 +80,20 @@ const TableComponent = () => {
                         onClick={() => console.log('Calendar clicked')}
                     />
                 </div>
-                <div className="relative">
+                <div className="relative h-10 flex">
                     <input
-                       type="text"
-                       placeholder="Search..."
-                       className="px-4 py-2 border border-gray-300 rounded-lg w-64"
-                       value={searchInput}
-                       onChange={(e) => setSearchInput(e.target.value)}
+                        type="text"
+                        placeholder="Search..."
+                        className={`px-4 py-2 border rounded-l-lg flex-1 ${searchInput.length > 0 && /^[0-9]/.test(searchInput) ? 'border-red-500' : 'border-gray-300'}`}
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
                     />
-                    <button className="absolute inset-y-0 right-0 px-4 font-semibold bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">
+                    {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+                        <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+                    )}
+                    <button className=" px-4 font-semibold bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">
                         Search
                     </button>
-
                 </div>
             </div>
 
@@ -109,10 +111,31 @@ const TableComponent = () => {
                 </thead>
                 <tbody>
                     {/* Populate table rows with data */}
-                    {userData.filter((user) =>
-                    user.username.toLowerCase().includes(searchInput.toLowerCase()) ||
-                    user.email.toLowerCase().includes(searchInput.toLowerCase())
-    )               .map((user) => (
+                    {userData
+                    .filter((user) => {
+                        const searchTerm = searchInput ? searchInput.toLowerCase() : '';
+                        const username = user.username ? user.username.toLowerCase() : '';
+                        const email = user.email ? user.email.toLowerCase() : '';
+                
+                        // Check if the search term contains only letters
+                        const isAlphaNumeric = /^[a-zA-Z]+$/.test(searchTerm);
+                
+                        // Check if the search term is empty or contains only letters
+                        if (searchTerm === '' || isAlphaNumeric) {
+                            // Filter by username or email containing the search term
+                            return (
+                                (username.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                                (email.includes(searchTerm) && !/^[\d]/.test(searchTerm))
+                            );
+                        } else {
+                            // Filter only by username or email starting with the search term
+                            return (
+                                (username.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                                (email.startsWith(searchTerm) && !/^[\d]/.test(searchTerm))
+                            );
+                        }
+                    })              
+                    .map((user) => (
                     <tr key ={user._id}>
                         <td className="border px-4 py-2">{user._id.toString()}</td>
                         <td className="border px-4 py-2">{user.username}</td>
