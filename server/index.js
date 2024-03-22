@@ -56,6 +56,10 @@ app.use('/tours', toursRouter);
 // Blogs Route
 app.use('/blogs', blogsRouter);
 
+const admins = require('./Routes/admins')
+app.use("/admins", admins)
+
+
 //Booking Route 
 const Booking = require('./Routes/Bookings');
 app.use('/bookings', Booking);

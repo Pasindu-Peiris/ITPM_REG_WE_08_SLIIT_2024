@@ -35,6 +35,7 @@ import AllBlog from "./component/adminside/AllBlog";
 import Blogs from "./component/clientside/Blogs";
 import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
+import AdminLog from "./component/adminside/adminlog";
 
 function App() {
   return (
@@ -92,6 +93,7 @@ function App() {
           </Route>
 
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
+          <Route path="/adminLog" element={<AdminLog/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
