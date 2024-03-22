@@ -80,7 +80,11 @@ const fetchUserData2 = async () => {
   }, []);
 
     return (
-        <div className="container mx-auto mt-20">
+        
+        <div className="container mx-auto mt-10">
+             <div className='flex justify-left mb-7'> {/* Adjusted alignment to center */}
+                <p style={{ fontWeight: 'bold', fontSize: '2rem',fontFamily: 'Arial, sans-serif' }}>Client Details</p> {/* Applied bold font and increased font size */}
+            </div>
             <div className="flex justify-between mb-4">
                 <div>
                     <button
