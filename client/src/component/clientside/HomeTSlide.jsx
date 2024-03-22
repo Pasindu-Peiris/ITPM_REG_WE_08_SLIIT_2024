@@ -82,13 +82,13 @@ const HomeTSlide = () => {
                                                 return (
                                                     <div className='cardBlock-1' style={{ zIndex: "99" }}>
                                                         <div class=" m-3" style={{ zIndex: "999" }}>
-                                                            <a href={'/tours/' + tour._id} style={{ textDecoration: "none" }}>
+                                                            <a href={'/tours/' + tour._id} style={{ textDecoration: "none", color:"#171617" }}>
                                                                 <div class="card" id='cardv '>
                                                                     <div class="img-wrapper">
                                                                         <img src={`http://localhost:8090/${tour.images}`} className=" d-block w-100"
                                                                             style={{
                                                                                 width: "390px",
-                                                                                height: "250px",
+                                                                                height: "270px",
 
                                                                             }} alt={tour.image} />
                                                                     </div>
