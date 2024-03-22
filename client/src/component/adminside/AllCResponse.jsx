@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SearchBar from "./CSearchBar";
-import AllCResponse from "./AllCResponse";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-function AllContactUs() {
+function AllCResponse() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
     const getContacts = async () => {
       try {
-        const response = await axios.get("http://localhost:8090/contactus/read");
+        const response = await axios.get("http://localhost:8090/contactus/response");
         setContacts(response.data);
       } catch (error) {
         console.log("Error fetching contacts:", error);
@@ -38,13 +36,9 @@ function AllContactUs() {
     }
   };
 
-  const handleResponse = (contact) => {
-    window.location.href = `/contactusres?id=${contact._id}`;
-  };
-
   const handleExportReport = () => {
     const doc = new jsPDF();
-    const tableColumns = ["Name", "Email", "Phone", "Date", "Subject", "Message"];
+    const tableColumns = ["Name", "Email", "Phone", "Date", "Subject", "Message","Response"];
     const tableRows = contacts.map((contact) => [
       contact.name,
       contact.email,
@@ -52,6 +46,7 @@ function AllContactUs() {
       contact.date,
       contact.subject,
       contact.message,
+      contact.response,
     ]);
     const date = new Date();
     const year = date.getFullYear();
@@ -67,8 +62,8 @@ function AllContactUs() {
   };
 
   return (
-    <div style={{ padding: "80px" }}>
-      <p style={{ fontWeight: "bold", fontSize: "35px", paddingBottom: "20px" }}>All Contact Us Form Submissions</p>
+    <div className="mt-5">
+    
       <div
         style={{
           display: "flex",
@@ -76,16 +71,15 @@ function AllContactUs() {
           alignItems: "center",
         }}
       >
-        <p style={{ fontWeight: "bold", fontSize: "30px", paddingBottom: "20px" }}>Received Submissions</p>
+        <p style={{ fontWeight: "bold", fontSize: "30px", paddingBottom: "20px" }}>Responsed Submissions</p>
         <button
           className="mt-1 w-60 p-2 border bg-amber-500 text-white font-bold rounded-md"
           onClick={handleExportReport}
         >
           Export Report
         </button>
-        <SearchBar />
+        
       </div>
-      <div>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -95,6 +89,7 @@ function AllContactUs() {
             <th scope="col">Date</th>
             <th scope="col">Subject</th>
             <th scope="col">Message</th>
+            <th scope="col">Response</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -107,12 +102,12 @@ function AllContactUs() {
               <td>{contact.date}</td>
               <td>{contact.subject}</td>
               <td>{contact.message}</td>
+              <td>{contact.response}</td>
               <td>
                 <button
                   className="mt-1 p-2 border bg-amber-500 text-white font-bold rounded-lg"
-                  onClick={() => handleResponse(contact)}
                 >
-                  Response
+                  Send Mail
                 </button>
               </td>
               <td>
@@ -127,11 +122,8 @@ function AllContactUs() {
           ))}
         </tbody>
       </table>
-      </div>
-
-      {/*<AllCResponse/>*/}
     </div>
   );
 }
 
-export default AllContactUs;
+export default AllCResponse;
