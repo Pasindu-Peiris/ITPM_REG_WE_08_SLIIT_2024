@@ -77,7 +77,7 @@ const HomeTSlide = () => {
                                             autoPlay
                                             autoPlaySpeed={2000}
                                             infinite
-                                            >
+                                        >
                                             {tours.map((tour) => {
                                                 return (
                                                     <div className='cardBlock-1' style={{ zIndex: "99" }}>
@@ -89,17 +89,27 @@ const HomeTSlide = () => {
                                                                             style={{
                                                                                 width: "390px",
                                                                                 height: "250px",
-                                                                                
-                                                                            }}  alt={tour.image} />
+
+                                                                            }} alt={tour.image} />
                                                                     </div>
                                                                     <div class="card-body" id="tit-card">
-                                                                        <span className='fs-6 text-secondary fw-bold p-0'>DAY TRIP</span>
-                                                                        <h5 class="card-title py-1 d-flex align-items-center justify-content-between" ><strong>{tour.tourName}</strong> <font className='fs-6'> <img src="" alt='vvvv' width={35} /></font></h5>
-
-                                                                        <span className='fs-6 fw-bold'><font className='text-danger'>Date : {tour.date}</font> | Small Group</span>
-
-                                                                        <p class="card-text fw-bold " style={{ fontSize: "1.1rem", float: "right" }}>Rs. eee/=</p>
-                                                                    </div>
+                                                                        <div className="tourmaster-tour-rating" style={{ fontSize: "16px", paddingTop: "20px" }}>
+                                                                            <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                                                                            <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                                                                            <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                                                                            <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                                                                            <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                                                                            <span className="tourmaster-tour-rating-text" style={{ fontWeight: "normal" }}>(Review)</span>
+                                                                        </div>
+                                                                        <div className="row">
+                                                                            <div className="col">
+                                                                                <p style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>{tour.tourName}</p>
+                                                                                <p style={{ marginTop: "10px", fontSize: "18px", color: "#696969" }}>{tour.numberOfDays} days</p>
+                                                                                <p style={{ marginTop: "10px", color: "#fcb900", fontWeight: "bold", fontSize: "20px" }}>
+                                                                                    From ${tour.price}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>                              </div>
                                                                 </div>
                                                             </a>
                                                         </div>
