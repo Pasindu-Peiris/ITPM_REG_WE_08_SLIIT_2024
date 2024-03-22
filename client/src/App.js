@@ -36,7 +36,7 @@ import Blogs from "./component/clientside/Blogs";
 import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
 import AdminLog from "./component/adminside/adminlog";
-
+import TestReview from "./component/clientside/TestReview";
 function App() {
   return (
     <div>
