@@ -15,6 +15,7 @@ import ClientsDetails from "./component/adminside/ClientsDetails";
 import UpdateTours from "./component/adminside/UpdateTours";
 import Chatbot from "./component/clientside/Chatbot";
 import AllContactUs from "./component/adminside/AllContactUs";
+<<<<<<< Updated upstream
 import AddVirtualTour from "./component/adminside/AddVirtualTour";
 import EditDes from "./component/adminside/EditDes";
 import UpdateDes from "./component/adminside/UpdateDes";
@@ -26,6 +27,9 @@ import AdminAllBookings from "./component/adminside/AdminAllBookings";
 import ViewBooking from "./component/adminside/ViewBooking";
 import UpdateBooking from "./component/adminside/UpdateBooking";
 import PaymentPage from "./component/clientside/PaymentPage";
+=======
+import ContactUsRes from "./component/adminside/ContactUsRes";
+>>>>>>> Stashed changes
 
 
 import AddBlog from "./component/adminside/AddBlog";
@@ -58,6 +62,7 @@ function App() {
           <Route path="/updateTours" element={<UpdateTours />}></Route>
           <Route path="/updateTours/:id" element={<UpdateTours />} />
           <Route path="/contactus" element={<ContactUs />}></Route>
+<<<<<<< Updated upstream
           <Route path="/clientsdetails" element={<ClientsDetails />}>
             {" "}
           </Route>
@@ -76,6 +81,10 @@ function App() {
           <Route path="/oneTour" element={<OneTourSection1 />}>
             {" "}
           </Route>
+=======
+          <Route path="/allcontactus" element={<AllContactUs/>}></Route>
+          <Route path="/cresponse" element={<ContactUsRes/>}></Route>
+>>>>>>> Stashed changes
 
           <Route path="/reviewform" element={<ReviewForm />}></Route>
 
