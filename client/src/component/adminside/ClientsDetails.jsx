@@ -219,7 +219,7 @@ const deleteUser = async (userId, username) => {
                     })              
                     .map((user) => (
                     <tr key ={user._id}>
-                        <td className="border px-4 py-2">{user._id.toString()}</td>
+                        <td className="border px-4 py-2">{user._id.toString().substring(0, 8)}</td>
                         <td className="border px-4 py-2">{user.username}</td>
                         <td className="border px-4 py-2">{user.email}</td>
                         <td className="border px-4 py-2">{user.phone}</td>
