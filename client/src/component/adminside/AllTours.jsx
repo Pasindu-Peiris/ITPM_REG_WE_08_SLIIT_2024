@@ -10,7 +10,7 @@ const AllTours = () => {
   const [toursData, setToursData] = useState([]);
 
 
-  
+
 
   const fetchToursData = async () => {
     try {
