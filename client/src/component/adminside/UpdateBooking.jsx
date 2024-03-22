@@ -48,24 +48,65 @@ const UpdateBooking = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setBookingData({ ...bookingData, [name]: value });
-
     // Perform live validation
     const newErrors = { ...errors };
-    if (name === "email") {
-      // Simple email validation
-      if (!/\S+@\S+\.\S+/.test(value)) {
-        newErrors[name] = "Invalid email address";
-      } else {
-        delete newErrors[name];
-      }
-    } else {
-      // Clear any previous validation errors for this field
-      delete newErrors[name];
+    switch (name) {
+      case "email":
+        // Email validation
+        if (!/\S+@\S+\.\S+/.test(value)) {
+          newErrors[name] = "Invalid email address";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "phone":
+        // Phone number validation
+        if (!/^\d{10}$/.test(value)) {
+          newErrors[name] = "Invalid phone number";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "nic":
+        // NIC/Passport validation
+        if (!/^[A-Za-z0-9]{7,}$/i.test(value)) {
+          newErrors[name] = "Invalid NIC/Passport";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "name":
+        // Name validation
+        if (!value.trim()) {
+          newErrors[name] = "Name is required";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "country":
+        // Country validation
+        if (!value.trim()) {
+          newErrors[name] = "Country is required";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "address":
+        // Address validation
+        if (!value.trim()) {
+          newErrors[name] = "Address is required";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      default:
+        break;
     }
     setErrors(newErrors);
+  
+    // Set state for booking data after validation
+    setBookingData({ ...bookingData, [name]: value });
   };
-
   
 
   const handleSubmit = async () => {
@@ -158,6 +199,12 @@ const UpdateBooking = () => {
             onChange={handleChange}
             style={{ fontSize: '16px', padding: '5px' }}
           />
+
+        {/* Name error message */}
+        {errors.name && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.name}</div>
+        )}
+        
         </div>
 
         <div style={{ marginBottom: '5px' }}>
@@ -172,10 +219,11 @@ const UpdateBooking = () => {
             style={{ fontSize: '16px', padding: '5px' }}
           />
 
-          {/* Render validation errors */}
-        {Object.keys(errors).map((errorKey) => (
-          <div key={errorKey} style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors[errorKey]}</div>
-        ))}
+           
+            {/* Email error message */}
+        {errors.email && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.email}</div>
+        )}
 
 
         </div>
@@ -191,6 +239,8 @@ const UpdateBooking = () => {
             onChange={handleChange}
             style={{ fontSize: '16px', padding: '5px' }}
           />
+
+        
         </div>
       
         <div style={{ marginBottom: '5px' }}>
@@ -204,6 +254,11 @@ const UpdateBooking = () => {
             onChange={handleChange}
             style={{ fontSize: '16px', padding: '5px' }}
           />
+        {/* NIC/Passport error message */}
+        {errors.nic && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.nic}</div>
+        )}
+
         </div>
 
         <div style={{ marginBottom: '5px' }}>
@@ -217,6 +272,11 @@ const UpdateBooking = () => {
             onChange={handleChange}
             style={{ fontSize: '16px', padding: '5px' }}
           />
+          {/* Country error message */}
+        {errors.country && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.country}</div>
+        )}
+
         </div>
 
         <div style={{ marginBottom: '5px' }}>
@@ -230,6 +290,11 @@ const UpdateBooking = () => {
             onChange={handleChange}
             style={{ fontSize: '16px', padding: '5px' }}
           />
+
+          {/* Address error message */}
+        {errors.address && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.address}</div>
+        )}
         </div>
 
 

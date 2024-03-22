@@ -29,10 +29,10 @@ const th = {
 
 const PaymentPage = () => {
   const [bookingData, setBookingData] = useState({
-    tourName: "Example Tour",
-    dayDetails: "Example Day Details",
-    travellers: 1,
-    price: 100,
+    tourName: "Galle , DownSouth",
+    dayDetails: " 2023 aug 3to 2023 aug 10 ",
+    travellers: 4,
+    price: 12000,
     name: "",
     email: "",
     phone: "",
