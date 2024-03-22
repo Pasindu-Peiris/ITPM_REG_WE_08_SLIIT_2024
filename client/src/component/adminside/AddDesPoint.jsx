@@ -9,6 +9,7 @@ const AddDesPoint = () => {
 
     const { id } = useParams();
     // <a href={`/get/${item._id}`} className="btn btn-success cix"><i class="fa-solid fa-pen-to-square" style={{ color: "#ffffff" }}></i></a>
+    
 
     function Notify() {
         toast.success('Successful', {
@@ -342,7 +343,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[0].innerHTML = "Success";
-                err1[0].style.color = "green";
+                err1[0].style.color = "green ";
                 iBox[0].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -369,7 +370,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[1].innerHTML = "Success";
-                err1[1].style.color = "green";
+                err1[1].style.color = "green ";
                 iBox[4].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -395,7 +396,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[2].innerHTML = "Success";
-                err1[2].style.color = "green";
+                err1[2].style.color = "green ";
                 iBox[8].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -423,7 +424,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[3].innerHTML = "Success";
-                err1[3].style.color = "green";
+                err1[3].style.color = "green ";
                 iBox[12].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -449,7 +450,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[4].innerHTML = "Success";
-                err1[4].style.color = "green";
+                err1[4].style.color = "green ";
                 iBox[16].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -475,7 +476,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[5].innerHTML = "Success";
-                err1[5].style.color = "green";
+                err1[5].style.color = "green ";
                 iBox[20].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -501,7 +502,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[6].innerHTML = "Success";
-                err1[6].style.color = "green";
+                err1[6].style.color = "green ";
                 iBox[24].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -527,7 +528,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[7].innerHTML = "Success";
-                err1[7].style.color = "green";
+                err1[7].style.color = "green ";
                 iBox[28].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -563,7 +564,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[0].innerHTML = "Success";
-                err1[0].style.color = "green";
+                err1[0].style.color = "green ";
                 iBox[1].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -591,7 +592,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[1].innerHTML = "Success";
-                err1[1].style.color = "green";
+                err1[1].style.color = "green ";
                 iBox[5].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -619,7 +620,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[2].innerHTML = "Success";
-                err1[2].style.color = "green";
+                err1[2].style.color = "green ";
                 iBox[9].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -647,7 +648,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[3].innerHTML = "Success";
-                err1[3].style.color = "green";
+                err1[3].style.color = "green ";
                 iBox[13].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -675,7 +676,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[4].innerHTML = "Success";
-                err1[4].style.color = "green";
+                err1[4].style.color = "green ";
                 iBox[17].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -703,7 +704,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[5].innerHTML = "Success";
-                err1[5].style.color = "green";
+                err1[5].style.color = "green ";
                 iBox[21].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -731,7 +732,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[6].innerHTML = "Success";
-                err1[6].style.color = "green";
+                err1[6].style.color = "green ";
                 iBox[25].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -759,7 +760,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[7].innerHTML = "Success";
-                err1[7].style.color = "green";
+                err1[7].style.color = "green ";
                 iBox[29].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -795,7 +796,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[0].innerHTML = "Success";
-                err1[0].style.color = "green";
+                err1[0].style.color = "green ";
                 iBox[2].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -823,7 +824,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[1].innerHTML = "Success";
-                err1[1].style.color = "green";
+                err1[1].style.color = "green ";
                 iBox[6].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -851,7 +852,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[2].innerHTML = "Success";
-                err1[2].style.color = "green";
+                err1[2].style.color = "green ";
                 iBox[10].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -879,7 +880,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[3].innerHTML = "Success";
-                err1[3].style.color = "green";
+                err1[3].style.color = "green ";
                 iBox[14].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -907,7 +908,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[4].innerHTML = "Success";
-                err1[4].style.color = "green";
+                err1[4].style.color = "green ";
                 iBox[18].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -935,7 +936,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[5].innerHTML = "Success";
-                err1[5].style.color = "green";
+                err1[5].style.color = "green ";
                 iBox[22].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -963,7 +964,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[6].innerHTML = "Success";
-                err1[6].style.color = "green";
+                err1[6].style.color = "green ";
                 iBox[26].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -991,7 +992,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[7].innerHTML = "Success";
-                err1[7].style.color = "green";
+                err1[7].style.color = "green ";
                 iBox[30].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1028,7 +1029,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[0].innerHTML = "Success";
-                err1[0].style.color = "green";
+                err1[0].style.color = "green ";
                 iBox[3].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1055,7 +1056,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[1].innerHTML = "Success";
-                err1[1].style.color = "green";
+                err1[1].style.color = "green ";
                 iBox[7].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1082,7 +1083,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[2].innerHTML = "Success";
-                err1[2].style.color = "green";
+                err1[2].style.color = "green ";
                 iBox[11].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1109,7 +1110,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[3].innerHTML = "Success";
-                err1[3].style.color = "green";
+                err1[3].style.color = "green ";
                 iBox[15].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1136,7 +1137,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[4].innerHTML = "Success";
-                err1[4].style.color = "green";
+                err1[4].style.color = "green ";
                 iBox[19].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1164,7 +1165,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[5].innerHTML = "Success";
-                err1[5].style.color = "green";
+                err1[5].style.color = "green ";
                 iBox[23].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1191,7 +1192,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[6].innerHTML = "Success";
-                err1[6].style.color = "green";
+                err1[6].style.color = "green ";
                 iBox[27].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {
@@ -1218,7 +1219,7 @@ const AddDesPoint = () => {
             }
             else {
                 err1[7].innerHTML = "Success";
-                err1[7].style.color = "green";
+                err1[7].style.color = "green ";
                 iBox[31].style.border = "2px solid #1a191a00";
             }
             setTimeout(function () {

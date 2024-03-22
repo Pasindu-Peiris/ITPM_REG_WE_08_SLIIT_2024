@@ -4,7 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import deleteIcn from "../../Images/trash (1).png";
 import updateIcn from "../../Images/refresh.png";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const TableComponent = () => {
@@ -42,29 +43,100 @@ const TableComponent = () => {
       console.error("Error fetching data:", error);
     }
   };
-  // delete user
-  const deleteUser = async (userId) => {
+
+  // Function to fetch user data along with ongoing tour information from backend
+const fetchUserData2 = async () => {
     try {
-      const response = await fetch(`http://localhost:8090/user/${userId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch("http://localhost:8090/user/withOngoingTours");
       if (!response.ok) {
-        throw new Error("Failed to delete user");
+        throw new Error("Network response was not ok");
       }
-      // Update state after deletion
-      setusersData(userData.filter((user) => user._id !== userId));
+      const data = await response.json();
+      setusersData(data); // Update state with fetched data
     } catch (error) {
-      console.error("Error deleting tour:", error);
+      console.error("Error fetching data:", error);
     }
   };
-
+  
+  // delete user
+  // delete user
+const deleteUser = async (userId, username) => {
+    try {
+      toast.info(
+        <div>
+          <p>{`Are you sure you want to delete ${username}?`}</p>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button
+              onClick={async () => {
+                const response = await fetch(`http://localhost:8090/user/${userId}`, {
+                  method: "DELETE",
+                });
+                if (response.ok) {
+                  // Update state after deletion
+                  setusersData(userData.filter((user) => user._id !== userId));
+                  toast.success(`${username} deleted successfully`, {
+                    position:"top-center"
+                  });
+                  
+                } else {
+                  throw new Error("Failed to delete user");
+                }
+              }}
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                borderRadius: "4px",
+                cursor: "pointer",
+                marginRight: "10px",
+              }}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => toast.dismiss()}
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              No
+            </button>
+          </div>
+        </div>,
+        {
+          position: "top-center",
+          autoClose: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error("Failed to delete user");
+    }
+  };
+  
+  
   // Fetch data on component mount
   useEffect(() => {
     fetchUserData();
+    fetchUserData2();
   }, []);
 
     return (
-        <div className="container mx-auto mt-20">
+        
+        <div className="container mx-auto mt-10">
+            <ToastContainer/>
+             <div className='flex justify-left mb-7'> {/* Adjusted alignment to center */}
+                <p style={{ fontWeight: 'bold', fontSize: '2rem',fontFamily: 'Arial, sans-serif' }}>Client Details</p> {/* Applied bold font and increased font size */}
+            </div>
             <div className="flex justify-between mb-4">
                 <div>
                     <button
@@ -81,22 +153,28 @@ const TableComponent = () => {
                     />
                 </div>
                 <div className="relative flex">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className={`px-4 py-2 border rounded-l-lg flex-1 ${searchInput.length > 0 && /^[0-9]/.test(searchInput) ? 'border-red-500' : 'border-gray-300'}`}
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                        />
-                        {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
-                            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
-                        )}
-                        {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
-                            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
-                        )}
-                        <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
-                            Search
-                        </button>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    className={`px-4 py-2 border rounded-l-lg flex-1 ${
+                        (searchInput.length > 0 && /^[0-9]/.test(searchInput)) ||
+                        (searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput))
+                            ? 'border-red-500'
+                            : 'border-gray-300'
+                    }`}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                />
+                {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+                    <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+                )}
+                {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
+                    <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
+                )}
+                <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
+                    Search
+                </button>
+
                     </div>
 
             </div>
@@ -141,17 +219,17 @@ const TableComponent = () => {
                     })              
                     .map((user) => (
                     <tr key ={user._id}>
-                        <td className="border px-4 py-2">{user._id.toString()}</td>
+                        <td className="border px-4 py-2">{user._id.toString().substring(0, 8)}</td>
                         <td className="border px-4 py-2">{user.username}</td>
                         <td className="border px-4 py-2">{user.email}</td>
-                        <td className="border px-4 py-2">Data 4</td>
-                        <td className="border px-4 py-2">Data 5</td>
+                        <td className="border px-4 py-2">{user.phone}</td>
+                        <td className="border px-4 py-2">{user.ongoing ? user.ongoing.join(', ') : ''}</td>
                         <td className="border px-4 py-2">
                         </td>
                         <td className="border px-4 py-2" style={{textAlign: "right"}}>
                             <img src={updateIcn} alt="Update" style={{ width: "20px", height: "20px", display: "inline-block",marginRight: "20px"  }} />
                             <img src={deleteIcn} alt="Delete" style={{ width: "20px", height: "20px", display: "inline-block", cursor: "pointer" }} 
-                            onClick={() => deleteUser(user._id)}/>
+                            onClick={() => deleteUser(user._id, user.username)}/>
                         </td>
 
                     </tr>

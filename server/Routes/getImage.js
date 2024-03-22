@@ -8,7 +8,12 @@ router.get("/:id", async (req, res) => {
     if (!image) {
       return res.status(404).json({ error: "Image not found" });
     }
-    res.json(image);
+     const responseData = {
+       _id: image._id,
+       imagePaths: image.imagePaths,
+       musicPath: image.musicPath,
+     };
+    res.json(responseData);
   } catch (error) {
     console.error("Error retrieving image by ID:", error);
     res.status(500).json({ error: "Failed to retrieve image" });
