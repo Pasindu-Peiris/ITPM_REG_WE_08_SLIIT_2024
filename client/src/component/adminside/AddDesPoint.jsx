@@ -9,6 +9,7 @@ const AddDesPoint = () => {
 
     const { id } = useParams();
     // <a href={`/get/${item._id}`} className="btn btn-success cix"><i class="fa-solid fa-pen-to-square" style={{ color: "#ffffff" }}></i></a>
+    
 
     function Notify() {
         toast.success('Successful', {
