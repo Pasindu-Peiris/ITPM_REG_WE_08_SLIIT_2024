@@ -4,7 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const Image = require("../models/Image");
 
-// Set storage engine
+
 const storage = multer.diskStorage({
   destination: "./uploads/",
   filename: function (req, file, cb) {
@@ -15,40 +15,50 @@ const storage = multer.diskStorage({
   },
 });
 
+
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 30 * 1024 * 1024 }, // 30MB max file size
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max file size
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
-}).array("images", 6);
+}).fields([
+  { name: "images", maxCount: 6 },
+  { name: "music", maxCount: 1 },
+]); 
+
 
 function checkFileType(file, cb) {
-  const filetypes = /jpeg|jpg|png|gif/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
-  if (mimetype && extname) {
+  const imageFiletypes = /jpeg|jpg|png|gif/;
+  const musicFiletypes = /mp3/;
+  const extname = path.extname(file.originalname).toLowerCase();
+  const isImage = imageFiletypes.test(extname);
+  const isMusic = musicFiletypes.test(extname);
+  if (isImage || isMusic) {
     return cb(null, true);
   } else {
-    cb("Error: Images only!");
+    cb("Error: Images and MP3 files only!");
   }
 }
+
 
 router.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       res.status(400).json({ error: err });
     } else {
-      const imagePaths = req.files.map((file) => file.path);
+      const imagePaths = req.files["images"].map((file) => file.path);
+      const musicPath = req.files["music"] ? req.files["music"][0].path : null;
 
-      const newImage = new Image({ imagePaths });
+      const newImage = new Image({ imagePaths, musicPath });
 
+ 
       newImage
         .save()
         .then((image) => {
           res.json({
             message:
-              "Images uploaded and saved successfully under unique ID: " +
+              "Images and music uploaded and saved successfully under unique ID: " +
               image._id,
           });
         })
