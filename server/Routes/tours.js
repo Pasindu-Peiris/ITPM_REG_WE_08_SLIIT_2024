@@ -1,30 +1,52 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 const Tour = require('../models/tours');
+const fs = require('fs');
 
-// Create a new tour
-router.post('/', async (req, res) => {
-    try {
-        console.log("Received tour data:", req.body);
-        const { tourName, description, numberOfDays, price, dayDetails, images } = req.body;
-        
-        const newTour = await Tour.create({
-            tourName,
-            description,
-            numberOfDays,
-            price,
-            dayDetails, // Ensure dayDetails is an array
-            images
-        });
-        
-        console.log("New tour created:", newTour);
-        
-        res.status(201).json(newTour);
-    } catch (error) {
-        console.error("Error creating tour:", error);
-        res.status(500).json({ message: "Failed to create tour", error: error.message });
+
+// Set up multer storage configuration
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadDir = 'uploads/images/';
+      fs.mkdir(uploadDir, { recursive: true }, (err) => {
+        if (err) {
+          return cb(err);
+        }
+        cb(null, uploadDir);
+      });
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-});
+  });
+  
+  // Initialize multer with the storage configuration
+  const upload = multer({ storage: storage });
+  
+  // POST route to create a new tour with image upload
+  router.post('/', upload.single('image'), async (req, res) => {
+    try {
+      const { tourName, description, numberOfDays, price, dayDetails } = req.body;
+      const imagePath = req.file ? req.file.path : null;
+  
+      const newTour = await Tour.create({
+        tourName,
+        description,
+        numberOfDays,
+        price,
+        dayDetails,
+        images: imagePath // Correct field name to 'images'
+      });
+  
+      res.status(201).json(newTour);
+    } catch (error) {
+      console.error("Error creating tour:", error);
+      res.status(500).json({ message: "Failed to create tour", error: error.message });
+    }
+  });
+  
 
 // Get all tours
 router.get('/', async (req, res) => {

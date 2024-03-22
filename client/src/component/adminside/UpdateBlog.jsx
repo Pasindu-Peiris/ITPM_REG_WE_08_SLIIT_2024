@@ -6,6 +6,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import ImgBac from "../../Images/hp-blog-bg.jpg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UpdateBlog = () => {
   const { id } = useParams(); // Get the blog ID from the URL params
@@ -56,12 +58,14 @@ const UpdateBlog = () => {
       console.log("Submitting updated blog data:", blogData);
       const response = await axios.put(`http://localhost:8090/blogs/${id}`, blogData);
       console.log("Blog updated:", response.data);
-      // Show success message or navigate back to all blogs
-      alert("Blog successfully updated!");
+      toast.success("Blog successfully updated!");
     } catch (error) {
       console.error("Error updating blog:", error);
       // You can show an error message here if needed
     }
+    setTimeout(() => {
+      window.location.href = "/AllBlog";
+    }, 2000);
   };
 
   return (
@@ -106,7 +110,7 @@ const UpdateBlog = () => {
             style={{ fontSize: '14px', padding: '5px' }}
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Featured Image:</label>
           <input
             type="file"
@@ -115,7 +119,7 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-        </div>
+        </div> 
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Content:</label>
           <textarea
@@ -168,6 +172,7 @@ const UpdateBlog = () => {
           Submit
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };

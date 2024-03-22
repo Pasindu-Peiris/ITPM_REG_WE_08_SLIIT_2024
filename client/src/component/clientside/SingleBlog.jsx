@@ -23,10 +23,16 @@ const SingleBlog = () => {
     return <div>Loading...</div>;
   }
 
+  // Function to format date
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <div className="container mt-4">
       <h1 className="text-left mb-4" style={{ fontSize: "2.5rem", fontWeight: "bold" }}>{blog.Title}</h1>
-      <p><strong>Publish Date:</strong> {blog.PublishDate}</p>
+      <p><strong>Publish Date:</strong> {formatDate(blog.PublishDate)}</p>
       <img src={blog.FeaturedImage} alt="Featured Image" style={{ width: "50%", marginBottom: "20px" }} />
       <div className="row">
         <div className="col-lg-12">

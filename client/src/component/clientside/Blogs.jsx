@@ -23,11 +23,17 @@ const Blogs = () => {
     fetchBlogs();
   }, []);
 
+  // Function to format date
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <>
       <Nav />
       <div style={{ padding: "140px" }}>
-        <div style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>Blogs</div>
+        {/* <div style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>Blogs</div> */}
         <div className="container mt-0 mb-4">
           <div className="row">
             {blogs.map((blog) => (
@@ -54,7 +60,7 @@ const Blogs = () => {
                     <p style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>{blog.Title}</p>
                     <p style={{ marginTop: "10px" }}>Author: {blog.Author}</p>
                     {/* <p style={{ marginTop: "10px", fontSize: "16px" }}>{blog.Excerpt}</p> */}
-                    <p style={{ marginTop: "10px" }}>{blog.PublishDate}</p>
+                    <p style={{ marginTop: "10px" }}>Published on: {formatDate(blog.PublishDate)}</p>
                   </div>
                 </div>
               </div>

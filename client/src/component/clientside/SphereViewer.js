@@ -10,10 +10,10 @@ import { GalleryPlugin } from "@photo-sphere-viewer/gallery-plugin";
 import "@photo-sphere-viewer/gallery-plugin/index.css";
 //import { VirtualTourPlugin } from "@photo-sphere-viewer/virtual-tour-plugin";
 //import "@photo-sphere-viewer/virtual-tour-plugin/index.css";
-import audio from "../../music/hevisi.mp3";
+
 import "../CSS/style.css";
 
-const SphereViewer = ({ imageUrl,imagePaths }) => {
+const SphereViewer = ({ imageUrl, imagePaths, musicPath }) => {
   const viewerRef = useRef(null);
   const [muted, setMuted] = useState(false);
 
@@ -94,7 +94,7 @@ const SphereViewer = ({ imageUrl,imagePaths }) => {
     const viewer = new Viewer(viewerOptions);
 
     return () => viewer.destroy();
-  }, [imageUrl, muted]);
+  }, [imageUrl, imagePaths,muted, musicPath]);
 
   return (
     <div
@@ -109,7 +109,13 @@ const SphereViewer = ({ imageUrl,imagePaths }) => {
       }}
     >
       {muted ? null : (
-        <audio src={audio} autoPlay loop controls className="audio-player" />
+        <audio
+          src={musicPath}
+          autoPlay
+          loop
+          controls
+          className="audio-player"
+        />
       )}
     </div>
   );

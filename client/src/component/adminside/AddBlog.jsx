@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import ImgBac from "../../Images/hp-blog-bg.jpg";
-import close from "../../Images/remove.png";
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ImgBac from "../../Images/hp-blog-bg.jpg";
 
 const AddBlogs = () => {
   const [blogData, setBlogData] = useState({
@@ -11,22 +12,12 @@ const AddBlogs = () => {
     FeaturedImage: "",
     Content: "",
     Excerpt: "",
-    PublishDate: new Date()
+    PublishDate: new Date().toISOString().split('T')[0]
   });
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === "file") {
-      const selectedImage = files[0]; // Assuming only one featured image
-      const imageUrl = URL.createObjectURL(selectedImage);
-      setBlogData({ ...blogData, FeaturedImage: imageUrl });
-    } else {
-      setBlogData({ ...blogData, [name]: value });
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setBlogData({ ...blogData, FeaturedImage: "" });
+    const { name, value } = e.target;
+    setBlogData({ ...blogData, [name]: value });
   };
 
   const handleSubmit = async () => {
@@ -34,7 +25,6 @@ const AddBlogs = () => {
       console.log("Submitting blog data:", blogData);
       const response = await axios.post('http://localhost:8090/blogs', blogData);
       console.log("Blog created:", response.data);
-      // Reset form fields
       setBlogData({
         Title: "",
         Author: "",
@@ -42,13 +32,14 @@ const AddBlogs = () => {
         FeaturedImage: "",
         Content: "",
         Excerpt: "",
-        PublishDate: new Date()
+        PublishDate: new Date().toISOString().split('T')[0]
       });
-      // Show success message
-      alert("Blog successfully added!");
+      toast.success("Blog successfully added!");
+      setTimeout(() => {
+        window.location.href = "/AllBlog";
+      }, 2000);
     } catch (error) {
       console.error("Error creating blog:", error);
-      // You can show an error message here if needed
     }
   };
 
@@ -95,17 +86,13 @@ const AddBlogs = () => {
           />
         </div>
         <div style={{ marginBottom: '5px' }}>
-          <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Featured Image:</label>
-          {blogData.FeaturedImage && (
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-              <img src={blogData.FeaturedImage} alt="Featured" style={{ width: '100px', marginRight: '10px' }} />
-              <button type="button" onClick={handleRemoveImage}>Remove</button>
-            </div>
-          )}
+          <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Featured Image URL:</label>
           <input
-            type="file"
-            className="form-control-file"
-            accept="image/*"
+            type="text"
+            className="form-control"
+            id="FeaturedImage"
+            name="FeaturedImage"
+            value={blogData.FeaturedImage}
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
@@ -162,6 +149,7 @@ const AddBlogs = () => {
           Submit
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
