@@ -12,6 +12,7 @@ router.route("/reg").post(async (req, res) => {
     confirmPassword,
     birthdate,
     country,
+    phone,
     email
   } = req.body;
 
@@ -46,6 +47,7 @@ router.route("/reg").post(async (req, res) => {
       confirmPassword: hashedPassword, 
       birthdate,
       country,
+      phone,
       email,
     });
 

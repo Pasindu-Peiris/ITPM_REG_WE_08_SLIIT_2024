@@ -37,6 +37,10 @@ const userSchema = new Schema(
       required: true,
       required: true,
     },
+    phone: {
+      type: Number,
+      required: true,
+    }
   },
   { timeStamps: true }
 );
