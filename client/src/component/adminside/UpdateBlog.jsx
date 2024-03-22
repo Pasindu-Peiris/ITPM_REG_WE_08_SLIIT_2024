@@ -137,7 +137,7 @@ const UpdateBlog = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${ImgBac})`, paddingTop: '20px', paddingLeft:"20px", paddingRight:"20px", paddingBottom:"20px" }}>
+    <div style={{ backgroundImage: `url(${ImgBac})`, paddingTop: '100px', paddingLeft:"100px", paddingRight:"100px", paddingBottom:"100px" }}>
       <div className="card" style={{ padding: '10px', position: 'relative' }}>
         <div style={{ marginBottom: '10px', textAlign: 'center' }}>
           <h2 style={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '5px' }}>Update Blog Details</h2>
