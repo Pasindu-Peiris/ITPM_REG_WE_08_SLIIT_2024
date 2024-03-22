@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const contactus = require("../models/contactus");
+const ResponseLog = require("../models/conresponse");
 
 // insert new contactus
 router.route("/add").post((req, res) => {
@@ -41,9 +42,9 @@ router.route("/read").get(async (req, res) => {
 //read one
 
 router.route("/get/:id").get(async (req, res) => {
-  let id = req.params.id;
+  let contactid = req.params.id;
   await contactus
-    .findById(id)
+    .findById(contactid)
     .then(() => {
       res.status(200).send({ status: "Message fetched", contactus });
     })
@@ -90,17 +91,37 @@ router.route("/delete/:id").delete(async (req, res) => {
     });
 });
 
-// Update the route to handle response submission
-router.route("/respond").post(async (req, res) => {
+// Add new response and insert contact form submission
+router.post("/addresponse", async (req, res) => {
   try {
-      const { id, response } = req.body;
-      await contactus.findByIdAndUpdate(id, { response });
-      res.status(200).send({ status: "Response submitted successfully!" });
-  } catch (err) {
-      console.log(err);
-      res.status(500).send({ status: "Error submitting response", error: err.message });
+    // Extract data from request body
+    const { name, email, phone, subject, message, response } = req.body;
+
+    // Create new contact form entry
+    const newContactus = new Contactus({ name, email, phone, subject, message });
+    await newContactus.save();
+
+    // Create new response log entry
+    const newResponseLog = new ResponseLog({ contactUsId: newContactus._id, response });
+    await newResponseLog.save();
+
+    res.status(200).json({ message: "Response added successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error adding response", error: error.message });
   }
 });
 
+
+// Define routes for fetching contact form submissions and updating responses
+
+{/*router.get('/submissions', async (req, res) => {
+  try {
+    const contactUsEntries = await ContactUs.find();
+    res.json(contactUsEntries);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});*/}
 
 module.exports = router;

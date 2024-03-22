@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Test from "./component/clientside/FormSend";
 import Home from "./component/clientside/Home";
 import Register from "./component/clientside/Register";
 import Dashboard from "./component/adminside/Dashboard";
@@ -27,7 +26,7 @@ import AdminAllBookings from "./component/adminside/AdminAllBookings";
 import ViewBooking from "./component/adminside/ViewBooking";
 import UpdateBooking from "./component/adminside/UpdateBooking";
 import PaymentPage from "./component/clientside/PaymentPage";
-import ContactUsRes from "./component/adminside/ContactUsRes";
+
 
 import AddBlog from "./component/adminside/AddBlog";
 import UpdateBlog from "./component/adminside/UpdateBlog";
@@ -35,7 +34,9 @@ import AllBlog from "./component/adminside/AllBlog";
 import Blogs from "./component/clientside/Blogs";
 import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
-
+import AdminLog from "./component/adminside/adminlog";
+import TestReview from "./component/clientside/TestReview";
+import AllReview from "./component/adminside/AllReview";
 function App() {
   return (
     <div>
@@ -91,7 +92,13 @@ function App() {
             {" "}
           </Route>
 
+          <Route path="/testreview" element={<TestReview/>}></Route>
+          <Route path="/allreviews" element={<AllReview/>}></Route>
+
+
+
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
+          <Route path="/adminLog" element={<AdminLog/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

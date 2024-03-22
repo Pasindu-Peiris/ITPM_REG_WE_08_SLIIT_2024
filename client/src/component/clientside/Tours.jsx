@@ -40,21 +40,26 @@ const Tours = () => {
           style={{ width: "100%", position: "absolute", top: "0%", left: 0, zIndex: -1 }}
         />
       </div>
-      <div style={{ paddingTop: "10%", textAlign: "right", paddingRight:"10%" }}> {/* Centering the search bar */}
+      <div>
+        <h1 className=" text-center text-4xl font-semibold text-black ">
+          Tour List
+        </h1>
+      </div>
+      <div style={{ paddingTop: "10%", textAlign: "right", paddingRight:"10%" }}> 
         <input
           type="text"
           placeholder="Search Tours..."
           value={searchTerm}
           onChange={handleSearchChange}
           style={{
-            width: "50%", // Increase size of the search bar
-            maxWidth: "600px", // Set maximum width for responsiveness
-            padding: "15px", // Increase padding for better appearance
-            borderRadius: "10px",
+            width: "50%", 
+            maxWidth: "600px", 
+            padding: "15px", 
             border: "3px solid #fcb900",
-            boxSizing: "border-box", // Ensure padding and border are included in width
+            boxSizing: "border-box", 
             outline: "none",
-            fontSize: "18px"
+            fontSize: "18px",
+            borderRadius: "10px"
           }}
         />
       </div>

@@ -6,19 +6,19 @@ const Schema = mongoose.Schema;
 const bookingsSchema = new Schema({
   tourName: {
     type: String,
-    required: true,
+    
   },
   dayDetails: {
     type: String,
-    required: true,
+    
   },
   travellers: {
     type: Number,
-    required: true,
+    
   },
   price: {
     type: Number,
-    required: true,
+    
   },
   name: {
     type: String,

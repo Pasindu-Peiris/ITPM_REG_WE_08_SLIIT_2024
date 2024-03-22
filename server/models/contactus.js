@@ -22,7 +22,13 @@ const contactusSchema = new Schema({
         type: String,
         required: true,
     },
-    response: String,
+    response: {
+        type: String
+    },
+    responded: {
+         type: Boolean, 
+         default: false 
+    }
 });
 
 const Contactus = mongoose.model("Contactus", contactusSchema);
