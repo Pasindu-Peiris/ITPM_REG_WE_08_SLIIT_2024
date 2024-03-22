@@ -100,10 +100,10 @@ const AllBlog = () => {
     const doc = new jsPDF();
 
     // Define columns for the table
-    const columns = ["Title", "Author", "Category"];
+    const columns = ["Title", "Author", "Category","Content","Excerpt","PublishDate"];
 
     // Define rows
-    const rows = filteredData.map((blog) => [blog.Title, blog.Author, blog.Category]);
+    const rows = filteredData.map((blog) => [blog.Title, blog.Author, blog.Category, blog.Content,blog.Excerpt, blog.PublishDate]);
 
     // Add table to the PDF
     doc.autoTable({ columns, body: rows });

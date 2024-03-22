@@ -1,4 +1,4 @@
-//blogs.js routes
+// blogs.js routes
 
 const express = require('express');
 const router = express.Router();
@@ -7,9 +7,15 @@ const Blog = require('../models/blogs');
 // Create a new blog
 router.post('/', async (req, res) => {
     try {
-        console.log("Received blog data:", req.body);
         const { Title, Author, Category, FeaturedImage, Content, Excerpt, PublishDate } = req.body;
-        
+
+        // Check if a blog with the same title already exists
+        const existingBlog = await Blog.findOne({ Title });
+        if (existingBlog) {
+            return res.status(400).json({ message: "Blog with this title already exists" });
+        }
+
+        // Create the new blog
         const newBlog = await Blog.create({
             Title,
             Author,
@@ -19,9 +25,7 @@ router.post('/', async (req, res) => {
             Excerpt,
             PublishDate
         });
-        
-        console.log("New blog created:", newBlog);
-        
+
         res.status(201).json(newBlog);
     } catch (error) {
         console.error("Error creating blog:", error);

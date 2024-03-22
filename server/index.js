@@ -54,6 +54,10 @@ app.use('/tours', toursRouter);
 // Blogs Route
 app.use('/blogs', blogsRouter);
 
+const admins = require('./Routes/admins')
+app.use("/admins", admins)
+
+
 //Booking Route 
 const Booking = require('./Routes/Bookings');
 app.use('/bookings', Booking);
@@ -78,6 +82,9 @@ app.use("/api/images", getAll);
 const getImage = require("./Routes/getImage");
 app.use("/api/image", getImage);
 
+//review
+const TestReview = require('./Routes/testreview');
+app.use('/testreview', TestReview);
 
 
 app.listen(PORT, () => {

@@ -9,7 +9,7 @@ const AddDesPoint = () => {
 
     const { id } = useParams();
     // <a href={`/get/${item._id}`} className="btn btn-success cix"><i class="fa-solid fa-pen-to-square" style={{ color: "#ffffff" }}></i></a>
-    
+
 
     function Notify() {
         toast.success('Successful', {
@@ -249,11 +249,8 @@ const AddDesPoint = () => {
 
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
-        
         console.log(listPoints);
-
 
         axios.post('http://localhost:8090/dest/adddest', {
             ...listPoints,
@@ -265,7 +262,6 @@ const AddDesPoint = () => {
             points6: Object.values(listPoints.points6),
             points7: Object.values(listPoints.points7),
             points8: Object.values(listPoints.points8)
-
         }).then(response => {
             console.log(response.data);
             Notify();
@@ -275,12 +271,11 @@ const AddDesPoint = () => {
                 window.location.href = "/editdes/" + id;
             }, 2000); // 2000 milliseconds (2 seconds) 
 
-        })
-            .catch(error => {
-                console.log(error);
-                Notify2();
+        }).catch(error => {
+            console.log(error);
+            Notify2();
 
-            });
+        });
 
 
 
