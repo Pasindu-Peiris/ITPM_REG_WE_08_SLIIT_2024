@@ -1,7 +1,3 @@
-//UpdateBlog
-
-// UpdateBlog.jsx
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
@@ -19,6 +15,15 @@ const UpdateBlog = () => {
     Content: "",
     Excerpt: "",
     PublishDate: new Date().toISOString().split('T')[0]
+  });
+
+  const [errors, setErrors] = useState({
+    Title: "",
+    Author: "",
+    Category: "",
+    FeaturedImage: "",
+    Content: "",
+    Excerpt: ""
   });
 
   useEffect(() => {
@@ -48,13 +53,76 @@ const UpdateBlog = () => {
       const selectedImage = files[0]; // Assuming only one featured image
       const imageUrl = URL.createObjectURL(selectedImage);
       setBlogData({ ...blogData, FeaturedImage: imageUrl });
+    } else if (name === "FeaturedImage") {
+      // Validate URL
+      const isValidUrl = isValidURL(value);
+      setErrors({ ...errors, FeaturedImage: isValidUrl ? "" : "Invalid URL" });
+      setBlogData({ ...blogData, [name]: value });
     } else {
       setBlogData({ ...blogData, [name]: value });
     }
   };
 
+  const isValidURL = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const countWords = (text) => {
+    const words = text.trim().split(/\s+/);
+    return words.filter(word => word !== '').length;
+  };
+
   const handleSubmit = async () => {
     try {
+      // Validation checks
+      let errorOccurred = false;
+      const newErrors = { ...errors };
+
+      if (!blogData.Title) {
+        newErrors.Title = "Title is required";
+        errorOccurred = true;
+      }
+
+      if (!blogData.Author) {
+        newErrors.Author = "Author is required";
+        errorOccurred = true;
+      }
+
+      if (!blogData.Category) {
+        newErrors.Category = "Category is required";
+        errorOccurred = true;
+      }
+
+      if (!blogData.Content) {
+        newErrors.Content = "Content is required";
+        errorOccurred = true;
+      }
+
+      if (countWords(blogData.Content) < 50) {
+        newErrors.Content = "Content must be at least 50 words long";
+        errorOccurred = true;
+      }
+
+      if (!blogData.Excerpt) {
+        newErrors.Excerpt = "Excerpt is required";
+        errorOccurred = true;
+      }
+
+      if (!blogData.FeaturedImage || !isValidURL(blogData.FeaturedImage)) {
+        newErrors.FeaturedImage = "Invalid URL";
+        errorOccurred = true;
+      }
+
+      if (errorOccurred) {
+        setErrors(newErrors);
+        return;
+      }
+
       console.log("Submitting updated blog data:", blogData);
       const response = await axios.put(`http://localhost:8090/blogs/${id}`, blogData);
       console.log("Blog updated:", response.data);
@@ -85,6 +153,9 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
+          <div style={{ fontSize: '12px', marginTop: '3px' }}>
+            {countWords(blogData.Title) < 1 && <span style={{ color: 'red' }}> (Title required)</span>}
+          </div>
         </div>
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Author:</label>
@@ -97,6 +168,9 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
+          <div style={{ fontSize: '12px', marginTop: '3px' }}>
+            {countWords(blogData.Author) < 1 && <span style={{ color: 'red' }}> (Author required)</span>}
+          </div>
         </div>
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Category:</label>
@@ -109,17 +183,25 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
+          <div style={{ fontSize: '12px', marginTop: '3px' }}>
+            {countWords(blogData.Category) < 1 && <span style={{ color: 'red' }}> (Category required)</span>}
+          </div>
         </div>
-         <div style={{ marginBottom: '5px' }}>
-          <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Featured Image:</label>
+        <div style={{ marginBottom: '5px' }}>
+          <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>
+          
+        Featured Image URL:</label>
           <input
-            type="file"
-            className="form-control-file"
-            accept="image/*"
+            type="text"
+            className="form-control"
+            id="FeaturedImage"
+            name="FeaturedImage"
+            value={blogData.FeaturedImage}
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-        </div> 
+          <div style={{ fontSize: '12px', marginTop: '3px', color: 'red' }}>{errors.FeaturedImage}</div>
+        </div>
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Content:</label>
           <textarea
@@ -130,7 +212,12 @@ const UpdateBlog = () => {
             value={blogData.Content}
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
-          ></textarea>
+            ></textarea>
+          <div style={{ color: 'red', fontSize: '12px' }}>{errors.Content}</div>
+          <div style={{ fontSize: '12px', marginTop: '3px' }}>
+            {`${countWords(blogData.Content)} words`}
+            {countWords(blogData.Content) < 50 && <span style={{ color: 'red' }}> (Minimum 50 words required)</span>}
+          </div>
         </div>
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Excerpt:</label>
@@ -143,6 +230,10 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           ></textarea>
+          <div style={{ color: 'red', fontSize: '12px' }}>{errors.Excerpt}</div>
+          <div style={{ fontSize: '12px', marginTop: '3px' }}>
+            {countWords(blogData.Excerpt) < 1 && <span style={{ color: 'red' }}> (Excerpt required)</span>}
+          </div>
         </div>
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Publish Date:</label>
@@ -154,6 +245,7 @@ const UpdateBlog = () => {
             value={blogData.PublishDate}
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
+            disabled
           />
         </div>
         <button 
@@ -178,3 +270,4 @@ const UpdateBlog = () => {
 };
 
 export default UpdateBlog;
+
