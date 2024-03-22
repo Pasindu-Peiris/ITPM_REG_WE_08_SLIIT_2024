@@ -42,6 +42,21 @@ const TableComponent = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+  // Function to fetch user data along with ongoing tour information from backend
+const fetchUserData2 = async () => {
+    try {
+      const response = await fetch("http://localhost:8090/user/withOngoingTours");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setusersData(data); // Update state with fetched data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
   // delete user
   const deleteUser = async (userId) => {
     try {
@@ -61,6 +76,7 @@ const TableComponent = () => {
   // Fetch data on component mount
   useEffect(() => {
     fetchUserData();
+    fetchUserData2();
   }, []);
 
     return (
@@ -81,22 +97,28 @@ const TableComponent = () => {
                     />
                 </div>
                 <div className="relative flex">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className={`px-4 py-2 border rounded-l-lg flex-1 ${searchInput.length > 0 && /^[0-9]/.test(searchInput) ? 'border-red-500' : 'border-gray-300'}`}
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                        />
-                        {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
-                            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
-                        )}
-                        {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
-                            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
-                        )}
-                        <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
-                            Search
-                        </button>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    className={`px-4 py-2 border rounded-l-lg flex-1 ${
+                        (searchInput.length > 0 && /^[0-9]/.test(searchInput)) ||
+                        (searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput))
+                            ? 'border-red-500'
+                            : 'border-gray-300'
+                    }`}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                />
+                {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+                    <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+                )}
+                {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
+                    <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
+                )}
+                <button className="px-4 font-semibold bg-gray-900 text-white rounded-r-lg hover:bg-gray-700 hover:text-white">
+                    Search
+                </button>
+
                     </div>
 
             </div>
@@ -144,8 +166,8 @@ const TableComponent = () => {
                         <td className="border px-4 py-2">{user._id.toString()}</td>
                         <td className="border px-4 py-2">{user.username}</td>
                         <td className="border px-4 py-2">{user.email}</td>
-                        <td className="border px-4 py-2">Data 4</td>
-                        <td className="border px-4 py-2">Data 5</td>
+                        <td className="border px-4 py-2">{user.phone}</td>
+                        <td className="border px-4 py-2">{user.ongoing ? user.ongoing.join(', ') : ''}</td>
                         <td className="border px-4 py-2">
                         </td>
                         <td className="border px-4 py-2" style={{textAlign: "right"}}>

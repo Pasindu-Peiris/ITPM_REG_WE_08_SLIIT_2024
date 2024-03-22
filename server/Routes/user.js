@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const user = require("../models/user");
+const Booking = require("../models/bookings");
 const bcrypt = require("bcrypt");
 
 router.route("/reg").post(async (req, res) => {
@@ -66,6 +67,26 @@ router.get('/', async (req, res) => {
       res.status(500).json({ message: error.message });
   }
 });
+
+// Get all users with their ongoing tour information
+router.get('/withOngoingTours', async (req, res) => {
+  try {
+    const users = await user.find();
+    // Fetch ongoing tour information for each user
+    const usersWithOngoingTours = await Promise.all(users.map(async (user) => {
+      // Fetch ongoing tour information for the user based on their username
+      const bookings = await Booking.find({ name: user.username }); // Adjusted query to match the username field
+      // Assuming a user can have multiple ongoing bookings, you can collect all tour names
+      const ongoingTours = bookings.map(booking => booking.tourName);
+      return { ...user._doc, ongoing: ongoingTours }; // Merge ongoing tour information with user data
+    }));
+    res.json(usersWithOngoingTours);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 // Get a single tour by ID
 router.get('/:id', async (req, res) => {
     try {
