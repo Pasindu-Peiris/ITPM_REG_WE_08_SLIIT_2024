@@ -29,63 +29,13 @@ const Register = () => {
   useEffect(() => {
     console.log(formData);
   }, [formData]); 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (
-    !formData.username ||
-    !formData.password ||
-    !formData.confirmPassword ||
-    !formData.firstname ||
-    !formData.lastname ||
-    !formData.phone ||
-    !formData.email ||
-    !formData.country
-  ) {
-    toast.error("Please complete all form fields to continue", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
-    return;
-  }
-
-  if (formData.password !== formData.confirmPassword) {
-    console.log("Password and confirm password do not match");
-    toast.error("Password and confirm password do not match", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:8090/user/reg", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json(); // Define data here
-
-    if (res.status === 400 && data.error === "Username is already taken") {
-      console.log("Username is already taken");
-      toast.error("Username is already taken. Please choose another one.", {
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -96,14 +46,75 @@ const handleSubmit = async (e) => {
         theme: "dark",
         transition: Bounce,
       });
-    } else if (
-      res.status === 400 &&
-      data.error === "Email is already associated with an account"
+      return;
+    }
+
+    
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Please enter a valid 10-digit phone number", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      return;
+    }
+
+    if (
+      !formData.username ||
+      !formData.password ||
+      !formData.confirmPassword ||
+      !formData.firstname ||
+      !formData.lastname ||
+      !formData.country
     ) {
-      console.log("Email is already associated with an account");
-      toast.error(
-        "Email is already associated with an account. Please use a different email address.",
-        {
+      toast.error("Please complete all required form fields", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Password and confirm password do not match", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:8090/user/reg", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json(); // Define data here
+
+      if (res.status === 400 && data.error === "Username is already taken") {
+        toast.error("Username is already taken. Please choose another one.", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -113,11 +124,48 @@ const handleSubmit = async (e) => {
           progress: undefined,
           theme: "dark",
           transition: Bounce,
-        }
-      );
-    } else if (data.success === false) {
-      console.log("Signup unsuccessful:", data.error);
-      toast.error("Signup unsuccessful: " + data.error, {
+        });
+      } else if (
+        res.status === 400 &&
+        data.error === "Email is already associated with an account"
+      ) {
+        toast.error(
+          "Email is already associated with an account. Please use a different email address.",
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          }
+        );
+      } else if (data.success === false) {
+        toast.error("Signup unsuccessful: " + data.error, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      } else {
+        toast.success("Account created successfully!", {
+          position: "top-center",
+          theme: "dark",
+          transition: Bounce,
+          onClose: () => navigate("/login"),
+        });
+      }
+    } catch (error) {
+      console.error("Error creating user", error);
+      toast.error("Signup unsuccessful", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -128,30 +176,8 @@ const handleSubmit = async (e) => {
         theme: "dark",
         transition: Bounce,
       });
-    } else {
-      console.log("Signup successful");
-      toast.success("Account created successfully!", {
-        position: "top-center",
-        theme: "dark",
-        transition: Bounce,
-        onClose: () => navigate("/login"),
-      });
     }
-  } catch (error) {
-    console.error("Error creating user", error);
-    toast.error("Signup unsuccessful", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
-  }
-};
+  };
 
   return (
     <div style={{ position: "relative" }}>

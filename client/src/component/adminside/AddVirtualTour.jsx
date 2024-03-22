@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-//import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddVirtualTour = () => {
@@ -37,14 +37,19 @@ const AddVirtualTour = () => {
       );
       console.log("Response:", response.data);
        setSelectedImageFiles([]);
-       setSelectedMusicFile(null);
+      setSelectedMusicFile(null);
+      toast.success("Files added successfully", {
+        position: "top-center",
+        theme: "dark",
+        transition: Bounce,
+      });
     } catch (error) {
       console.error("Error:", error);
     }
   };
   return (
     <div className="bg-cover bg-center h-screen flex justify-center items-center">
-      
+      <ToastContainer/>
       <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4">Create Virtual Tour</h2>
 
