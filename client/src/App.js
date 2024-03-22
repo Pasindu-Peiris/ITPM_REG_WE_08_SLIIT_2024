@@ -36,6 +36,7 @@ import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
 import AdminLog from "./component/adminside/adminlog";
 import TestReview from "./component/clientside/TestReview";
+import AllReview from "./component/adminside/AllReview";
 function App() {
   return (
     <div>
@@ -92,6 +93,7 @@ function App() {
           </Route>
 
           <Route path="/testreview" element={<TestReview/>}></Route>
+          <Route path="/allreviews" element={<AllReview/>}></Route>
 
 
 

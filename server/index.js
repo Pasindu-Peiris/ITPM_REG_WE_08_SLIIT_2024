@@ -82,7 +82,9 @@ app.use("/api/images", getAll);
 const getImage = require("./Routes/getImage");
 app.use("/api/image", getImage);
 
-
+//TestReview
+const TestReview = require("./Routes/testreview");
+app.use("/testreview",TestReview)
 
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
