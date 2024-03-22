@@ -63,14 +63,11 @@ function AdminAllBookings() {
     setSearchTerm(e.target.value);
   };
 
-  const filteredBookings = bookings.filter((booking) => {
+const filteredBookings = bookings.filter((booking) => {
     return (
-      booking.tourName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.price.toString().includes(searchTerm.toLowerCase()) ||
-      booking.dayDetails.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.email.toLowerCase().includes(searchTerm.toLowerCase())||
-      booking.phone.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+      booking.tourName 
+      
+      
     );
   });
 
