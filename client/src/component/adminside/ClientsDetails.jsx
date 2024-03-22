@@ -4,7 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import deleteIcn from "../../Images/trash (1).png";
 import updateIcn from "../../Images/refresh.png";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const TableComponent = () => {
@@ -58,21 +59,71 @@ const fetchUserData2 = async () => {
   };
   
   // delete user
-  const deleteUser = async (userId) => {
+  // delete user
+const deleteUser = async (userId, username) => {
     try {
-      const response = await fetch(`http://localhost:8090/user/${userId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete user");
-      }
-      // Update state after deletion
-      setusersData(userData.filter((user) => user._id !== userId));
+      toast.info(
+        <div>
+          <p>{`Are you sure you want to delete ${username}?`}</p>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button
+              onClick={async () => {
+                const response = await fetch(`http://localhost:8090/user/${userId}`, {
+                  method: "DELETE",
+                });
+                if (response.ok) {
+                  // Update state after deletion
+                  setusersData(userData.filter((user) => user._id !== userId));
+                  toast.success(`${username} deleted successfully`, {
+                    position:"top-center"
+                  });
+                  
+                } else {
+                  throw new Error("Failed to delete user");
+                }
+              }}
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                borderRadius: "4px",
+                cursor: "pointer",
+                marginRight: "10px",
+              }}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => toast.dismiss()}
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              No
+            </button>
+          </div>
+        </div>,
+        {
+          position: "top-center",
+          autoClose: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } catch (error) {
-      console.error("Error deleting tour:", error);
+      console.error("Error deleting user:", error);
+      toast.error("Failed to delete user");
     }
   };
-
+  
+  
   // Fetch data on component mount
   useEffect(() => {
     fetchUserData();
@@ -82,6 +133,7 @@ const fetchUserData2 = async () => {
     return (
         
         <div className="container mx-auto mt-10">
+            <ToastContainer/>
              <div className='flex justify-left mb-7'> {/* Adjusted alignment to center */}
                 <p style={{ fontWeight: 'bold', fontSize: '2rem',fontFamily: 'Arial, sans-serif' }}>Client Details</p> {/* Applied bold font and increased font size */}
             </div>
@@ -177,7 +229,7 @@ const fetchUserData2 = async () => {
                         <td className="border px-4 py-2" style={{textAlign: "right"}}>
                             <img src={updateIcn} alt="Update" style={{ width: "20px", height: "20px", display: "inline-block",marginRight: "20px"  }} />
                             <img src={deleteIcn} alt="Delete" style={{ width: "20px", height: "20px", display: "inline-block", cursor: "pointer" }} 
-                            onClick={() => deleteUser(user._id)}/>
+                            onClick={() => deleteUser(user._id, user.username)}/>
                         </td>
 
                     </tr>
