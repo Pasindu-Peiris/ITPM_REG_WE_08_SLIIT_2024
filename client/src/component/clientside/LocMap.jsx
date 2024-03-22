@@ -27,7 +27,8 @@ const LocMap = () => {
                 },
                 {
 
-                    content: <h2 className='text-xl'>Explore travel with Ai Assistant 👾</h2>,
+                    content: <h2 className='text-xl'>Explore travel with Ai Assistant 👾</h2>
+                    ,
                     locale: { skip: 'Skip tutorial' },
                     placement: 'bottom',
                     target: "#bot",
@@ -40,17 +41,16 @@ const LocMap = () => {
                     locale: { skip: 'Skip tutorial' },
                     placement: 'bottom',
                     target: "#step1",
-                    title: "First Step"
+                    title: "Second Step"
 
-                },
-                
+                },   
                 {
 
                     content: <h2 className='text-xl'>Explore the location , Drag the map man into the flag icon 🗺️ </h2>,
                     locale: { skip: 'Skip tutorial' },
                     placement: 'center',
                     target: "#map1",
-                    title: "First Step"
+                    title: "Thired Step"
 
                 }
             ]
