@@ -18,14 +18,13 @@ router.route("/add").post((req, res) => {
 });
 
 router.route("/read").get(async (req, res) => {
-  TestReview.find()
-    .then((reviews) => {
-      res.json(reviews);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({ status: "Error with get message", error: err.message });
-    });
+  try {
+    const reviews = await TestReview.find();
+    res.json(reviews);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ status: "Error with get message", error: err.message });
+  }
 });
 
 module.exports = router;

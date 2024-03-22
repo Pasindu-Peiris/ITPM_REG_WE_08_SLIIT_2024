@@ -19,7 +19,7 @@ import AddVirtualTour from "./component/adminside/AddVirtualTour";
 import EditDes from "./component/adminside/EditDes";
 import UpdateDes from "./component/adminside/UpdateDes";
 import OneUpdateDes from "./component/adminside/OneUpdateDes";
-import ReviewForm from "./component/clientside/ReviewForm";
+
 import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
 import AdminAllBookings from "./component/adminside/AdminAllBookings";
@@ -36,7 +36,7 @@ import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
 import AdminLog from "./component/adminside/adminlog";
 import TestReview from "./component/clientside/TestReview";
-import AllReview from "./component/adminside/AllReview";
+
 function App() {
   return (
     <div>
@@ -77,7 +77,7 @@ function App() {
             {" "}
           </Route>
 
-          <Route path="/reviewform" element={<ReviewForm />}></Route>
+        
 
           <Route path="/bookings" element={<AdminAllBookings />}></Route>
           <Route path="/bookings/:id" element={<ViewBooking />}></Route>
@@ -93,11 +93,14 @@ function App() {
           </Route>
 
           <Route path="/testreview" element={<TestReview/>}></Route>
-          <Route path="/allreviews" element={<AllReview/>}></Route>
+      
 
 
 
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
+        
+
+       
           <Route path="/adminLog" element={<AdminLog/>}></Route>
         </Routes>
       </BrowserRouter>

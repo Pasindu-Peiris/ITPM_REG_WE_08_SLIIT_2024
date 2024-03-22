@@ -1,4 +1,4 @@
-/*import React, { useState } from "react";
+import React, { useState } from "react";
 import Nav from "./Nav";
 import Img from "../../Images/page-title-bg.png";
 import Hfotter from "./Hfotter";
@@ -14,7 +14,7 @@ const TestReview = () => {
     minHeight: "40vh",
     backgroundImage: `url(${Img})`,
     justifyContent: "center",
-    allignItems: "center",
+    alignItems: "center",
     backgroundSize: "auto",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -25,8 +25,8 @@ const TestReview = () => {
   const [date, setDate] = useState("");
   const [destination, setDestination] = useState("");
   const [review, setReview] = useState("");
- // New state for rating
 
+  // New state for validation
   const [fullNameValid, setFullNameValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
   const [dateValid, setDateValid] = useState(true);
@@ -78,8 +78,7 @@ const TestReview = () => {
       isEmailValid &&
       isDestinationValid &&
       isReviewValid &&
-      isDateValid 
-      
+      isDateValid
     ) {
       const formData = {
         fullName,
@@ -87,7 +86,6 @@ const TestReview = () => {
         date,
         destination,
         review,
-        
       };
       axios
         .post("http://localhost:8090/testreview/add", formData)
@@ -102,10 +100,13 @@ const TestReview = () => {
           setDate("");
           setDestination("");
           setReview("");
-          
         })
         .catch((err) => {
-          alert(err + "Please fill in all required fields and try again. ");
+          toast.error(`${err} Please fill in all required fields and try again.`, {
+            position: "top-center",
+            theme: "dark",
+            transition: Bounce,
+          });
           console.log(err);
         });
     } else {
@@ -120,6 +121,7 @@ const TestReview = () => {
   return (
     <div style={{ position: "relative" }}>
       <Nav />
+      <ToastContainer />
 
       <div className="flex items-center " style={addImg}>
         <h1 className=" text-center text-5xl font-semibold text-black pt-20 mt-10 ">
@@ -128,7 +130,7 @@ const TestReview = () => {
       </div>
 
       <div className="flex items-center justify-center">
-        <p className="text-xl text-black text-center mr-10  p-5">
+        <p className="text-xl text-black text-center mr-10 p-5">
           "Embark on a journey of shared experiences! Your adventures deserve to
           be heard. Share the highlights of your travels with our community by
           leaving a review. From breathtaking destinations to hidden gems, your
@@ -138,18 +140,18 @@ const TestReview = () => {
       </div>
 
       <form onSubmit={sendData}>
-        <div class="p-4 flex justify-between mx-36">
-          <div class=" w-1/2 h-96 mr-3 ">
-          <label
-            placeholder="Email"
-            htmlFor="fullName"
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-              
-            }}>Full Name</label>
-            
+        <div className="p-4 flex justify-between mx-36">
+          <div className="w-1/2 h-96 mr-3 ">
+            <label
+              htmlFor="fullName"
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              Full Name
+            </label>
             <input
               type="text"
               className={` ${fullNameValid ? "" : "is-invalid"}`}
@@ -170,13 +172,16 @@ const TestReview = () => {
               <div className="invalid-feedback">Please enter a valid name.</div>
             )}
 
-<label
-            htmlFor="email"
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-            }}>Email</label>
+            <label
+              htmlFor="email"
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              Email
+            </label>
             <input
               type="email"
               className={` ${emailValid ? "" : "is-invalid"}`}
@@ -200,13 +205,16 @@ const TestReview = () => {
               </div>
             )}
 
-<label
-            htmlFor="Review"
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-            }}>Review</label>
+            <label
+              htmlFor="Review"
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              Review
+            </label>
             <textarea
               id="review"
               className={` ${reviewValid ? "" : "is-invalid"}`}
@@ -233,15 +241,17 @@ const TestReview = () => {
             )}
           </div>
 
-          <div class=" w-1/2 h-96 ">
-          <label
-            htmlFor="date"
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-            }}>Date</label>
-
+          <div className="w-1/2 h-96 ">
+            <label
+              htmlFor="date"
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              Date
+            </label>
             <input
               type="date"
               className={` ${dateValid ? "" : "is-invalid"}`}
@@ -260,7 +270,9 @@ const TestReview = () => {
               }}
             />
             {!dateValid && (
-              <div className="invalid-feedback">Please enter a valid date.</div>
+              <div className="invalid-feedback">
+                Please enter a valid date.
+              </div>
             )}
 
             <label
@@ -296,23 +308,10 @@ const TestReview = () => {
               </div>
             )}
 
-
-
-          <label
-            htmlFor="Image Upload"
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-            }}>Image Upload</label>
-          <label htmlfor="image" >Add Image</label>
-
-          
-          <input type="file"  className="border p-2 rounded-lg w-full"></input>
             <div className="mt-10">
               <button
                 type="submit"
-                className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold"
+                className="mt-1 p-2 w-full border bg-amber-500 text-white font-bold"
               >
                 Submit Now
               </button>
@@ -328,123 +327,4 @@ const TestReview = () => {
 };
 
 export default TestReview;
-*/
 
-import React, { useState } from "react";
-import Nav from "./Nav";
-import Img from "../../Images/page-title-bg.png";
-import Hfotter from "./Hfotter";
-import axios from "axios";
-
-import { Bounce, ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-const TestReview = () => {
-  // Styles
-  const addImg = {
-    width: "100%",
-    minHeight: "40vh",
-    backgroundImage: `url(${Img})`,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundSize: "auto",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-  };
-
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [destination, setDestination] = useState("");
-  const [review, setReview] = useState("");
-
-  // New state for validation
-  const [fullNameValid, setFullNameValid] = useState(true);
-  const [emailValid, setEmailValid] = useState(true);
-  const [dateValid, setDateValid] = useState(true);
-  const [destinationValid, setDestinationValid] = useState(true);
-  const [reviewValid, setReviewValid] = useState(true);
-
-  const validateFullname = (value) => {
-    const isValid = /^[A-Za-z\s]+$/.test(value);
-    setFullNameValid(isValid);
-    return isValid;
-  };
-
-  // Other validation functions...
-
-  const sendData = (e) => {
-    e.preventDefault();
-
-    // Perform validation
-    const isFullnameValid = validateFullname(fullName);
-    // Other validations...
-
-    if (isFullnameValid) { // Corrected comment syntax
-      const formData = {
-        fullName,
-        email,
-        date,
-        destination,
-        review,
-      };
-      axios
-        .post("http://localhost:8090/testreview/add", formData)
-        .then(() => {
-          toast.success("Message sent successfully!", {
-            position: "top-center",
-            theme: "dark",
-            transition: Bounce,
-          });
-          setFullName("");
-          setEmail("");
-          setDate("");
-          setDestination("");
-          setReview("");
-        })
-        .catch((err) => {
-          alert(err + "Please fill in all required fields and try again. ");
-          console.log(err);
-        });
-    } else {
-      toast.error("Please fill in all required fields correctly!", {
-        position: "top-center",
-        theme: "dark",
-        transition: Bounce,
-      });
-    }
-  };
-
-  return (
-    <div style={{ position: "relative" }}>
-      <Nav />
-
-      <div className="flex items-center " style={addImg}>
-        <h1 className=" text-center text-5xl font-semibold text-black pt-20 mt-10 ">
-          Journey Diaries <br /> Share Your Travel Story
-        </h1>
-      </div>
-
-      <div className="flex items-center justify-center">
-        <p className="text-xl text-black text-center mr-10 p-5">
-          "Embark on a journey of shared experiences! Your adventures deserve to
-          be heard. Share the highlights of your travels with our community by
-          leaving a review. From breathtaking destinations to hidden gems, your
-          insights make the world smaller and more connected. Join us in
-          creating a tapestry of travel tales – your story begins here!"
-        </p>
-      </div>
-
-      <form onSubmit={sendData}>
-        <div className="p-4 flex justify-between mx-36">
-          {/* Form inputs */}
-        </div>
-      </form>
-      <div className="mt-10">
-        <Hfotter />
-      </div>
-    </div>
-  );
-};
-
-export default TestReview;
