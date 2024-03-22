@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Test from "./component/clientside/FormSend";
 import Home from "./component/clientside/Home";
 import Register from "./component/clientside/Register";
 import Dashboard from "./component/adminside/Dashboard";
@@ -20,14 +19,14 @@ import AddVirtualTour from "./component/adminside/AddVirtualTour";
 import EditDes from "./component/adminside/EditDes";
 import UpdateDes from "./component/adminside/UpdateDes";
 import OneUpdateDes from "./component/adminside/OneUpdateDes";
-import ReviewForm from "./component/clientside/ReviewForm";
+
 import Onedest from "./component/adminside/Onedest";
 import OneTourSection1 from "./component/clientside/OneTourSection1";
 import AdminAllBookings from "./component/adminside/AdminAllBookings";
 import ViewBooking from "./component/adminside/ViewBooking";
 import UpdateBooking from "./component/adminside/UpdateBooking";
 import PaymentPage from "./component/clientside/PaymentPage";
-import ContactUsRes from "./component/adminside/ContactUsRes";
+
 
 import AddBlog from "./component/adminside/AddBlog";
 import UpdateBlog from "./component/adminside/UpdateBlog";
@@ -35,6 +34,8 @@ import AllBlog from "./component/adminside/AllBlog";
 import Blogs from "./component/clientside/Blogs";
 import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
+import AdminLog from "./component/adminside/adminlog";
+import TestReview from "./component/clientside/TestReview";
 
 function App() {
   return (
@@ -76,7 +77,7 @@ function App() {
             {" "}
           </Route>
 
-          <Route path="/reviewform" element={<ReviewForm />}></Route>
+        
 
           <Route path="/bookings" element={<AdminAllBookings />}></Route>
           <Route path="/bookings/:id" element={<ViewBooking />}></Route>
@@ -91,7 +92,16 @@ function App() {
             {" "}
           </Route>
 
+          <Route path="/testreview" element={<TestReview/>}></Route>
+      
+
+
+
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
+        
+
+       
+          <Route path="/adminLog" element={<AdminLog/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
