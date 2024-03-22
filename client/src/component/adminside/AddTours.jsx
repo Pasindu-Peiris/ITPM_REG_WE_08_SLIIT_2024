@@ -23,8 +23,17 @@ const AddTours = () => {
     image: null,
   });
 
+  const [errors, setErrors] = useState({
+    numberOfDays: "",
+    tourName: "",
+    description: "",
+    price: "",
+  });
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
+    let error = "";
+
     if (type === "file") {
       const selectedImage = files[0];
       setTourData({ ...tourData, image: selectedImage });
@@ -37,6 +46,12 @@ const AddTours = () => {
         },
       });
     } else {
+      if (name === "numberOfDays") {
+        if (value < 1 || value > 7) {
+          error = "Number of days must be between 1 and 7";
+        }
+        setErrors({ ...errors, numberOfDays: error });
+      }
       setTourData({ ...tourData, [name]: value });
     }
   };
@@ -46,6 +61,30 @@ const AddTours = () => {
   };
 
   const handleSubmit = async () => {
+    let formErrors = {};
+
+    // Check for errors
+    if (!tourData.tourName.trim()) {
+      formErrors.tourName = "Tour name is required";
+    }
+    if (!tourData.description.trim()) {
+      formErrors.description = "Description is required";
+    }
+    if (tourData.numberOfDays < 1 || tourData.numberOfDays > 7) {
+      formErrors.numberOfDays = "Number of days must be between 1 and 7";
+    }
+    if (tourData.price <= 0) {
+      formErrors.price = "Price must be greater than 0";
+    }
+
+    // Update errors state
+    setErrors(formErrors);
+
+    // If there are errors, stop form submission
+    if (Object.keys(formErrors).length > 0) {
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append("tourName", tourData.tourName);
@@ -118,6 +157,9 @@ const AddTours = () => {
             value={tourData.tourName}
             onChange={handleChange}
           />
+          {errors.tourName && (
+            <span style={{ color: "red" }}>{errors.tourName}</span>
+          )}
         </div>
         <div style={{ marginBottom: "10px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
@@ -131,6 +173,9 @@ const AddTours = () => {
             value={tourData.description}
             onChange={handleChange}
           ></textarea>
+          {errors.description && (
+            <span style={{ color: "red" }}>{errors.description}</span>
+          )}
         </div>
         <div style={{ marginBottom: "10px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
@@ -144,6 +189,9 @@ const AddTours = () => {
             value={tourData.numberOfDays}
             onChange={handleChange}
           />
+          {errors.numberOfDays && (
+            <span style={{ color: "red" }}>{errors.numberOfDays}</span>
+          )}
         </div>
         <div style={{ marginBottom: "20px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
@@ -157,7 +205,9 @@ const AddTours = () => {
             value={tourData.price}
             onChange={handleChange}
           />
+          {errors.price && <span style={{ color: "red" }}>{errors.price}</span>}
         </div>
+
         {Array.from({ length: tourData.numberOfDays }, (_, i) => (
           <div key={i} style={{ marginBottom: "10px" }}>
             <label style={{ display: "block", marginBottom: "5px" }}>{`Day ${
