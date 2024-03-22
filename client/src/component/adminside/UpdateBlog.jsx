@@ -213,7 +213,7 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
             ></textarea>
-          <div style={{ color: 'red', fontSize: '12px' }}>{errors.Content}</div>
+          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Content}</div> */}
           <div style={{ fontSize: '12px', marginTop: '3px' }}>
             {`${countWords(blogData.Content)} words`}
             {countWords(blogData.Content) < 50 && <span style={{ color: 'red' }}> (Minimum 50 words required)</span>}
@@ -230,7 +230,7 @@ const UpdateBlog = () => {
             onChange={handleChange}
             style={{ fontSize: '14px', padding: '5px' }}
           ></textarea>
-          <div style={{ color: 'red', fontSize: '12px' }}>{errors.Excerpt}</div>
+          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Excerpt}</div> */}
           <div style={{ fontSize: '12px', marginTop: '3px' }}>
             {countWords(blogData.Excerpt) < 1 && <span style={{ color: 'red' }}> (Excerpt required)</span>}
           </div>

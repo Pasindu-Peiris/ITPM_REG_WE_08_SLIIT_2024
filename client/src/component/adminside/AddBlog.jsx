@@ -19,14 +19,35 @@ const AddBlogs = () => {
     Title: "",
     Author: "",
     Category: "",
+    FeaturedImage: "",
     Content: "",
     Excerpt: ""
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBlogData({ ...blogData, [name]: value });
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      const selectedImage = files[0]; // Assuming only one featured image
+      const imageUrl = URL.createObjectURL(selectedImage);
+      setBlogData({ ...blogData, FeaturedImage: imageUrl });
+    } else if (name === "FeaturedImage") {
+      // Validate URL
+      const isValidUrl = isValidURL(value);
+      setErrors({ ...errors, FeaturedImage: isValidUrl ? "" : "Invalid URL" });
+      setBlogData({ ...blogData, [name]: value });
+    } else {
+      setBlogData({ ...blogData, [name]: value });
+    }
     setErrors({ ...errors, [name]: "" }); // Clear error when input changes
+  };
+
+  const isValidURL = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
   };
 
   const countWords = (text) => {
@@ -67,6 +88,11 @@ const AddBlogs = () => {
 
       if (!blogData.Excerpt) {
         newErrors.Excerpt = "Excerpt is required";
+        errorOccurred = true;
+      }
+
+      if (!blogData.FeaturedImage || !isValidURL(blogData.FeaturedImage)) {
+        newErrors.FeaturedImage = "Invalid URL";
         errorOccurred = true;
       }
 
@@ -114,7 +140,6 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Title}</div> */}
           <div style={{ fontSize: '12px', marginTop: '3px' }}>
             {countWords(blogData.Title) < 1 && <span style={{ color: 'red' }}> (Title required)</span>}
           </div>
@@ -130,7 +155,6 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Author}</div> */}
           <div style={{ fontSize: '12px', marginTop: '3px' }}>
             {countWords(blogData.Author) < 1 && <span style={{ color: 'red' }}> (Author required)</span>}
           </div>
@@ -146,7 +170,6 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Category}</div> */}
           <div style={{ fontSize: '12px', marginTop: '3px' }}>
             {countWords(blogData.Category) < 1 && <span style={{ color: 'red' }}> (Category required)</span>}
           </div>
@@ -162,6 +185,7 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
+          <div style={{ fontSize: '12px', marginTop: '3px', color: 'red' }}>{errors.FeaturedImage}</div>
         </div>
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Content:</label>
