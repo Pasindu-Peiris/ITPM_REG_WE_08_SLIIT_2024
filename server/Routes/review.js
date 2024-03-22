@@ -1,37 +1,42 @@
 const express = require('express');
 const Review = require("../models/review");
 const router = express.Router();
+const multer = require('multer');
 
-// insert new review
+// Multer setup for image upload
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Folder where images will be stored
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname); // File naming convention
+    }
+});
 
-router.route("/add").post((req,res)=>{
+const upload = multer({ storage: storage });
+// Add new review
+router.post("/add", upload.array('images', 3), async (req, res) => {
+    try {
+        const { fullName, email, review, rate, date, destination } = req.body;
+        const images = req.files.map(file => file.path); // Map uploaded files to their paths
 
-    const fullName =req.body.fullName;
-    const email =req.body.email;
-    const review = req.body.review;
-    const rate = req.body.rate;
-    const date = req.body.date;
-    const destination = req.body.destination;
-    const images = req.body.images;
+        const newReview = new Review({
+            fullName,
+            email,
+            review,
+            rate,
+            date,
+            destination,
+            images
+        });
 
-    const NewReview = new Review({
-
-        fullName,
-        email,
-        review,
-        rate,
-        date,
-        destination,
-        images
-    })
-    
-    NewReview.save().then(() => {
-        res.json({ message: "Review Added successfully!" });
-    }).catch((err) => {
+        await newReview.save();
+        res.json({ message: "Review Added successfully!", review: newReview });
+    } catch (err) {
         console.log(err);
-        res.status(500).json({ message: "Error adding Review" }); 
-    });
-})
+        res.status(500).json({ message: "Error adding Review", error: err.message });
+    }
+});
 
 //All data Read 
 router.route("/read").get(async(req,res)=>{ 
@@ -47,7 +52,7 @@ router.route("/read").get(async(req,res)=>{
 })
 
 // Update
-router.route("/update/:id").put(async (req, res) => {
+/*router.route("/update/:id").put(async (req, res) => {
     const reviewId = req.params.id;
     const {fullName,
         email,
@@ -128,7 +133,6 @@ router.route("/search").get(async (req, res) => {
       console.log(err);
       res.status(500).json({ error: err.message });
     }
-  });
+  });*/
 
   module.exports = router;
-  

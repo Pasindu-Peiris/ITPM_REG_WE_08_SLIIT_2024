@@ -71,7 +71,7 @@ const ContactUs = () => {
     return isValid;
   };
   const validateSubject = (value) => {
-    const isValid = /^[A-Za-z\s]+$/.test(value);
+    const isValid = value.trim() !== "";
     setSubjectValid(isValid);
     return isValid;
   };
@@ -139,7 +139,7 @@ const ContactUs = () => {
       <Nav />
       <ToastContainer />
       <div className="flex items-center " style={addImg}>
-        <h1 className=" text-center text-4xl font-semibold text-black ">
+        <h1 className=" text-center text-4xl font-semibold text-black pt-20 ">
           Contact Us
         </h1>
       </div>

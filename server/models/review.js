@@ -17,7 +17,7 @@ const ReviewSchema = new Schema({
         required : true
     },
     rate :{
-        type: String,
+        type: Number,
         required : true
     },
     date:{
@@ -27,15 +27,14 @@ const ReviewSchema = new Schema({
     destination:{
         type: String,
         required : true
-    }
-    
-    /*images:{
-        type: String,
-        required : true
-    }
-*/
+    },
+    images: [{
+        type: String, // Assuming you store image URLs
+        required: true
+    }]
+
 });
 
-const NewReview = mongoose.model("Review", ReviewSchema);
+const Review = mongoose.model("Review", ReviewSchema);
 
-module.exports = NewReview;
+module.exports = Review;
