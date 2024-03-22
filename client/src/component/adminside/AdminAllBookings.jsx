@@ -65,8 +65,14 @@ function AdminAllBookings() {
 
 const filteredBookings = bookings.filter((booking) => {
     return (
-      booking.tourName 
-      
+     
+      booking.tourName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.dayDetails.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.phone.toLowerCase().includes(searchTerm.toLowerCase())
+  
+     
       
     );
   });
