@@ -12,13 +12,16 @@ const Nav = () => {
         },
         button: {
             backgroundColor: "red",
+        },
+        nav:{
+            zIndex: "9999",
         }
     }
 
 
     return (
 
-        <div className='Nav w-100 flex justify-between items-center px-5 p-4 bg-black text-gray-100 fixed top-0 left-0 right-0' >
+        <div style={style.nav} className='Nav w-100 flex justify-between items-center px-5 p-4 bg-black text-gray-100 fixed top-0 left-0 right-0' >
 
             <div className="logo" >
                 <img className='object-contain' src={logo} alt="logo.png" width={80} />
@@ -26,9 +29,9 @@ const Nav = () => {
 
             <div className="menu" >
                 <ul className='flex justify-between items-center ' id='menu'>
-                    <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Home</a></li>
-                    <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour List</a></li>
-                    <li className='px-4'><a href="!#" className='hover:text-yellow-400 text-lg'>Tour Search</a></li>
+                    <li className='px-4'><a href="/" className='hover:text-yellow-400 text-lg'>Home</a></li>
+                    <li className='px-4'><a href="/tours" className='hover:text-yellow-400 text-lg'>Tour List</a></li>
+                    <li className='px-4'><a href="/tours" className='hover:text-yellow-400 text-lg'>Tour Search</a></li>
                     <li className='px-4'><a href="./ContactUs" className='hover:text-yellow-400 text-lg'>Contact Us</a></li>
                     <li className='px-4'><a href="./Blogs" className='hover:text-yellow-400 text-lg'>Blog</a></li>
                 </ul>

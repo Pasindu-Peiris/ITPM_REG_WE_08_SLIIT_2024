@@ -10,6 +10,7 @@ import Hsection6 from './Hsection6';
 import Hsection7 from './Hsection7';
 import Hsction8 from './Hsction8';
 import { ToastContainer } from 'react-toastify';
+import HomeTSlide from './HomeTSlide';
 
 
 
@@ -25,7 +26,7 @@ const Home = () => {
       <HsectionOne/>
       <HsectionSecond/>
       <HSectionThird/>
-      <Hsection6/>
+      <HomeTSlide/>
       <Hsection4/>
       <Hsection5/>
       <Hsection7/>
