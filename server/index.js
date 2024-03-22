@@ -8,8 +8,6 @@ const app = express();
 const toursRouter = require('./Routes/tours')
 const blogsRouter = require('./Routes/blogs')
 
-
-
 //upload images
 app.use(express.json());
 app.use(express.static('public'));

@@ -27,7 +27,7 @@ import AdminAllBookings from "./component/adminside/AdminAllBookings";
 import ViewBooking from "./component/adminside/ViewBooking";
 import UpdateBooking from "./component/adminside/UpdateBooking";
 import PaymentPage from "./component/clientside/PaymentPage";
-import ContactUsRes from "./component/adminside/ContactUsRes";
+
 
 import AddBlog from "./component/adminside/AddBlog";
 import UpdateBlog from "./component/adminside/UpdateBlog";
@@ -91,6 +91,10 @@ function App() {
           <Route path="/singleBlog/:id" element={<SingleBlog />}>
             {" "}
           </Route>
+
+          <Route path="/testreview" element={<TestReview/>}></Route>
+
+
 
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
           <Route path="/adminLog" element={<AdminLog/>}></Route>
