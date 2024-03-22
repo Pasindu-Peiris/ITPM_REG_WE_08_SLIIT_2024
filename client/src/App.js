@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Test from "./component/clientside/FormSend";
 import Home from "./component/clientside/Home";
 import Register from "./component/clientside/Register";
 import Dashboard from "./component/adminside/Dashboard";
@@ -36,6 +35,7 @@ import Blogs from "./component/clientside/Blogs";
 import SingleBlog from "./component/clientside/SingleBlog";
 import VirtualTours from "./component/clientside/VirtualTours";
 import AdminLog from "./component/adminside/adminlog";
+import TestReview from "./component/clientside/TestReview";
 
 function App() {
   return (
