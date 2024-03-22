@@ -114,5 +114,21 @@ router.route('/updatepdf/:id').post(upload.single('file'), async (req, res) => {
 });
 
 
+//send data is on database or not
+router.route('/check/:id').get(async (req, res) => {
+
+    const trid = req.params.id;
+
+    try {
+        const destination = await dest.findOne({ trid: trid });
+        if (destination) {
+            res.json("yes");
+        } else {
+            res.json("no");
+        }
+    } catch (err) {
+        res.json(err);
+    }
+});
 
 module.exports = router;
