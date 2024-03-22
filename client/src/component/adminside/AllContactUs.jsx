@@ -67,69 +67,6 @@ function AllContactUs() {
   };
 
   return (
-<<<<<<< Updated upstream
-    <div style={{ padding: "80px" }}>
-      <p style={{ fontWeight: "bold", fontSize: "35px", paddingBottom: "20px" }}>All Contact Us Form Submissions</p>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <p style={{ fontWeight: "bold", fontSize: "30px", paddingBottom: "20px" }}>Received Submissions</p>
-        <button
-          className="mt-1 w-60 p-2 border bg-amber-500 text-white font-bold rounded-md"
-          onClick={handleExportReport}
-        >
-          Export Report
-        </button>
-        <SearchBar />
-      </div>
-      <div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Date</th>
-            <th scope="col">Subject</th>
-            <th scope="col">Message</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contacts.map((contact) => (
-            <tr key={contact._id}>
-              <td>{contact.name}</td>
-              <td>{contact.email}</td>
-              <td>{contact.phone}</td>
-              <td>{contact.date}</td>
-              <td>{contact.subject}</td>
-              <td>{contact.message}</td>
-              <td>
-                <button
-                  className="mt-1 p-2 border bg-amber-500 text-white font-bold rounded-lg"
-                  onClick={() => handleResponse(contact)}
-                >
-                  Response
-                </button>
-              </td>
-              <td>
-                <button
-                  className="mt-1 p-2 border bg-amber-500 text-white font-bold rounded-lg"
-                  onClick={() => handleDelete(contact._id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
-=======
         <div style={{ padding: "80px" }}>
             <h1 style={{ fontWeight: "bold", fontSize: "40px", paddingBottom: "20px" }}>Contact Us Form Submission</h1>
           <div 
@@ -148,7 +85,7 @@ function AllContactUs() {
             >
               Export Report
             </button>
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar onSearch="" />
             
           </div>
           <table className="table table-striped">
@@ -200,11 +137,6 @@ function AllContactUs() {
         </div>
       );
     };
->>>>>>> Stashed changes
 
-      {/*<AllCResponse/>*/}
-    </div>
-  );
-}
-
+ 
 export default AllContactUs;
