@@ -18,7 +18,10 @@ router.post('/', async (req, res) => {
             phone,
             nic,
             country,
-            address
+            address,
+            cardNumber,
+            expiryDate,
+            cvv
         });
 
         console.log("New booking created:", newBooking);
