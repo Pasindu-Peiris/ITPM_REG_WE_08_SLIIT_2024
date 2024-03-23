@@ -1,14 +1,14 @@
 // routes/response.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const ResponseLog = require('../models/conresponse');
+const ResponseLog = require("../models/conresponse");
 
 // Define routes for handling response submissions and logging
 
-router.post('/submit', async (req, res) => {
+router.post("/submit", async (req, res) => {
   const responseLog = new ResponseLog({
     contactUsId: req.body.contactUsId,
-    response: req.body.response
+    response: req.body.response,
   });
 
   try {

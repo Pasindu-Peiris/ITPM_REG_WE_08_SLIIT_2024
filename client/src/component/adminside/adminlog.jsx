@@ -41,6 +41,7 @@ const AddUserForm = () => {
 
       // Display a success message to the user (optional)
       alert("User added successfully!");
+      
     } catch (error) {
       // Handle errors
       console.error("Error adding user:", error);
@@ -48,7 +49,7 @@ const AddUserForm = () => {
       alert("An error occurred while adding the user. Please try again later.");
     }
   };
-
+  
   return (
     <div className="flex items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="w-1/3 p-6 bg-gray-100 rounded-lg shadow-lg">
@@ -91,13 +92,13 @@ const AddUserForm = () => {
           />
           {!phoneValid && <p className="text-red-500 text-sm mt-1">Phone number should start with + or 0</p>} {/* Error message */}
         </div>
-        <Link to={"/clientsdetails"}>
+        
         <button
           className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
         >
           Submit
         </button>
-        </Link>
+        
       </form>
     </div>
   );
