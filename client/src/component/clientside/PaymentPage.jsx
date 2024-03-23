@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
-import Nav from "../clientside/Nav";
+import Nav from "./Nav";
 import Hfotter from "./Hfotter";
+import { ToastContainer } from 'react-toastify';
 
 // Styles
 const addImg = {
@@ -26,21 +27,32 @@ const th = {
   width: "50%",
 };
 
+const ToastMessage = ({ message }) => (
+  <div className="toast-message">
+    <p>{message}</p>
+  </div>
+);
+
+
 const PaymentPage = () => {
   const [bookingData, setBookingData] = useState({
-    tourName: "Galle , DownSouth",
-    dayDetails: " 2023 aug 3to 2023 aug 10 ",
+    tourName: "Sigiriya, Eight Wonder of the world ",
+    dayDetails: " ",
     travellers: 4,
-    price: 12000,
+    price: 340,
     name: "",
     email: "",
     phone: "",
     nic: "",
     country: "",
-    address: ""
+    address: "",
+    cardNumber: "",
+    expDate: "",
+    cvv: ""
   });
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,10 +75,16 @@ const PaymentPage = () => {
         phone: "",
         nic: "",
         country: "",
-        address: ""
+        address: "",
+        cardNumber: "",
+        expDate: "",
+        cvv: ""
       });
       // Show success message
-      alert("Booking successfully added!");
+      setSuccessMessage("Booking successfully added!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000); // Clear message after 3 seconds
     } catch (error) {
       console.error("Error creating booking:", error);
       // You can show an error message here if needed
@@ -74,10 +92,14 @@ const PaymentPage = () => {
     }
   };
 
+  
+
   return (
+
     <>
     <Nav/>
     <div style={{ position: "relative" }}>
+      
       <div className="flex items-center " style={addImg}>
         <h1 className="text-center text-4xl font-semibold text-black">
           Payment Page
@@ -153,7 +175,7 @@ const PaymentPage = () => {
                 />
               </div>
 
-
+              <br></br>
 
               <button
                 type="button"
@@ -182,7 +204,7 @@ const PaymentPage = () => {
               <div>
                 <label className="block text-md font-medium">Travel Date</label>
                 <input
-                  type="text"
+                  type="date"
                   className={`mt-1 p-2 border w-full`}
                   name="dayDetails"
                   value={bookingData.dayDetails}
@@ -210,11 +232,52 @@ const PaymentPage = () => {
                 />
               </div>
               {/* Add other tour details input fields */}
+              
+              <br></br>
+
+              {/* Card details */}
+    <div>
+      <p className="text-xl text-black text-center">Card details</p>
+      <div>
+        <label className="block text-md font-medium">Card Number</label>
+        <input
+          type="text"
+          className={`mt-1 p-2 border w-full`}
+          name="cardNumber"
+          value={bookingData.cardNumber}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label className="block text-md font-medium">Expiration Date</label>
+        <input
+          type="text"
+          className={`mt-1 p-2 border w-full`}
+          name="expDate"
+          value={bookingData.expDate}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label className="block text-md font-medium">CVV</label>
+        <input
+          type="text"
+          className={`mt-1 p-2 border w-full`}
+          name="cvv"
+          value={bookingData.cvv}
+          onChange={handleChange}
+        />
+      </div>
+    </div>
+
+
             </div>
           </th>
         </tr>
       </table>
+      <ToastContainer />
     </div>
+
     <Hfotter />
     </>
   );
