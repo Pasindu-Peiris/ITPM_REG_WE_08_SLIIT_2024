@@ -13,6 +13,7 @@
     "@photo-sphere-viewer/virtual-tour-plugin": "^5.7.2",
     "@react-google-maps/api": "^2.19.3",
     "@react-google-maps/marker-clusterer": "^2.19.2",
+    "@react-pdf/layout": "^3.11.3",
     "@react-pdf/renderer": "^3.4.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -38,7 +39,8 @@
     "redux": "^5.0.1",
     "three": "^0.162.0",
     "three.js": "^0.77.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yoga-layout": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
