@@ -40,19 +40,22 @@ const Dashboard = () => {
                   <a className="nav-link font-weight-bold" href="/AllTours" style={linkStyle}>Tours</a>
                 </li>
                 <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Contact Us</a>
+                  <a className="nav-link font-weight-bold" href="/AllContactUs" style={linkStyle}>Contact Us</a>
                 </li>
                 <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Blog</a>
+                  <a className="nav-link font-weight-bold" href="/AllBlog" style={linkStyle}>Blog</a>
                 </li>
                 <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Booking</a>
+                  <a className="nav-link font-weight-bold" href="/bookings" style={linkStyle}>Booking</a>
                 </li>
                 <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>360 View</a>
+                  <a className="nav-link font-weight-bold" href="/AddVirtualTour" style={linkStyle}>360 View</a>
                 </li>
                 <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Map</a>
+                  <a className="nav-link font-weight-bold" href="/ClientsDetails" style={linkStyle}>Client</a>
+                </li>
+                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
+                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Review</a>
                 </li>
               </ul>
             </div>
