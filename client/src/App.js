@@ -83,6 +83,7 @@ function App() {
           <Route path="/bookings/:id" element={<ViewBooking />}></Route>
           <Route path="/update/:id" element={<UpdateBooking />}></Route>
           <Route path="/payment" element={<PaymentPage />}></Route>
+          {/* <Route path="/payment/:id" element={<PaymentPage />}></Route> */}
           <Route path="/addBlog" element={<AddBlog />}></Route>
           <Route path="/updateBlog" element={<UpdateBlog />}></Route>
           <Route path="/AllBlog" element={<AllBlog />}></Route>

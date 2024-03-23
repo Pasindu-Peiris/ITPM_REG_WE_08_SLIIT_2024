@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import moreDetail from "../../Images/MoreDetails.PNG";
 import Nav from "../clientside/Nav";
 import Hfotter from "./Hfotter";
-import ImgM from '../../../src/Images/google-maps.png'
+import ImgM from "../../../src/Images/google-maps.png";
 
 const OneTourSection1 = () => {
   const { id } = useParams(); // Extract id from URL parameters
@@ -28,7 +28,7 @@ const OneTourSection1 = () => {
   }
 
   // Filter out empty day details
-  const filteredDayDetails = tour.dayDetails.filter(day => day.trim() !== "");
+  const filteredDayDetails = tour.dayDetails.filter((day) => day.trim() !== "");
 
   // Render tour details
   return (
@@ -37,18 +37,33 @@ const OneTourSection1 = () => {
       <div className="container mt-1" style={{ padding: "10%" }}>
         <div className="row">
           <div className="col-lg-9">
-            <h1 className="text-left mb-4" style={{ fontSize: "32px", fontWeight: "bold" }}>
+            <h1
+              className="text-left mb-4"
+              style={{ fontSize: "32px", fontWeight: "bold" }}
+            >
               {tour.tourName}
-              <div className="tourmaster-tour-rating" style={{ fontSize: "16px" }}>
+              <div
+                className="tourmaster-tour-rating"
+                style={{ fontSize: "16px" }}
+              >
                 <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
                 <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
                 <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
                 <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
                 <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
-                <span className="tourmaster-tour-rating-text" style={{ fontWeight: "normal" }}>(2 Reviews)</span>
+                <span
+                  className="tourmaster-tour-rating-text"
+                  style={{ fontWeight: "normal" }}
+                >
+                  (2 Reviews)
+                </span>
               </div>
             </h1>
-            <img src={moreDetail} alt="More Details" style={{ width: "60%", marginBottom: "20px" }} />
+            <img
+              src={moreDetail}
+              alt="More Details"
+              style={{ width: "60%", marginBottom: "20px" }}
+            />
             <div className="row justify-content-left">
               <div className="col-lg-12 mb-4 text-center">
                 {tour.images && ( // Check if tour.images exists
@@ -65,7 +80,12 @@ const OneTourSection1 = () => {
             </div>
             <div className="row mt-4">
               <div className="col-lg-12">
-                <h2 className="mb-3" style={{ fontSize: "24px", fontWeight: "bold" }}>Detail</h2>
+                <h2
+                  className="mb-3"
+                  style={{ fontSize: "24px", fontWeight: "bold" }}
+                >
+                  Detail
+                </h2>
                 <p style={{ fontSize: "18px" }}>{tour.description}</p>
               </div>
             </div>
@@ -76,12 +96,20 @@ const OneTourSection1 = () => {
             </div>
             <div className="row mt-4">
               <div className="col-lg-12">
-                <h2 className="mb-3" style={{ fontSize: "24px", fontWeight: "bold" }}>What to Expect</h2>
-                <p style={{ fontSize: "18px" }}>When choosing a destination for your backpacking trip, it is important to
-                  consider the level of difficulty of the trail and the weather conditions. Some popular backpacking destinations
-                  include national parks, wilderness areas, and mountain ranges. It is also important to obtain any necessary permits
-                  and to be aware of any regulations or rules for the area you plan to visit.
-
+                <h2
+                  className="mb-3"
+                  style={{ fontSize: "24px", fontWeight: "bold" }}
+                >
+                  What to Expect
+                </h2>
+                <p style={{ fontSize: "18px" }}>
+                  When choosing a destination for your backpacking trip, it is
+                  important to consider the level of difficulty of the trail and
+                  the weather conditions. Some popular backpacking destinations
+                  include national parks, wilderness areas, and mountain ranges.
+                  It is also important to obtain any necessary permits and to be
+                  aware of any regulations or rules for the area you plan to
+                  visit.
                 </p>
               </div>
             </div>
@@ -90,15 +118,35 @@ const OneTourSection1 = () => {
                 <hr />
               </div>
             </div>
-            <div className="row mt-4" id="itinerary"> {/* Add id for scrolling */}
+            <div className="row mt-4" id="itinerary">
+              {" "}
+              {/* Add id for scrolling */}
               <div className="col-lg-12">
-                <h2 className="mb-3" style={{ fontSize: "24px", fontWeight: "bold" }}>Itinerary</h2>
+                <h2
+                  className="mb-3"
+                  style={{ fontSize: "24px", fontWeight: "bold" }}
+                >
+                  Itinerary
+                </h2>
                 <ul className="list-group">
                   {filteredDayDetails.map((day, index) => (
                     <React.Fragment key={index}>
-                      <li className="list-group-item" style={{ fontWeight: "bold", backgroundColor: "#fcb900" }}>Day {index + 1}</li>
+                      <li
+                        className="list-group-item"
+                        style={{
+                          fontWeight: "bold",
+                          backgroundColor: "#fcb900",
+                        }}
+                      >
+                        Day {index + 1}
+                      </li>
 
-                      <li className="list-group-item" style={{ fontSize: "18px" }}>{day}</li>
+                      <li
+                        className="list-group-item"
+                        style={{ fontSize: "18px" }}
+                      >
+                        {day}
+                      </li>
                       <br />
                     </React.Fragment>
                   ))}
@@ -106,18 +154,48 @@ const OneTourSection1 = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-3">
+          <div className="col-lg-3" style={{ marginTop:"130px" }}>
             {/*add map view*/}
 
-            <div className="">
+            <div className="" >
               <hr className=""></hr>
               <h1 className="mt-4 mb-2 text-2xl fw-bold">Explor Your Tour</h1>
-              <p className=" text-amber-500 mb-2">You can Explore tour with google map and AI Assistant. <br></br>
-                <span className=" p-1 rounded bg-slate-700 text-white">Click Map Icon!</span></p>
-              <button className="btn  mb-4"><a href={`/map2/${tour._id}`}><img src={ImgM} alt="" width={70} /></a></button>
+              <p className=" text-amber-500 mb-2">
+                You can Explore tour with google map and AI Assistant. <br></br>
+                <span className=" p-1 rounded bg-slate-700 text-white">
+                  Click Map Icon!
+                </span>
+              </p>
+              <button className="btn  mb-4">
+                <a href={`/map2/${tour._id}`}>
+                  <img src={ImgM} alt="" width={70} />
+                </a>
+              </button>
               <hr></hr>
-
             </div>
+
+            <br />
+
+            <div className="card-body text-center">
+  <h5 className="card-title mb-4" style={{ fontSize: "24px", fontWeight: "bold" }}>
+    <div className="text-center">Explore Booking</div>
+  </h5>
+  <p className="card-text mb-2 text-left" style={{ fontSize: "18px", color: "#fcb900",fontWeight: "bold" }}>
+    {tour.tourName}
+  </p>
+  <p className="card-text mb-2 text-left" style={{ fontSize: "18px" }}>
+    {tour.numberOfDays} Days
+  </p>
+  <p className="card-text mb-4 text-left" style={{ fontSize: "18px" }}>
+    ${tour.price}
+  </p>
+  <a href={`/payment`} className="btn" style={{ backgroundColor: "#fcb900", marginBottom:"10%" }}>
+    Book Now
+  </a>
+</div>
+
+            <hr/>
+
             {/* booking */}
 
             {/* */}
