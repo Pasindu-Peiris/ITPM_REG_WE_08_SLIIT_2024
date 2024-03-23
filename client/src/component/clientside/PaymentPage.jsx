@@ -53,9 +53,121 @@ const PaymentPage = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Perform live validation
+    const newErrors = { ...errors };
+    switch (name) {
+      case "email":
+        // Email validation
+        if (!/\S+@\S+\.\S+/.test(value)) {
+          newErrors[name] = "Invalid email address";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "phone":
+        // Phone number validation
+        if (!/^\d{10}$/.test(value)) {
+          newErrors[name] = "Invalid phone number";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "nic":
+        // NIC/Passport validation
+        if (!/^[A-Za-z0-9]{7,}$/i.test(value)) {
+          newErrors[name] = "Invalid NIC/Passport";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "name":
+        // Name validation
+        if (!value.trim()) {
+          newErrors[name] = "Name is required";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "country":
+        // Country validation
+        if (!value.trim()) {
+          newErrors[name] = "Country is required";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+      case "address":
+        // Address validation
+        if (!value.trim()) {
+          newErrors[name] = "Address is required";
+        } else {
+          delete newErrors[name];
+        }
+        break;
+        case "email":
+            // Email validation
+            if (!/\S+@\S+\.\S+/.test(value)) {
+                newErrors[name] = "Invalid email address";
+            } else {
+                delete newErrors[name];
+            }
+            break;
+        case "phone":
+            // Phone number validation
+            if (!/^\d{10}$/.test(value)) {
+                newErrors[name] = "Invalid phone number";
+            } else {
+                delete newErrors[name];
+            }
+            break;
+        case "nic":
+            // NIC/Passport validation
+            if (!/^[A-Za-z0-9]{7,}$/i.test(value)) {
+                newErrors[name] = "Invalid NIC/Passport";
+            } else {
+                delete newErrors[name];
+            }
+            break;
+
+            case "cardNumber":
+            // Card number validation
+            if (!/^\d{16}$/.test(value)) {
+                newErrors[name] = "Invalid card number";
+            } else {
+                delete newErrors[name];
+            }
+            break;
+        case "expDate":
+            // Expiry date validation
+            // You can customize this validation according to your requirements
+            // Example: Check if the expiry date is in the future
+            const currentDate = new Date();
+            const enteredDate = new Date(value);
+            if (enteredDate <= currentDate) {
+                newErrors[name] = "Expiry date must be in the future";
+            } else {
+                delete newErrors[name];
+            }
+            break;
+        case "cvv":
+            // CVV validation
+            if (!/^\d{3,4}$/.test(value)) {
+                newErrors[name] = "Invalid CVV";
+            } else {
+                delete newErrors[name];
+            }
+            break;
+
+      default:
+        break;
+    }
+    setErrors(newErrors);
+
     setBookingData({ ...bookingData, [name]: value });
   };
 
@@ -121,6 +233,10 @@ const PaymentPage = () => {
                   value={bookingData.name}
                   onChange={handleChange}
                 />
+                {/* Address error message */}
+        {errors.name && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.name}</div>
+        )}
               </div>
               {/* Add other input fields for payment form */}
 
@@ -133,6 +249,12 @@ const PaymentPage = () => {
         value={bookingData.email}
         onChange={handleChange}
       />
+
+{/* Email error message */}
+        {errors.email && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.email}</div>
+        )}
+
     </div>
     <div>
       <label className="block text-md font-medium">Phone Number</label>
@@ -143,6 +265,10 @@ const PaymentPage = () => {
         value={bookingData.phone}
         onChange={handleChange}
       />
+      {/* Address error message */}
+      {errors.phone && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.phone}</div>
+        )}
     </div>  
     <div>
                 <label className="block text-md font-medium">NIC/Passport</label>
@@ -153,6 +279,12 @@ const PaymentPage = () => {
                   value={bookingData.nic}
                   onChange={handleChange}
                 />
+                {/* NIC/Passport error message */}
+        {errors.nic && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.nic}</div>
+        )}
+
+
               </div>
               <div>
                 <label className="block text-md font-medium">Country</label>
@@ -163,6 +295,11 @@ const PaymentPage = () => {
                   value={bookingData.country}
                   onChange={handleChange}
                 />
+
+                 {/* Country error message */}
+        {errors.country && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.country}</div>
+        )}
               </div>
               <div>
                 <label className="block text-md font-medium">Address</label>
@@ -173,6 +310,10 @@ const PaymentPage = () => {
                   value={bookingData.address}
                   onChange={handleChange}
                 />
+                {/* Address error message */}
+        {errors.address && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.address}</div>
+        )}
               </div>
 
               <br></br>
@@ -247,6 +388,12 @@ const PaymentPage = () => {
           value={bookingData.cardNumber}
           onChange={handleChange}
         />
+
+            {/* Address error message */}
+        {errors.cardNumber && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.cardNumber}</div>
+        )}
+
       </div>
       <div>
         <label className="block text-md font-medium">Expiration Date</label>
@@ -257,6 +404,11 @@ const PaymentPage = () => {
           value={bookingData.expDate}
           onChange={handleChange}
         />
+        {/* Address error message */}
+        {errors.expDate && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.expDate}</div>
+        )}
+
       </div>
       <div>
         <label className="block text-md font-medium">CVV</label>
@@ -267,6 +419,11 @@ const PaymentPage = () => {
           value={bookingData.cvv}
           onChange={handleChange}
         />
+        {/* Address error message */}
+        {errors.cvv && (
+          <div style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{errors.cvv}</div>
+        )}
+
       </div>
     </div>
 
