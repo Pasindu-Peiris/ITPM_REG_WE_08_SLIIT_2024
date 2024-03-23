@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
+import Nav from "../clientside/Nav";
+import Hfotter from "./Hfotter";
 
 // Styles
 const addImg = {
@@ -73,6 +75,8 @@ const PaymentPage = () => {
   };
 
   return (
+    <>
+    <Nav/>
     <div style={{ position: "relative" }}>
       <div className="flex items-center " style={addImg}>
         <h1 className="text-center text-4xl font-semibold text-black">
@@ -211,6 +215,8 @@ const PaymentPage = () => {
         </tr>
       </table>
     </div>
+    <Hfotter />
+    </>
   );
 };
 
