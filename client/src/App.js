@@ -46,7 +46,7 @@ function App() {
 
           <Route path="/" element={<Home />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/admin" element={<Dashboard />}></Route>
           <Route path="/map" element={<Map />}></Route>
           <Route path="/view/:id" element={<View />}></Route>
           <Route path="/map2/:id" element={<LocMap />}></Route>
