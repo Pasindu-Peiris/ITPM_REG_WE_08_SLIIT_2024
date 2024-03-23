@@ -44,7 +44,7 @@ const VirtualTours = () => {
               <img
                 src={`http://localhost:8090/${image.imagePath}`}
                 alt=""
-                className="absolute h-72 w-72 object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
+                className="absolute h-72 w-72 object-cover transition-transform duration-300 ease-in-out transform hover:scale-110 rounded-lg"
               />
             </Link>
           </div>

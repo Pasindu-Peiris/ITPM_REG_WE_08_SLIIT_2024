@@ -31,80 +31,6 @@ const HsectionOne = () => {
     },
   };
 
-  const [formData, setformData] = useState({});
-  const navigate = useNavigate();
-  const handleChange = (e) => {
-    setformData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch("http://localhost:8090/login/log", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data._id) {
-        console.log(data);
-        toast.success("Login Successfull!", {
-          position: "top-center",
-          theme: "dark",
-          transition: Bounce,
-          onClose: () => navigate("/tours"),
-        });
-      } else if (data.error === "Password incorrect") {
-        toast.error("Incorrect password. Please try again.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      } else {
-        console.error("Login failed:", data.error);
-        toast.error("User Does not exist", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      }
-    } catch (error) {
-      console.error("error", error);
-      toast.error("An error occurred. Please try again later.", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
-    }
-  };
-  
   return (
     <div
       className="flex items-center justify-center  text-gray-100"
@@ -168,61 +94,7 @@ const HsectionOne = () => {
               ></button>
               a
             </div>
-            <div className="modal-body">
-              <div className=" mt-2 ">
-                <div>
-                  <form onSubmit={handleSubmit}>
-                    <div className="flex mt-6">
-                      <div className="w-full mr-6">
-                        <label
-                          htmlFor="username"
-                          className="block text-black font-medium"
-                        >
-                          Username
-                        </label>
-                        <input
-                          type="text"
-                          name="username"
-                          className="mt-1 p-2 border w-full text-black"
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div class="w-full ">
-                        <label
-                          htmlFor="password"
-                          className="block text-black font-medium"
-                        >
-                          Password*
-                        </label>
-                        <input
-                          type="password"
-                          name="password"
-                          className="mt-1 p-2 border w-full text-black"
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-6">
-                      <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold">
-                        Sign In
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer justify-content-center">
-              <div className="text-center">
-                <h2 className="text-black font-bold">DO NOT HAVE AN ACCOUNT</h2>
-                <p className="text-amber-500  mt-1">
-                  <a href="/register">
-                    <span className="text-xs text-amber-500 p-2">
-                      CREATE AN ACCOUNT
-                    </span>
-                  </a>
-                </p>
-              </div>
-            </div>
+      
           </div>
         </div>
       </div>
