@@ -9,7 +9,7 @@ const bookingsSchema = new Schema({
     
   },
   dayDetails: {
-    type: String,
+    type: Date,
     
   },
   travellers: {
@@ -44,6 +44,23 @@ const bookingsSchema = new Schema({
     type: String,
     required: true,
   },
+
+  cardNumber: {
+    type: String,
+    
+  },
+
+  expiryDate: {
+    type: String,
+    
+  },
+
+  cvv: {
+    type: String,
+    
+  },
+
+
 }, { timestamps: true });
 
 const Booking = mongoose.model("Booking", bookingsSchema);
