@@ -126,7 +126,7 @@ const EditDes = () => {
         <div className="box">
           <button className='btn btn-success p-2 me-3 rounded text-white'><a href={`/map2/${listPoints.trid}`} className='text-white'>View Map</a></button>
           <button className='btn btn-primary p-2 me-5 rounded text-white'><a href={`/updatedes/${listPoints.trid}`} className='text-white'>Update</a></button>
-          <button className='btn btn-danger p-2 rounded text-white' onClick={handleDelete}>Delete</button>
+          <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" className='btn btn-danger bg-red-600 p-2 rounded text-white' >Delete</button>
         </div>
       </div>
 
@@ -150,7 +150,7 @@ const EditDes = () => {
               <td className='p-3'>{p1[1]}</td>
               <td className='p-3'>{p1[2]}</td>
               <td className='p-3'> {p1[3]}</td>
-              <td rowSpan={8} className=' flex justify-center items-center text-center p-3'><button className=' p-1 text-blue-50 bg-blue-600 rounded'><a className=' text-white' href={`http://localhost:8090/Upload/images/` + listPoints.pdf } download>Download</a></button></td>
+              <td rowSpan={8} className=' flex justify-center items-center text-center p-3'><button className=' p-1 text-blue-50 bg-blue-600 rounded'><a className=' text-white' href={`http://localhost:8090/Upload/images/` + listPoints.pdf} download>Download</a></button></td>
             </tr>
 
             <tr className='text-xl p-4 '>
@@ -221,6 +221,29 @@ const EditDes = () => {
         </table>
       </div>
       <ToastContainer />
+
+
+
+      
+
+
+      <div class="modal fade" style={{ backgroundColor: "#0b0b0b58" }} id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style={{ backgroundColor: "", textAlign: "center", justifyContent: "space-between", display: "flex" }}>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Destination Points Delete</h1>
+              
+            </div>
+            <div class="modal-body">
+              <p className='text-xl'>Are your Sure , You need to delete this?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="p-2 text-white rounded bg-blue-600" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="p-2 text-white rounded  bg-red-600" onClick={handleDelete}>Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div >
 
   )

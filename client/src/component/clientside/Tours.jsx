@@ -3,9 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Nav from "../clientside/Nav";
 import Hfotter from "./Hfotter";
+import titelImg from "../../Images/page-title-bg.png";
 
 const Tours = () => {
   const [tours, setTours] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchTours = async () => {
     try {
@@ -20,20 +22,57 @@ const Tours = () => {
     fetchTours();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredTours = tours.filter((tour) =>
+    tour.tourName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <Nav />
-      <div style={{ padding: "140px" }}>
-        <div style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>Tours</div>
+      <div style={{ position: "relative", paddingBottom: "15%" }}>
+        <img
+          src={titelImg}
+          alt="Page Title"
+          style={{ width: "100%", position: "absolute", top: "0%", left: 0, zIndex: -1 }}
+        />
+      </div>
+      <div>
+        <h1 className=" text-center text-4xl font-semibold text-black ">
+          Tour List
+        </h1>
+      </div>
+      <div style={{ paddingTop: "10%", textAlign: "right", paddingRight: "10%" }}>
+        <input
+          type="text"
+          placeholder="Search Tours..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          style={{
+            width: "50%",
+            maxWidth: "600px",
+            padding: "15px",
+            border: "3px solid #fcb900",
+            boxSizing: "border-box",
+            outline: "none",
+            fontSize: "18px",
+            borderRadius: "10px"
+          }}
+        />
+      </div>
+      <div style={{ paddingTop: "3%", paddingLeft: "140px", paddingRight: "140px" }}>
         <div className="container mt-0 mb-4">
           <div className="row">
-            {tours.map((tour) => (
+            {filteredTours.map((tour) => (
               <div key={tour._id} className="col-md-4 mb-4">
                 <div className="row">
                   <div className="col">
-                  <Link to={`/tours/${tour._id}`}>
+                    <Link to={`/tours/${tour._id}`}>
                       <img
-                        src={tour.images[0]} 
+                        src={`http://localhost:8090/${tour.images}`}
                         alt="Tour Image"
                         className="img-fluid"
                         style={{
@@ -45,12 +84,20 @@ const Tours = () => {
                     </Link>
                   </div>
                 </div>
+                <div className="tourmaster-tour-rating" style={{ fontSize: "16px", paddingTop: "20px" }}>
+                  <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                  <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                  <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                  <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                  <i className="fa fa-star" style={{ fontSize: "16px" }}></i>
+                  <span className="tourmaster-tour-rating-text" style={{ fontWeight: "normal" }}>(Review)</span>
+                </div>
                 <div className="row">
                   <div className="col">
                     <p style={{ marginTop: "5px", fontWeight: "bold", fontSize: "24px" }}>{tour.tourName}</p>
-                    <p style={{ marginTop: "10px" }}>{tour.numberOfDays} days</p>
+                    <p style={{ marginTop: "10px", fontSize: "18px", color: "#696969" }}>{tour.numberOfDays} days</p>
                     <p style={{ marginTop: "10px", color: "#fcb900", fontWeight: "bold", fontSize: "20px" }}>
-                      From {tour.price} $
+                      From ${tour.price}
                     </p>
                   </div>
                 </div>

@@ -14,8 +14,13 @@ router.route('/log').post(async (req, res, next) => {
       return res.status(400).json({ error: 'Password incorrect' })
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET)
     const { password:pass, ...rest } = validUser._doc;
-    
+    console.log("Response data:", {
+      validUser,
+      token,
+      otherData: rest,
+    });
     res.cookie('access_token', token, { httpOnly: true })
+    res.status(200).json({ message: "Yes", token });
     res.status(200).json(validUser)
   } catch (error) {
     next(error)

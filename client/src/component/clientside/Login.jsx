@@ -20,66 +20,68 @@ const Login = () => {
     backgroundPosition: "center",
   };
 
-  const [formData, setformData] = useState({});
-  const navigate = useNavigate();
-  const handleChange = (e) => {
-    setformData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+   const [formData, setFormData] = useState({});
+   const [isLoginSuccess, setIsLoginSuccess] = useState(false); // New state variable
+   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+   const handleChange = (e) => {
+     setFormData({
+       ...formData,
+       [e.target.name]: e.target.value,
+     });
+   };
 
-    try {
-      const res = await fetch("http://localhost:8090/login/log", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data._id) {
-        console.log(data);
-        toast.success("Login Successfull!", {
-          position: "top-center",
-          theme: "dark",
-          transition: Bounce,
-          onClose: () => navigate("/"),
-        });
-      } else if (data.error === "Password incorrect") {
-        toast.error("Incorrect password. Please try again.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      } else {
-        console.error("Login failed:", data.error);
-        toast.error("User Does not exist", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      }
-    } catch (error) {
-      console.error("error", error);
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+
+     try {
+       const res = await fetch("http://localhost:8090/login/log", {
+         method: "post",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(formData),
+       });
+       const data = await res.json();
+       console.log("Token:", data.token);
+       if (data.token) {
+         console.log(data);
+         localStorage.setItem("token", data.token);
+         setIsLoginSuccess(true); 
+         toast.success("Login Successful!", {
+           position: "top-center",
+           theme: "dark",
+           transition: Bounce,
+           onClose: () => navigate("/"),
+         });
+       } else if (data.error === "Password incorrect") {
+         toast.error("Incorrect password. Please try again.", {
+           position: "top-center",
+           autoClose: 5000,
+           hideProgressBar: false,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+           theme: "dark",
+           transition: Bounce,
+         });
+       } else {
+         console.error("Login failed:", data.error);
+         toast.error("User Does not exist", {
+           position: "top-center",
+           autoClose: 5000,
+           hideProgressBar: false,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+           theme: "dark",
+           transition: Bounce,
+         });
+       }
+     } catch (error) {
+       console.error("error", error);
        toast.error("An error occurred. Please try again later.", {
          position: "top-center",
          autoClose: 5000,
@@ -91,8 +93,8 @@ const Login = () => {
          theme: "dark",
          transition: Bounce,
        });
-    }
-  };
+     }
+   };
   return (
     <div>
       <Nav />

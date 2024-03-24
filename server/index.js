@@ -6,8 +6,7 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 const app = express();
 const toursRouter = require('./Routes/tours')
-
-
+const blogsRouter = require('./Routes/blogs')
 
 //upload images
 app.use(express.json());
@@ -52,6 +51,13 @@ app.use("/login",login)
 // Tours Route
 app.use('/tours', toursRouter);
 
+// Blogs Route
+app.use('/blogs', blogsRouter);
+
+const admins = require('./Routes/admins')
+app.use("/admins", admins)
+
+
 //Booking Route 
 const Booking = require('./Routes/Bookings');
 app.use('/bookings', Booking);
@@ -64,7 +70,25 @@ app.use('/contactus',contactus);
 const Dest = require('./Routes/Dest');
 app.use('/dest', Dest);
 
+//Add virtual tour
+const imageRoutes = require("./Routes/imageRoutes");
+app.use("/api/images", imageRoutes);
+
+//get all images
+const getAll = require("./Routes/getAll");
+app.use("/api/images", getAll);
+
+//get images with the id
+const getImage = require("./Routes/getImage");
+app.use("/api/image", getImage);
+
+//review
+const TestReview = require('./Routes/testreview');
+app.use('/testreview', TestReview);
+
+
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
 });
 
+app.use("/uploads", express.static("uploads"));

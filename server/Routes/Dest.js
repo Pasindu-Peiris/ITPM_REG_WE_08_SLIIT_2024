@@ -3,7 +3,7 @@ const dest = require('../models/dest');
 
 router.route('/adddest').post(async (req, res) => {
 
-    console.log("Received tour data:", req.body);
+    // console.log("Received tour data:", req.body);
 
     const { trid, points1, points2, points3, points4, points5, points6, points7, points8, pdf } = req.body
 
@@ -54,7 +54,7 @@ router.route('/updatedest/:id').post(async (req, res) => {
 
 router.route('/deletedest/:id').delete(async (req, res) => {
     const trid = req.params.id;
-    console.log(trid);
+    // console.log(trid);
 
     try {
         const deletedDes = await dest.findOneAndDelete({ trid: trid });
@@ -96,7 +96,7 @@ router.route('/updatepdf/:id').post(upload.single('file'), async (req, res) => {
 
         const file = req.file.filename;
 
-        console.log(file)
+        // console.log(file)
 
         const updatedDes = await dest.findOneAndUpdate({ trid: id }, { pdf: file }, { new: true });
 
@@ -114,5 +114,21 @@ router.route('/updatepdf/:id').post(upload.single('file'), async (req, res) => {
 });
 
 
+//send data is on database or not
+router.route('/check/:id').get(async (req, res) => {
 
-module.exports = router
+    const trid = req.params.id;
+
+    try {
+        const destination = await dest.findOne({ trid: trid });
+        if (destination) {
+            res.json("yes");
+        } else {
+            res.json("no");
+        }
+    } catch (err) {
+        res.json(err);
+    }
+});
+
+module.exports = router;

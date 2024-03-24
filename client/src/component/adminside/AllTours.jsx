@@ -5,12 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import updateIcn from "../../Images/refresh.png";
 import deleteIcn from "../../Images/trash (1).png";
 import pdfIcn from "../../Images/file-pdf.png";
+import { jsPDF } from "jspdf";
 
 const AllTours = () => {
   const [toursData, setToursData] = useState([]);
 
 
-  
+
 
   const fetchToursData = async () => {
     try {
@@ -91,6 +92,33 @@ const AllTours = () => {
     fetchToursData();
   }, []);
 
+  const generatePDF = () => {
+    const doc = new jsPDF({
+      orientation: "landscape",
+    });
+  
+    doc.text("Tour Details", 140, 10, { align: "center" });
+  
+    toursData.forEach((tour, index) => {
+      const yOffset = (index + 1) * 10;
+      doc.text(`${index + 1}`, 20, 20 + yOffset);
+      doc.text(tour.tourName, 40, 20 + yOffset);
+      doc.text(`${tour.numberOfDays} days`, 160, 20 + yOffset);
+      doc.text(`${tour.price} $`, 240, 20 + yOffset);
+    });
+  
+    return doc;
+  };
+  
+  
+  
+  
+
+  const downloadPDF = () => {
+    const pdf = generatePDF();
+    pdf.save("tour_details.pdf");
+  };
+
   return (
     <div style={{ padding: "80px" }}>
       <div
@@ -109,7 +137,12 @@ const AllTours = () => {
         >
           All Tour Details
         </p>
-        <img src={pdfIcn} alt="PDF" style={{ width: "40px", height: "40px" }} />
+        <img
+          src={pdfIcn}
+          alt="PDF"
+          style={{ width: "40px", height: "40px", cursor: "pointer" }}
+          onClick={downloadPDF}
+        />
       </div>
       <Link to="/AddTours">
         <button
