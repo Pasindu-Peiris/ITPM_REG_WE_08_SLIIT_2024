@@ -85,7 +85,7 @@ function AllContactUs() {
             >
               Export Report
             </button>
-            <SearchBar onSearch="" />
+            {/*<SearchBar onSearch="" />*/}
             
           </div>
           <table className="table table-striped">
@@ -126,7 +126,7 @@ function AllContactUs() {
                       onClick={() => handleDelete(massage._id)}
                     />
                    */}
-                   <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold rounded-lg" onClick={() => handleDelete(massage._id)}>
+                   <button className="mt-1 p-2 w-full border bg-red-800 text-white  font-bold rounded-lg" onClick={() => handleDelete(massage._id)}>
                       Delete
                     </button>
                   </td>
