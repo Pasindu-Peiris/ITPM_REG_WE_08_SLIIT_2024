@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const TestReview = require("../models/testreview");
 
+// insert new
 router.route("/add").post((req, res) => {
    const { fullName, email, review, date, destination } = req.body;
 
@@ -17,14 +18,36 @@ router.route("/add").post((req, res) => {
     });
 });
 
+// all read
 router.route("/read").get(async (req, res) => {
-  try {
-    const reviews = await TestReview.find();
-    res.json(reviews);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ status: "Error with get message", error: err.message });
-  }
+  TestReview
+  .find()
+  .then((review)=> {
+    res.json(review);
+  })
+  .catch((err) => {
+    res
+    .status(500)
+    .send({ status: "Error with get message", error: err.message });
+  }); 
+ 
 });
+
+// delete
+router.route("/delete/:id").delete(async (req, res) => {
+  let id = req.params.id;
+  await TestReview
+    .findByIdAndDelete(id)
+    .then(() => {
+      res.status(200).send({ status: " Review deleted" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res
+        .status(500)
+        .send({ status: "Error with deleting Review", error: err.message });
+    });
+});
+
 
 module.exports = router;
