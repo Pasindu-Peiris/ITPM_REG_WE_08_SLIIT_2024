@@ -37,6 +37,9 @@ import VirtualTours from "./component/clientside/VirtualTours";
 import AdminLog from "./component/adminside/adminlog";
 import TestReview from "./component/clientside/TestReview";
 import AllTestReview from "./component/adminside/AllTestReview";
+import ContactUsRes from "./component/adminside/ContactUsRes";
+import AllCResponse from "./component/adminside/AllCResponse";
+
 
 function App() {
   return (
@@ -96,10 +99,9 @@ function App() {
 
           <Route path="/testreview" element={<TestReview/>}></Route>
           <Route path="/alltestreview" element={<AllTestReview/>}></Route>
-      
-
-
-
+          <Route path="/contactus/:id" element={<ContactUsRes/>}></Route>
+          <Route path="/allcresponse" element={<AllCResponse/>}></Route>
+        
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
         
 
