@@ -5,6 +5,8 @@ import "jspdf-autotable";
 
 function AllCResponse() {
   const [contacts, setContacts] = useState([]);
+  
+  
 
   useEffect(() => {
     const getContacts = async () => {
@@ -56,11 +58,25 @@ function AllCResponse() {
     const formattedDate = `${year}-${month}-${day}`;
 
     doc.autoTable(tableColumns, tableRows, { startY: 20 });
-    doc.text(`Contact Us Report - ${formattedDate}`, 15, 10);
-    doc.save(`Contact Us Report - ${formattedDate}.pdf`);
+    doc.text(`Responsed Submissions Report - ${formattedDate}`, 15, 10);
+    doc.save(`Responsed Submissions Report - ${formattedDate}.pdf`);
 
     window.alert("Report downloaded successfully!");
   };
+
+  const handleSendMail = async (email, name) => {
+    try {
+      await axios.post("http://localhost:8090/email/send-mail", {
+        name: name,
+        email: email,
+      });
+      alert("Email sent successfully!");
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert("Failed to send email");
+    }
+  };
+    
 
   return (
     <div className="mt-20">
@@ -108,6 +124,7 @@ function AllCResponse() {
               <td>
                 <button
                   className="mt-1 p-2 w-full border bg-amber-500 text-white font-bold rounded-lg"
+                  onClick={() => handleSendMail(contact.email, contact.name)}
                 >
                   Send Mail
                 </button>
