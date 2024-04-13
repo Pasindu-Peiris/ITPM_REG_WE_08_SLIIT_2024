@@ -9,7 +9,7 @@ function AllCResponse() {
   useEffect(() => {
     const getContacts = async () => {
       try {
-        const response = await axios.get("http://localhost:8090/contactus/response");
+        const response = await axios.get("http://localhost:8090/contactus/read");
         setContacts(response.data);
       } catch (error) {
         console.log("Error fetching contacts:", error);
@@ -18,6 +18,7 @@ function AllCResponse() {
     };
     getContacts();
   }, []);
+
 
   const handleDelete = (id) => {
     const confirmDeletion = window.confirm("Are you sure you want to delete this?");
@@ -62,7 +63,7 @@ function AllCResponse() {
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-20">
     
       <div
         style={{
@@ -80,7 +81,7 @@ function AllCResponse() {
         </button>
         
       </div>
-      <table className="table table-striped">
+      <table className="table table-striped border-2 mt-3">
         <thead>
           <tr>
             <th scope="col">Name</th>
@@ -90,11 +91,12 @@ function AllCResponse() {
             <th scope="col">Subject</th>
             <th scope="col">Message</th>
             <th scope="col">Response</th>
-            <th scope="col">Action</th>
+            <th scope="col">    </th>
           </tr>
         </thead>
         <tbody>
           {contacts.map((contact) => (
+            contact.response &&(
             <tr key={contact._id}>
               <td>{contact.name}</td>
               <td>{contact.email}</td>
@@ -105,21 +107,26 @@ function AllCResponse() {
               <td>{contact.response}</td>
               <td>
                 <button
-                  className="mt-1 p-2 border bg-amber-500 text-white font-bold rounded-lg"
+                  className="mt-1 p-2 w-full border bg-amber-500 text-white font-bold rounded-lg"
                 >
                   Send Mail
                 </button>
               </td>
               <td>
                 <button
-                  className="mt-1 p-2 border bg-amber-500 text-white font-bold rounded-lg"
-                  onClick={() => handleDelete(contact._id)}
+                  className="mt-1 p-2 w-full border bg-amber-500 text-white font-bold rounded-lg"
                 >
-                  Delete
+                  Edit
                 </button>
               </td>
+              <td>
+              <button className="mt-1 p-2 w-full border bg-red-800 text-white  font-bold rounded-lg" 
+              onClick={() => handleDelete(contact._id)}>
+                      Delete
+              </button>
+              </td>
             </tr>
-          ))}
+          )))}
         </tbody>
       </table>
     </div>
