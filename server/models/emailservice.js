@@ -12,7 +12,7 @@ const sendEmail = (name, email, callback) => {
   const mailOptions = {
     from: 'your-email@gmail.com',
     to: email,
-    subject: "Congratulations! You're a Winner!",
+    subject: "Your problem is solved! 🎉",
     html: `<p>Dear ${name},</p>
     <p>We are thrilled to inform you that your problem has been successfully resolved. Thank you for reaching out to us!</p>
     <p>Best regards,</p>
