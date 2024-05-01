@@ -89,7 +89,7 @@ router.route('/updatepdf/:id').post(upload.single('file'), async (req, res) => {
     const id = req.params.id;
 
     try {
-       
+
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
@@ -104,10 +104,10 @@ router.route('/updatepdf/:id').post(upload.single('file'), async (req, res) => {
             return res.status(404).json({ error: 'Document not found' });
         }
 
-       
+
         res.json(updatedDes);
     } catch (error) {
-        
+
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -130,5 +130,66 @@ router.route('/check/:id').get(async (req, res) => {
         res.json(err);
     }
 });
+
+
+//Send email using node mailer
+router.route('/sendemail').post(async (req, res) => {
+
+  
+
+    const email = req.body.email;
+    const id = req.body.id;
+
+    //NodeMailer
+    var nodemailer = require('nodemailer');
+
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'randyruch5@gmail.com',
+            pass: 'luxlrqakfenxkyzi'
+        }
+    });
+
+    var mailOptions = {
+        from: 'randyruch5@gmail.com',
+        to: email,
+        subject: 'Explore Your destination',
+        html: `<p>Hello,</p>
+        <p>Thanks for purchasing our tour, Now you can explore it below link :</p>
+     
+     
+     <a href="http://localhost:3000/map2/${id}" style='background-color: #00FA9A;
+     border: none;
+     color: #000;
+     padding: 10px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     margin: 4px 2px;
+     cursor: pointer;
+     border-radius: 6px; '>Reset Password</a>
+
+
+     <p>If you are unable to reset your password, please contact us. <br> RAPID TRAVELS : (94) 77 99 74368 </p>
+     <p>Best regards,<br>RAPID TRAVELS</p>
+     <p>© 2021 RAPID TRAVELS. All rights reserved.</p>`
+
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            return res.send({ msg: "Success" })
+        }
+    });
+
+
+
+});
+
 
 module.exports = router;

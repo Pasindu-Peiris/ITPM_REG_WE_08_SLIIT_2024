@@ -18,7 +18,9 @@ router.post("/reg", async (req, res) => {
     // Check if email is already associated with an account
     const existingEmail = await admins.findOne({ email });
     if (existingEmail) {
-      return res.status(400).json({ error: "Email is already associated with an account" });
+      return res
+        .status(400)
+        .json({ error: "Email is already associated with an account" });
     }
 
     // Create a new admin instance using the admins model
