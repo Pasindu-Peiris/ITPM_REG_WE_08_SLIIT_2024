@@ -50,7 +50,7 @@ const bookingsSchema = new Schema({
     
   },
 
-  expiryDate: {
+  expDate: {
     type: String,
     
   },
