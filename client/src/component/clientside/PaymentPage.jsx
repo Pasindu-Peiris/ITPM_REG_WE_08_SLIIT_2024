@@ -3,7 +3,9 @@ import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
 import Hfotter from "./Hfotter";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Styles
 const addImg = {
@@ -36,7 +38,7 @@ const ToastMessage = ({ message }) => (
 
 const PaymentPage = () => {
   const [bookingData, setBookingData] = useState({
-    tourName: "Sigiriya, Eight Wonder of the world ",
+    tourName: "Sigiriya, Eight Wonder of the world",
     dayDetails: " ",
     travellers: 4,
     price: 340,
@@ -180,8 +182,8 @@ const PaymentPage = () => {
       setBookingData({
         tourName: "",
         dayDetails: "",
-        travellers: 1,
-        price: 0,
+        travellers: "",
+        price: "",
         name: "",
         email: "",
         phone: "",
@@ -196,11 +198,13 @@ const PaymentPage = () => {
       setSuccessMessage("Booking successfully added!");
       setTimeout(() => {
         setSuccessMessage("");
-      }, 3000); // Clear message after 3 seconds
+      }, 3000); 
+      toast.success("Booking successfully added!");
+      // Clear message after 3 seconds
     } catch (error) {
       console.error("Error creating booking:", error);
       // You can show an error message here if needed
-      setErrorMessage("Error creating booking. Please try again later.");
+      toast.error("Error creating booking. Please try again later.");
     }
   };
 
