@@ -16,7 +16,11 @@ const adminSchema = new Schema({
     },
     password: {
         type: String
+    },
+    role: {
+        type: String
     }
+
 });
 
 // Define and export the 'admins' model

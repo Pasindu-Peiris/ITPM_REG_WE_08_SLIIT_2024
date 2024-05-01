@@ -8,6 +8,7 @@ const AddUserForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneValid, setPhoneValid] = useState(true);
+  const [role, setRole] =useState("");
 
   const handleChangePhone = (e) => {
     const { value } = e.target;
@@ -28,7 +29,8 @@ const AddUserForm = () => {
       const response = await axios.post("http://localhost:8090/admins/reg", {
         username,
         email,
-        phone
+        phone,
+        role
       });
 
       // Log the response data
@@ -38,9 +40,10 @@ const AddUserForm = () => {
       setUsername("");
       setEmail("");
       setPhone("");
+      setRole("");
 
       // Display a success message to the user (optional)
-      alert("User added successfully!");
+      alert("Admin added successfully!");
       
     } catch (error) {
       // Handle errors
@@ -92,11 +95,23 @@ const AddUserForm = () => {
           />
           {!phoneValid && <p className="text-red-500 text-sm mt-1">Phone number should start with + or 0</p>} {/* Error message */}
         </div>
+        <div className="mb-4">
+          <label htmlFor="role" className="block text-gray-700 font-bold mb-2">Role</label>
+          <input
+            type="role"
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter role"
+            required
+          />
+        </div>
         
         <button
           className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
         >
-          Submit
+          Add Admin
         </button>
         
       </form>
