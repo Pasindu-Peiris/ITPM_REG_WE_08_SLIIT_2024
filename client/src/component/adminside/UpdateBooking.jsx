@@ -107,6 +107,12 @@ const UpdateBooking = () => {
     // Set state for booking data after validation
     setBookingData({ ...bookingData, [name]: value });
   };
+
+  // Function to format date
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
   
 
   const handleSubmit = async () => {
@@ -167,7 +173,7 @@ const UpdateBooking = () => {
             className="form-control"
             id="dayDetails"
             name="dayDetails"
-            value={bookingData.dayDetails}
+            value={formatDate(bookingData.dayDetails)}
             onChange={handleChange}
             readOnly
             style={{ fontSize: '16px', padding: '5px' }}

@@ -21,6 +21,12 @@ function AdminAllBookings() {
     fetchBookings();
   }, []);
 
+  // Function to format date
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   const handleExportReport = () => {
     const doc = new jsPDF();
     const tableColumns = ["Tour Name", "Price", "Day Details", "Name", "Email"];
@@ -115,7 +121,7 @@ const filteredBookings = bookings.filter((booking) => {
             <tr key={booking._id}>
               <td>{booking.tourName}</td>
               <td>{booking.price}</td>
-              <td>{booking.dayDetails}</td>
+              <td>{formatDate(booking.dayDetails)}</td>
               <td>{booking.name}</td>
               <td>{booking.email}</td>
               <td>{booking.phone}</td>
