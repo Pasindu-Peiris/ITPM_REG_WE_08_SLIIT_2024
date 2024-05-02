@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
   },
 });
 
+// Function to format date
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
 function ViewBooking() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
@@ -108,7 +114,7 @@ function ViewBooking() {
         <div style={{ fontSize: "20px" }}>
           <p><strong>Tour Name :</strong> {booking.tourName}</p>
           <p><strong>Price :</strong> {booking.price}</p>
-          <p><strong>Day Details :</strong> {booking.dayDetails}</p>
+          <p><strong>Day Details :</strong> {formatDate(booking.dayDetails)}</p>
           <p><strong>Travellers :</strong> {booking.travellers}</p>
           <p><strong>Name :</strong> {booking.name}</p>
           <p><strong>Email :</strong> {booking.email}</p>

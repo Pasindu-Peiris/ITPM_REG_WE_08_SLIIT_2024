@@ -4,6 +4,8 @@ import SearchBar from "./CSearchBar";
 import AllCResponse from "./AllCResponse";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
+
 
 function AllContactUs() {
   const [contacts, setContacts] = useState([]);
@@ -12,7 +14,9 @@ function AllContactUs() {
     const getContacts = async () => {
       try {
         const response = await axios.get("http://localhost:8090/contactus/read");
-        setContacts(response.data);
+        // Filter out contacts where responded is false
+        const filteredContacts = response.data.filter(contact => !contact.responded);
+        setContacts(filteredContacts);
       } catch (error) {
         console.log("Error fetching contacts:", error);
         alert("Something went wrong" + error);
@@ -38,8 +42,13 @@ function AllContactUs() {
     }
   };
 
-  const handleResponse = (contact) => {
-    window.location.href = `/contactusres?id=${contact._id}`;
+  /*const handleResponse = (id) => {
+    window.location.href = `/contactusres/{id}`;
+  };*/
+
+  const handleResponse = (id) => {
+    // Use `Link` to navigate to the `ReadOneContact` component with the contact ID
+    return <Link to={`/contactus/${id}`} />;
   };
 
   const handleExportReport = () => {
@@ -85,10 +94,11 @@ function AllContactUs() {
             >
               Export Report
             </button>
-            <SearchBar onSearch="" />
-            
+            {/*<SearchBar onSearch="" />*/}   
           </div>
-          <table className="table table-striped">
+          {/* Only render the table if there are responses in the contacts array */}
+        {contacts.length > 0 && (
+          <table className="table table-striped border-2 mt-3">
             <thead>
               <tr>  
                 <th scope="col">Name</th>
@@ -111,11 +121,13 @@ function AllContactUs() {
                   <td>{massage.subject}</td>
                   <td>{massage.message}</td>
                   <td>
-                    <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold rounded-lg">
-                    <a className="nav-link" href="/#">
-                      Response
-                    </a>
-                    </button>
+                  {/* Use Link instead of button */}
+                  <Link to={`/contactus/${massage._id}`} className="nav-link">
+                  <button className="mt-1 p-2 w-full border bg-amber-500 text-white font-bold rounded-lg"
+                  onClick={() => handleResponse(massage._id)}>
+                    Response
+                  </button>
+                </Link>
                   </td>                
                   <td>
                    {/*
@@ -126,7 +138,7 @@ function AllContactUs() {
                       onClick={() => handleDelete(massage._id)}
                     />
                    */}
-                   <button className="mt-1 p-2 w-full border bg-amber-500 text-white  font-bold rounded-lg" onClick={() => handleDelete(massage._id)}>
+                   <button className="mt-1 p-2 w-full border bg-red-800 text-white  font-bold rounded-lg" onClick={() => handleDelete(massage._id)}>
                       Delete
                     </button>
                   </td>
@@ -134,7 +146,10 @@ function AllContactUs() {
               ))}
             </tbody>
           </table>
+        )}
+        <AllCResponse/>
         </div>
+        
       );
     };
 

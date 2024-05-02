@@ -86,6 +86,10 @@ app.use("/api/image", getImage);
 const TestReview = require('./Routes/testreview');
 app.use('/testreview', TestReview);
 
+//send email
+const emailRoutes = require('./Routes/emailservice');
+app.use('/email', emailRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`\nServer is running on port ${PORT}`);
