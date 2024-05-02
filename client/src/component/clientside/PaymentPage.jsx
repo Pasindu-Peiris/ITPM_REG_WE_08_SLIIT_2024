@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
 import Hfotter from "./Hfotter";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 
 
 // Styles
@@ -37,11 +39,21 @@ const ToastMessage = ({ message }) => (
 
 
 const PaymentPage = () => {
+
+  const { id } = useParams();
+  const [tour, setTour ] = useState(''); 
+
+  useEffect( ()  => {
+    axios.get(`http://localhost:8090/tours/${id}`).then((res ) => {setTour(res.data)})
+  } )
+
+
   const [bookingData, setBookingData] = useState({
-    tourName: "Sigiriya, Eight Wonder of the world",
+    trid: id,
+    tourName: "",
     dayDetails: " ",
-    travellers: 4,
-    price: 340,
+    travellers: 1,
+    price: "",
     name: "",
     email: "",
     phone: "",
@@ -56,7 +68,12 @@ const PaymentPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [userDetails, setUserDetails] = useState(null);
 
+   useEffect(() => {
+     decodeToken();
+   }, []); 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -200,6 +217,7 @@ const PaymentPage = () => {
         setSuccessMessage("");
       }, 3000); 
       toast.success("Booking successfully added!");
+      decodeToken();
       // Clear message after 3 seconds
     } catch (error) {
       console.error("Error creating booking:", error);
@@ -208,7 +226,18 @@ const PaymentPage = () => {
     }
   };
 
-  
+   const decodeToken = () => {
+     const token = localStorage.getItem("token");
+     if (token) {
+       const tokenParts = token.split(".");
+       const encodedPayload = tokenParts[1];
+       const decodedPayload = atob(encodedPayload);
+       const userDetails = JSON.parse(decodedPayload);
+       console.log("Logged in user details:", userDetails);
+     } else {
+       console.log("No token found");
+     }
+   };
 
   return (
 
@@ -342,7 +371,7 @@ const PaymentPage = () => {
                   type="text"
                   className={`mt-1 p-2 border w-full`}
                   name="tourName"
-                  value={bookingData.tourName}
+                  value={tour.tourName}
                   onChange={handleChange}
                 />
               </div>
@@ -372,7 +401,7 @@ const PaymentPage = () => {
                   type="number"
                   className={`mt-1 p-2 border w-full`}
                   name="price"
-                  value={bookingData.price}
+                  value={tour.price}
                   onChange={handleChange}
                 />
               </div>

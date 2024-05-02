@@ -189,7 +189,7 @@ const OneTourSection1 = () => {
   <p className="card-text mb-4 text-left" style={{ fontSize: "18px" }}>
     ${tour.price}
   </p>
-  <a href={`/payment`} className="btn" style={{ backgroundColor: "#fcb900", marginBottom:"10%" }}>
+  <a href={`/payment/${tour._id}`} className="btn" style={{ backgroundColor: "#fcb900", marginBottom:"10%" }}>
     Book Now
   </a>
 </div>

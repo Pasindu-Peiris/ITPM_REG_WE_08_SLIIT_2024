@@ -135,7 +135,7 @@ router.route('/check/:id').get(async (req, res) => {
 //Send email using node mailer
 router.route('/sendemail').post(async (req, res) => {
 
-  
+
 
     const email = req.body.email;
     const id = req.body.id;
@@ -173,9 +173,9 @@ router.route('/sendemail').post(async (req, res) => {
      border-radius: 6px; '>Reset Password</a>
 
 
-     <p>If you are unable to reset your password, please contact us. <br> RAPID TRAVELS : (94) 77 99 74368 </p>
-     <p>Best regards,<br>RAPID TRAVELS</p>
-     <p>© 2021 RAPID TRAVELS. All rights reserved.</p>`
+     <p> , please contact us. <br> : (94) 77 99 74368 </p>
+     <p>Best regards,<br></p>
+     <p>© 2021 . All rights reserved.</p>`
 
     };
 
