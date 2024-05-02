@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import React, { useEffect, useState } from "react";
+=======
+import React, { useState, useEffect } from "react";
+>>>>>>> Stashed changes
 import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
@@ -67,7 +71,12 @@ const PaymentPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [userDetails, setUserDetails] = useState(null);
 
+   useEffect(() => {
+     decodeToken();
+   }, []); 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -211,6 +220,7 @@ const PaymentPage = () => {
         setSuccessMessage("");
       }, 3000); 
       toast.success("Booking successfully added!");
+      decodeToken();
       // Clear message after 3 seconds
     } catch (error) {
       console.error("Error creating booking:", error);
@@ -219,7 +229,18 @@ const PaymentPage = () => {
     }
   };
 
-  
+   const decodeToken = () => {
+     const token = localStorage.getItem("token");
+     if (token) {
+       const tokenParts = token.split(".");
+       const encodedPayload = tokenParts[1];
+       const decodedPayload = atob(encodedPayload);
+       const userDetails = JSON.parse(decodedPayload);
+       console.log("Logged in user details:", userDetails);
+     } else {
+       console.log("No token found");
+     }
+   };
 
   return (
 

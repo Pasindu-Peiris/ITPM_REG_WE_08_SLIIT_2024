@@ -31,58 +31,42 @@ const Login = () => {
      });
    };
 
-   const handleSubmit = async (e) => {
-     e.preventDefault();
+ const handleSubmit = async (e) => {
+   e.preventDefault();
 
-     try {
-       const res = await fetch("http://localhost:8090/login/log", {
-         method: "post",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(formData),
-       });
-       const data = await res.json();
+   try {
+     const res = await fetch("http://localhost:8090/login/log", {
+       method: "post",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(formData),
+     });
+     const data = await res.json();
+     console.log("Response:", data);
+     if (data.token) {
        console.log("Token:", data.token);
-       if (data.token) {
-         console.log(data);
-         localStorage.setItem("token", data.token);
-         setIsLoginSuccess(true); 
-         toast.success("Login Successful!", {
-           position: "top-center",
-           theme: "dark",
-           transition: Bounce,
-           onClose: () => navigate("/"),
-         });
-       } else if (data.error === "Password incorrect") {
-         toast.error("Incorrect password. Please try again.", {
-           position: "top-center",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "dark",
-           transition: Bounce,
-         });
-       } else {
-         console.error("Login failed:", data.error);
-         toast.error("User Does not exist", {
-           position: "top-center",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "dark",
-           transition: Bounce,
-         });
-       }
-     } catch (error) {
-       console.error("error", error);
-       toast.error("An error occurred. Please try again later.", {
+
+      
+       localStorage.setItem("token", data.token);
+
+       const tokenParts = data.token.split(".");
+       const encodedPayload = tokenParts[1];
+       const decodedPayload = atob(encodedPayload);
+       const userDetails = JSON.parse(decodedPayload);
+       console.log("User Details:", userDetails);
+
+       setIsLoginSuccess(true);
+       toast.success("Login Successful!", {
+         position: "top-center",
+         theme: "dark",
+         transition: Bounce,
+         onClose: () => navigate("/"),
+       });
+     } else {
+       // Handle error cases
+       console.error("Login failed:", data.error);
+       toast.error(data.error || "An error occurred. Please try again later.", {
          position: "top-center",
          autoClose: 5000,
          hideProgressBar: false,
@@ -94,7 +78,22 @@ const Login = () => {
          transition: Bounce,
        });
      }
-   };
+   } catch (error) {
+     console.error("error", error);
+     toast.error("An error occurred. Please try again later.", {
+       position: "top-center",
+       autoClose: 5000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "dark",
+       transition: Bounce,
+     });
+   }
+ };
+
   return (
     <div>
       <Nav />
