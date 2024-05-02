@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
+
 import React, { useEffect, useState } from "react";
-=======
-import React, { useState, useEffect } from "react";
->>>>>>> Stashed changes
 import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
