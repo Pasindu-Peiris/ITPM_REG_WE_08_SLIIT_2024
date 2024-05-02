@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import Hfotter from "./Hfotter";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 
 
 // Styles
@@ -37,7 +38,13 @@ const ToastMessage = ({ message }) => (
 
 
 const PaymentPage = () => {
+
+  const { id } = useParams();
+
+
+
   const [bookingData, setBookingData] = useState({
+    trid: id,
     tourName: "Sigiriya, Eight Wonder of the world",
     dayDetails: " ",
     travellers: 4,
