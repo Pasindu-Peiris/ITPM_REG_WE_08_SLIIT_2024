@@ -15,8 +15,13 @@ const TableComponent = () => {
     const [sortByDate, setSortByDate] = useState(false);
     const [userData, setusersData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [updatedPayment, setUpdatedPayment] = useState('');
+   const [selectedUserId, setSelectedUserId] = useState(null);
 
-
+  // Function to handle click event of update icon
+const handleUpdatePayment = (userId) => {
+  setSelectedUserId(userId);
+};
     const handleGenerateReport = () => {
       // Create a new instance of jsPDF
       const doc = new jsPDF();
@@ -63,6 +68,32 @@ const TableComponent = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+// Function to handle updating user data
+const updateUserPayment = async (userId, paymentStatus) => {
+  try {
+    const response = await fetch(`http://localhost:8090/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payments: paymentStatus }),
+    });
+    if (response.ok) {
+      // Update state after successful update
+      fetchUserData();
+      toast.success("Payment status updated successfully", {
+        position: "top-center",
+      });
+    } else {
+      throw new Error("Failed to update payment status");
+    }
+  } catch (error) {
+    console.error("Error updating payment status:", error);
+    toast.error("Failed to update payment status");
+  }
+};
+
 
   // Function to fetch user data along with ongoing tour information from backend
 const fetchUserData2 = async () => {
@@ -244,21 +275,47 @@ const deleteUser = async (userId, username) => {
                         }
                     })              
                     .map((user) => (
-                    <tr key ={user._id}>
-                        <td className="border px-4 py-2">{user._id.toString().substring(0, 8)}</td>
-                        <td className="border px-4 py-2">{user.username}</td>
-                        <td className="border px-4 py-2">{user.email}</td>
-                        <td className="border px-4 py-2">{user.phone}</td>
-                        <td className="border px-4 py-2">{user.ongoing ? user.ongoing.join(', ') : ''}</td>
-                        <td className="border px-4 py-2">
-                        </td>
-                        <td className="border px-4 py-2" style={{textAlign: "right"}}>
-                            <img src={updateIcn} alt="Update" style={{ width: "20px", height: "20px", display: "inline-block",marginRight: "20px"  }} />
-                            <img src={deleteIcn} alt="Delete" style={{ width: "20px", height: "20px", display: "inline-block", cursor: "pointer" }} 
-                            onClick={() => deleteUser(user._id, user.username)}/>
-                        </td>
+                    <tr key={user._id}>
+                    <td className="border px-4 py-2">{user._id.toString().substring(0, 8)}</td>
+                    <td className="border px-4 py-2">{user.username}</td>
+                    <td className="border px-4 py-2">{user.email}</td>
+                    <td className="border px-4 py-2">{user.phone}</td>
+                    <td className="border px-4 py-2">{user.ongoing ? user.ongoing.join(', ') : ''}</td>
+                    <td className="border px-4 py-2">
+  {selectedUserId === user._id ? 
+    <select
+      value={updatedPayment}
+      onChange={(e) => {
+        setUpdatedPayment(e.target.value);
+        updateUserPayment(user._id, e.target.value);
+      }}
+    >
+      <option value="None">-</option>
+      <option value="Pending">Pending</option>
+      <option value="Cancelled">Cancelled</option>
+      <option value="Verified">Verified</option>
+    </select>
+   : (
+    user.payments
+  )}
+</td>
 
-                    </tr>
+                    <td className="border px-4 py-2" style={{ textAlign: "right" }}>
+                      <img
+                        src={updateIcn}
+                        alt="Update"
+                        style={{ width: "20px", height: "20px", display: "inline-block", marginRight: "20px" }}
+                        onClick={() => handleUpdatePayment(user._id)}
+                      />
+                      <img
+                        src={deleteIcn}
+                        alt="Delete"
+                        style={{ width: "20px", height: "20px", display: "inline-block", cursor: "pointer" }}
+                        onClick={() => deleteUser(user._id, user.username)}
+                      />
+                    </td>
+                  </tr>
+                  
                     ))}
                 </tbody>
             </table>

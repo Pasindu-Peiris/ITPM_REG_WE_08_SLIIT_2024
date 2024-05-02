@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const user = require("../models/user");
 const Booking = require("../models/bookings");
-const Payments = require("../models/payments");
 const bcrypt = require("bcrypt");
 
 router.route("/reg").post(async (req, res) => {
@@ -107,8 +106,7 @@ router.get('/withOngoingTours', async (req, res) => {
   }
 });
 
-
-// Get a single tour by ID
+// Get a single user by ID
 router.get('/:id', async (req, res) => {
     try {
         const users = await user.findById(req.params.id);
@@ -120,38 +118,24 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-//delete 
-router.delete('/:id', async (req, res) => {
-  try {
-      await user.findByIdAndDelete(req.params.id);
-      res.json({ message: 'User deleted' });
-  } catch (error) {
-      res.status(500).json({ message: error.message });
-  }
-});
 
-// Get all payments by username
-router.get('/:username', async (req, res) => {
+// Update user information
+router.put("/:id", async (req, res) => {
   try {
-    const payments = await Payments.find({ username: req.params.username });
-    res.json(payments);
+    const userId = req.params.id;
+    const updatedUserData = req.body; // Assuming req.body contains the updated user data
+
+    // Find the user by ID and update their information
+    const updatedUser = await user.findByIdAndUpdate(userId, updatedUserData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
-// Get a single payment by ID
-router.get('/:id', async (req, res) => {
-  try {
-      const payment = await Payments.findById(req.params.id);
-      if (!payment) {
-          return res.status(404).json({ message: 'Payment not found' });
-      }
-      res.json(payment);
-  } catch (error) {
-      res.status(500).json({ message: error.message });
-  }
-});
-
 
 module.exports = router;
