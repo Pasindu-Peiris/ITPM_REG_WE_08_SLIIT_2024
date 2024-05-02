@@ -130,6 +130,8 @@ const deleteUser = async (userId, username) => {
     fetchUserData2();
   }, []);
 
+  
+
     return (
         
         <div className="container mx-auto mt-10">
@@ -146,12 +148,16 @@ const deleteUser = async (userId, username) => {
                         Report PDF
                     </button>
                 </div>
-                <div>
-                    <FaCalendarAlt
-                        className="flex mr-top-3 cursor-pointer"
-                        onClick={() => console.log('Calendar clicked')}
-                    />
-                </div>
+                 <div className="flex items-center mx-auto">
+                        <span className="mr-2">Filter</span>
+                        <select className="border p-1 rounded"/* onChange={handleFilterChange}*/>
+                            <option value="">All</option> {/* Default option */}
+                            <option value="verified">Verified</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                
                 <div className="relative flex">
                 <input
                     type="text"
