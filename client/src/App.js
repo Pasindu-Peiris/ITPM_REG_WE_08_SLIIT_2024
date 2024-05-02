@@ -39,6 +39,7 @@ import TestReview from "./component/clientside/TestReview";
 import AllTestReview from "./component/adminside/AllTestReview";
 import ContactUsRes from "./component/adminside/ContactUsRes";
 import AllCResponse from "./component/adminside/AllCResponse";
+import Profile from "./component/clientside/Profile";
 
 
 function App() {
@@ -103,9 +104,9 @@ function App() {
           <Route path="/allcresponse" element={<AllCResponse/>}></Route>
         
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
-        
+          <Route path="profile" element={<Profile />}></Route>
 
-       
+
           <Route path="/adminLog" element={<AdminLog/>}></Route>
         </Routes>
       </BrowserRouter>

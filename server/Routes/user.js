@@ -13,7 +13,8 @@ router.route("/reg").post(async (req, res) => {
     birthdate,
     country,
     phone,
-    email
+    email,
+    payments,
   } = req.body;
 
   if (password !== confirmPassword) {
@@ -49,6 +50,7 @@ router.route("/reg").post(async (req, res) => {
       country,
       phone,
       email,
+      payments,
     });
 
     await newUser.save();
