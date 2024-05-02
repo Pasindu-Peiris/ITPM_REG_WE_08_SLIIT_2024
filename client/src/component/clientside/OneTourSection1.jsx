@@ -102,7 +102,7 @@ const OneTourSection1 = () => {
                 >
                   What to Expect
                 </h2>
-                <p style={{ fontSize: "18px" }}>
+                <p style={{ fontSize: "18px", marginBottom: "20px" }}>
                   When choosing a destination for your backpacking trip, it is
                   important to consider the level of difficulty of the trail and
                   the weather conditions. Some popular backpacking destinations
@@ -111,8 +111,57 @@ const OneTourSection1 = () => {
                   aware of any regulations or rules for the area you plan to
                   visit.
                 </p>
+                <p style={{ fontSize: "18px", marginBottom: "20px" ,marginLeft: "40px"}}>
+                <i class="fa-regular fa-circle-dot" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+                View the Nature
+                </p>
+                <p style={{ fontSize: "18px", marginBottom: "20px" ,marginLeft: "40px"}}>
+                <i class="fa-regular fa-circle-dot" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+                Hiking in the forest
+                </p>
+                <p style={{ fontSize: "18px", marginBottom: "20px" ,marginLeft: "40px"}}>
+                <i class="fa-regular fa-circle-dot" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+                Sunset on the cruise
+                </p>
+                <p style={{ fontSize: "18px", marginBottom: "20px" ,marginLeft: "40px"}}>
+                <i class="fa-regular fa-circle-dot" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+                Discover the famous view point “The Lark”
+                </p>
               </div>
             </div>
+
+            <hr/>
+
+            <div className="row mt-4">
+              <div className="col-lg-12">
+                <h2
+                  className="mb-4"
+                  style={{ fontSize: "24px", fontWeight: "bold" }}
+                >
+                  Activities
+                </h2>
+                <p style={{ fontSize: "18px",marginBottom: "20px" }}>
+                <i class="fa-solid fa-camera" style={{ fontSize: "20px", marginRight: "10px",marginLeft: "40px"}}></i>
+                  Photography
+                </p>
+                <p style={{ fontSize: "18px" ,marginBottom: "20px"}}>
+                <i class="fa-regular fa-moon" style={{ fontSize: "20px", marginRight: "10px" ,marginLeft: "40px"}}></i>
+                Night Exploring
+                </p>
+                <p style={{ fontSize: "18px" ,marginBottom: "20px"}}>
+                <i class="fa-solid fa-stopwatch"style={{ fontSize: "20px", marginRight: "10px" ,marginLeft: "40px"}}></i>
+                Navigating
+                </p>
+                <p style={{ fontSize: "18px" ,marginBottom: "20px"}}>
+                <i class="fa-solid fa-motorcycle" style={{ fontSize: "20px", marginRight: "10px" ,marginLeft: "40px"}}></i>
+                Biking
+                </p>
+                
+                
+              </div>
+            </div>
+
+
             <div className="row mt-4">
               <div className="col-lg-12">
                 <hr />
@@ -195,6 +244,45 @@ const OneTourSection1 = () => {
 </div>
 
             <hr/>
+            <div className="card-body text-center">
+  <h5 className="card-title mb-4 mt-5" style={{ fontSize: "24px", fontWeight: "bold" }}>
+    <div className="text-center">Book With Confidence</div>
+  </h5>
+  <p className="card-text mb-3 text-left" style={{ fontSize: "18px"}}>
+  <i class="fa-regular fa-thumbs-up" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+  No-hassle best price guarantee
+  </p>
+  <p className="card-text mb-3 text-left" style={{ fontSize: "18px" }}>
+  <i class="fa-solid fa-phone" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+  Customer care available 24/7
+  </p>
+  <p className="card-text mb-3 text-left" style={{ fontSize: "18px" }}>
+  <i class="fa-regular fa-star" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+  Hand-picked Tours & Activities
+  </p>
+  <p className="card-text mb-3 text-left" style={{ fontSize: "18px" }}>
+  <i class="fa-solid fa-shield-heart" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+  Free Travel Insureance
+  </p>
+</div>
+<hr/>
+
+<div className="card-body text-center">
+  <h5 className="card-title mb-4 mt-5" style={{ fontSize: "24px", fontWeight: "bold" }}>
+    <div className="text-center">Need Help?</div>
+  </h5>
+  <p className="card-text mb-3 text-left" style={{ fontSize: "18px" }}>
+  <i class="fa-solid fa-phone" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+  1.8445.3356.33
+  </p>
+  <p className="card-text mb-3 text-left" style={{ fontSize: "18px" }}>
+  <i class="fa-regular fa-envelope" style={{ fontSize: "20px", marginRight: "10px" }}></i>
+  Help@goodlayers.com
+  </p>
+  
+</div>
+
+<hr/>
 
             {/* booking */}
 
