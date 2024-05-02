@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Img from "../../Images/page-title-bg.png";
 import Nav from "./Nav";
@@ -40,15 +40,19 @@ const ToastMessage = ({ message }) => (
 const PaymentPage = () => {
 
   const { id } = useParams();
+  const [tour, setTour ] = useState(''); 
 
+  useEffect( ()  => {
+    axios.get(`http://localhost:8090/tours/${id}`).then((res ) => {setTour(res.data)})
+  } )
 
 
   const [bookingData, setBookingData] = useState({
     trid: id,
-    tourName: "Sigiriya, Eight Wonder of the world",
+    tourName: "",
     dayDetails: " ",
-    travellers: 4,
-    price: 340,
+    travellers: 1,
+    price: "",
     name: "",
     email: "",
     phone: "",
@@ -349,7 +353,7 @@ const PaymentPage = () => {
                   type="text"
                   className={`mt-1 p-2 border w-full`}
                   name="tourName"
-                  value={bookingData.tourName}
+                  value={tour.tourName}
                   onChange={handleChange}
                 />
               </div>
@@ -379,7 +383,7 @@ const PaymentPage = () => {
                   type="number"
                   className={`mt-1 p-2 border w-full`}
                   name="price"
-                  value={bookingData.price}
+                  value={tour.price}
                   onChange={handleChange}
                 />
               </div>
