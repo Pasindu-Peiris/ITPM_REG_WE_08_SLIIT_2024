@@ -19,9 +19,7 @@ const Nav = () => {
     },
   };
 
-  const handleProfile = () => {
-    window.location="/profile"
-  };
+
 
   const isLoggedIn = localStorage.getItem("token");
 
@@ -66,9 +64,9 @@ const Nav = () => {
 
       {isLoggedIn ? (
         <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
-          <button onClick={handleProfile} className="text-lg p-2">
-            Profile
-          </button>
+          <Link to="/profile" className="text-lg p-2">
+           Profile
+          </Link>
         </div>
       ) : (
         <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
