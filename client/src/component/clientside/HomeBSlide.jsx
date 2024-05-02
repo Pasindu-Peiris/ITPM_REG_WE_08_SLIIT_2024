@@ -36,7 +36,7 @@ const HomeBSlide = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px' }} className='p-5'>
       <h1 className="text-4xl text-center mb-4">Blog List</h1>
       <Carousel
         responsive={responsive}
