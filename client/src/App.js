@@ -40,6 +40,7 @@ import AllTestReview from "./component/adminside/AllTestReview";
 import ContactUsRes from "./component/adminside/ContactUsRes";
 import AllCResponse from "./component/adminside/AllCResponse";
 import Profile from "./component/clientside/Profile";
+import UserAllBookings from "./component/clientside/UserAllBookings";
 
 
 function App() {
@@ -89,6 +90,8 @@ function App() {
           <Route path="/update/:id" element={<UpdateBooking />}></Route>
           <Route path="/payment" element={<PaymentPage />}></Route>
           <Route path="/payment/:id" element={<PaymentPage />}></Route>
+          <Route path="/bookings/user/:id" element={<UserAllBookings/>}></Route>
+
           <Route path="/addBlog" element={<AddBlog />}></Route>
           <Route path="/updateBlog" element={<UpdateBlog />}></Route>
           <Route path="/AllBlog" element={<AllBlog />}></Route>
