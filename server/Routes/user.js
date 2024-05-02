@@ -50,7 +50,7 @@ router.route("/reg").post(async (req, res) => {
       country,
       phone,
       email,
-      payments,
+      payment,
     });
 
     await newUser.save();
@@ -62,6 +62,22 @@ router.route("/reg").post(async (req, res) => {
     res.status(500).json("Cannot register the user");
   }
 });
+
+router.get("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const foundUser = await user.findById(userId);
+
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(foundUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get all users
 router.get('/', async (req, res) => {
   try {
