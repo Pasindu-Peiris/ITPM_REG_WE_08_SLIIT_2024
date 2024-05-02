@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 const toursRouter = require('./Routes/tours')
 const blogsRouter = require('./Routes/blogs')
+const commentsRouter = require('./Routes/comments');
 
 //upload images
 app.use(express.json());
@@ -89,6 +90,9 @@ app.use('/testreview', TestReview);
 //send email
 const emailRoutes = require('./Routes/emailservice');
 app.use('/email', emailRoutes);
+
+// Add the comments route
+app.use('/comments', commentsRouter);
 
 
 app.listen(PORT, () => {
