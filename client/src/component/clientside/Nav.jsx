@@ -19,24 +19,8 @@ const Nav = () => {
     },
   };
 
-  const handleLogout = () => {
-    confirmAlert({
-      title: "Confirm Logout",
-      message: "Are you sure you want to logout?",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => {
-            localStorage.removeItem("token");
-            window.location.reload(); 
-          },
-        },
-        {
-          label: "No",
-          onClick: () => {}, //
-        },
-      ],
-    });
+  const handleProfile = () => {
+    window.location="/profile"
   };
 
   const isLoggedIn = localStorage.getItem("token");
@@ -82,8 +66,8 @@ const Nav = () => {
 
       {isLoggedIn ? (
         <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
-          <button onClick={handleLogout} className="text-lg p-2">
-            Logout
+          <button onClick={handleProfile} className="text-lg p-2">
+            Profile
           </button>
         </div>
       ) : (
