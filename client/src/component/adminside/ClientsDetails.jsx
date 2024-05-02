@@ -6,6 +6,7 @@ import deleteIcn from "../../Images/trash (1).png";
 import updateIcn from "../../Images/refresh.png";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import jsPDF from 'jspdf';
 
 
 const TableComponent = () => {
@@ -15,18 +16,37 @@ const TableComponent = () => {
     const [userData, setusersData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
-    const handleGenerateReport = () => {
-        // Handle report generation logic here
-        console.log('Generating report...');
-    };
 
-    
-    const handleSortByDate = () => {
-        // Toggle sorting state
-        setSortByDate(!sortByDate);
-        // Implement sorting logic based on the sortByDate state
-        console.log('Sorting by date...');
-    };
+    const handleGenerateReport = () => {
+      // Create a new instance of jsPDF
+      const doc = new jsPDF();
+  
+      // Set the header for the PDF
+      doc.setFontSize(16);
+      doc.text('Client Details Report', 10, 10);
+  
+      // Create a table for the data
+      const rows = userData.map((user, index) => {
+          return [
+              index + 1,
+              user.username,
+              user.email,
+              user.phone,
+              user.ongoing ? user.ongoing.join(', ') : ''
+          ];
+      });
+  
+      doc.autoTable({
+          head: [['#', 'Username', 'Email', 'Phone', 'Ongoing Tours']],
+          body: rows,
+          startY: 20
+      });
+  
+      // Save the PDF
+      doc.save('Client_Details_Report.pdf');
+  };
+  
+  
 
 
     // Function to fetch data from backend

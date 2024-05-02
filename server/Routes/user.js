@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const user = require("../models/user");
 const Booking = require("../models/bookings");
+const Payments = require("../models/payments");
 const bcrypt = require("bcrypt");
 
 router.route("/reg").post(async (req, res) => {
@@ -110,5 +111,29 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json({ message: error.message });
   }
 });
+
+// Get all payments by username
+router.get('/:username', async (req, res) => {
+  try {
+    const payments = await Payments.find({ username: req.params.username });
+    res.json(payments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Get a single payment by ID
+router.get('/:id', async (req, res) => {
+  try {
+      const payment = await Payments.findById(req.params.id);
+      if (!payment) {
+          return res.status(404).json({ message: 'Payment not found' });
+      }
+      res.json(payment);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;
