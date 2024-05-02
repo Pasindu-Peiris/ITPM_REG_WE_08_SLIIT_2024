@@ -6,9 +6,11 @@ const Booking = require('../models/bookings');
 router.post('/', async (req, res) => {
     try {
         console.log("Received booking data:", req.body);
-        const { tourName, dayDetails, travellers, price, name, email, phone, nic, country, address } = req.body;
+        const { userid, tourid , tourName, dayDetails, travellers, price, name, email, phone, nic, country, address , cardNumber, expDate, cvv } = req.body;
 
         const newBooking = await Booking.create({
+            userid,
+            tourid,
             tourName,
             dayDetails, // Ensure dayDetails is an array
             travellers,
@@ -20,7 +22,7 @@ router.post('/', async (req, res) => {
             country,
             address,
             cardNumber,
-            expiryDate,
+            expDate,
             cvv
         });
 

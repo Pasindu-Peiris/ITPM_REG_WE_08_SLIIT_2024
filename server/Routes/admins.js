@@ -6,7 +6,7 @@ const admins = require("../models/admins");
 
 router.post("/reg", async (req, res) => {
   // Extract username, email, and phone number from request body
-  const { username, email, phone } = req.body;
+  const { username, email, phone, role } = req.body;
 
   try {
     // Check if username is already taken
@@ -24,7 +24,7 @@ router.post("/reg", async (req, res) => {
     }
 
     // Create a new admin instance using the admins model
-    const newAdmin = new admins({ username, email, phone });
+    const newAdmin = new admins({ username, email, phone, role });
 
     // Save the new admin to the database
     await newAdmin.save();
