@@ -41,18 +41,21 @@ function checkFileType(file, cb) {
   }
 }
 
-
 router.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       res.status(400).json({ error: err });
     } else {
+      const { title } = req.body;
+      if (!title) {
+        return res.status(400).json({ error: "Title is required" });
+      }
+
       const imagePaths = req.files["images"].map((file) => file.path);
       const musicPath = req.files["music"] ? req.files["music"][0].path : null;
 
-      const newImage = new Image({ imagePaths, musicPath });
+      const newImage = new Image({ title, imagePaths, musicPath });
 
- 
       newImage
         .save()
         .then((image) => {
@@ -68,5 +71,6 @@ router.post("/upload", (req, res) => {
     }
   });
 });
+
 
 module.exports = router;
