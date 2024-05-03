@@ -79,7 +79,7 @@ const Hsction8 = ({}) => {
                       <div className="cardBlock-1" key={review._id}>
                         <div className="m-3">
                           <a
-                            href={"/reviews/" + review._id}
+                            href={"/reviews" }
                             style={{ textDecoration: "none", color: "#171617" }}
                           >
                             <div className="card" id="cardv">
