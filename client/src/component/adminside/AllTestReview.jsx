@@ -5,10 +5,12 @@ import "jspdf-autotable";
 import Hsction8 from "../clientside/Hsction8";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from "./Dashboard";
 
 function AllTestReview() {
     const [reviews,setreviews] =useState([]);
     const [selectedReview, setSelectedReview] = useState(null); // State for selected review
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         const getReviews =async () => {
@@ -71,7 +73,10 @@ function AllTestReview() {
       };
 
       return (
-        <div style={{ padding: "80px" }}>
+        <>
+       <Dashboard/>
+       
+        <div style={{ padding: "80px", paddingTop: "10%"  }}>
             
           <div 
           
@@ -89,6 +94,31 @@ function AllTestReview() {
             >
               Export Report
             </button>
+
+
+            <div className="relative flex">
+          <input
+            type="text"
+            placeholder="Search..."
+            className={`px-4 py-2 border rounded-l-lg flex-1 ${(searchInput.length > 0 && /^[0-9]/.test(searchInput)) ||
+                (searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput))
+                ? 'border-red-500'
+                : 'border-gray-300'
+              }`}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+          )}
+          {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
+            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
+          )}
+          <button className="px-4 font-semibold bg-amber-500 text-white rounded-r-lg hover:bg-amber-700 hover:text-white">
+            Search
+          </button>
+
+        </div>
             
             
           </div>
@@ -106,7 +136,40 @@ function AllTestReview() {
               </tr>
             </thead>
             <tbody>
-              {reviews.map((massage) => (
+              {reviews     
+              .filter((massage) => {
+                  const searchTerm = searchInput ? searchInput.toLowerCase() : '';
+                  const fullName = massage.fullName ? massage.fullName.toLowerCase() : '';
+                  const email = massage.email ? massage.email.toLowerCase() : '';
+                  const review = massage.review ? massage.review.toLowerCase() : '';
+                  const destination = massage.destination ? massage.destination.toLowerCase() : '';
+    
+                  // Check if the search term contains only letters
+                  const isAlphaNumeric = /^[a-zA-Z]+$/.test(searchTerm);
+    
+                  // Check if the search term is empty or contains only letters
+                  if (searchTerm === '' || isAlphaNumeric) {
+                    // Filter by username or email containing the search term
+                    return (
+                      (fullName.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (email.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (review.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (destination.includes(searchTerm) && !/^[\d]/.test(searchTerm))
+                    );
+                  } else {
+                    // Filter only by username or email starting with the search term
+                    return (
+                      (fullName.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (email.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (review.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (destination.startsWith(searchTerm) && !/^[\d]/.test(searchTerm))
+
+                    );
+                  }
+              
+                })
+              
+              .map((massage) => (
                 <tr key={massage._id}>
                   <td>{massage.fullName}</td>
                   <td>{massage.email}</td>
@@ -134,6 +197,7 @@ function AllTestReview() {
           </table>
           
         </div>
+        </>
       );
 
 }
