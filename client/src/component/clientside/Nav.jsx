@@ -59,6 +59,11 @@ const Nav = () => {
               Blog
             </Link>
           </li>
+          <li className="px-4">
+            <Link to="/reviews" className="hover:text-yellow-400 text-lg">
+              Review List
+            </Link>
+          </li>
         </ul>
       </div>
 
