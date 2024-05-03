@@ -5,17 +5,15 @@ import { FaEdit, FaTrash, FaReply, FaSave, FaTimes } from "react-icons/fa";
 const CommentSection = ({ blogId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [replyCommentId, setReplyCommentId] = useState(null); // State for tracking reply
-  const [replyContent, setReplyContent] = useState(""); // State for reply content
+  const [replyCommentId, setReplyCommentId] = useState(null);
+  const [replyContent, setReplyContent] = useState("");
   const [editMode, setEditMode] = useState(null);
   const [editContent, setEditContent] = useState("");
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8090/comments/blog/${blogId}`
-        );
+        const response = await axios.get(`http://localhost:8090/comments/blog/${blogId}`);
         setComments(response.data);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -32,7 +30,7 @@ const CommentSection = ({ blogId }) => {
         blogId,
         author: "Anonymous",
         content: newComment,
-        parentComment: null, // This is for top-level comments
+        parentComment: null,
       });
       setComments((prevComments) => [...prevComments, response.data]);
       setNewComment("");
@@ -48,11 +46,11 @@ const CommentSection = ({ blogId }) => {
         blogId,
         author: "Anonymous",
         content: replyContent,
-        parentComment: replyCommentId, // This specifies the comment to reply to
+        parentComment: replyCommentId,
       });
       setComments((prevComments) => [...prevComments, response.data]);
       setReplyContent("");
-      setReplyCommentId(null); // Clear the reply state after submitting
+      setReplyCommentId(null);
     } catch (error) {
       console.error("Error submitting reply:", error);
     }
@@ -83,6 +81,11 @@ const CommentSection = ({ blogId }) => {
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
+  };
+
+  const setEditState = (comment) => {
+    setEditMode(comment._id);
+    setEditContent(comment.content); // Populate with the current content
   };
 
   const renderComments = (comments, parentId = null, level = 0) => {
@@ -130,7 +133,10 @@ const CommentSection = ({ blogId }) => {
                   marginLeft: "10px",
                   cursor: "pointer",
                 }}
-                onClick={() => setEditMode(null)}
+                onClick={() => {
+                  setEditMode(null);
+                  setEditContent("");
+                }}
               >
                 <FaTimes />
               </button>
@@ -149,7 +155,7 @@ const CommentSection = ({ blogId }) => {
                     cursor: "pointer",
                     marginLeft: "10px",
                   }}
-                  onClick={() => setReplyCommentId(comment._id)} // Set the reply state when clicking "Reply"
+                  onClick={() => setReplyCommentId(comment._id)}
                 >
                   <FaReply />
                 </button>
@@ -161,7 +167,7 @@ const CommentSection = ({ blogId }) => {
                     cursor: "pointer",
                     marginLeft: "10px",
                   }}
-                  onClick={() => setEditMode(comment._id)}
+                  onClick={() => setEditState(comment)}
                 >
                   <FaEdit />
                 </button>
@@ -181,7 +187,7 @@ const CommentSection = ({ blogId }) => {
             </div>
           )}
 
-          {replyCommentId === comment._id && ( // Display separate text box when replying to this comment
+          {replyCommentId === comment._id && (
             <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
               <input
                 type="text"
@@ -238,12 +244,9 @@ const CommentSection = ({ blogId }) => {
             padding: "10px",
             border: "1px solid #ddd",
             background: "#f0f0f0",
-            borderRadius: "5px",
-            marginLeft: "10px",
-            cursor: "pointer",
-          }}
-          onClick={handleCommentSubmit}
-        >
+          
+          borderRadius: "5px", marginLeft: "10px", cursor: "pointer"}}
+          onClick={handleCommentSubmit}>
           Submit
         </button>
       </div>
