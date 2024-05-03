@@ -50,4 +50,37 @@ router.route("/delete/:id").delete(async (req, res) => {
 });
 
 
+//update
+router.route("/update/:id").put(async (req, res) => {
+  let reviewId = req.params.id;
+  const {fullName,
+    email,
+    review,
+    date,
+    destination,
+     } = req.body;
+
+  try {
+    const updatedReview = await TestReview.findByIdAndUpdate(
+      reviewId,
+      { fullName,
+        email,
+        review,
+        date,
+        destination,
+         },
+      { new: true } // Set to true to return the updated document
+    );
+
+    if (!updatedReview) {
+      return res.status(404).send({ status: "Review not found" });
+    }
+
+    res.status(200).send({ status: "updated", review : updatedReview });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ status: "Error with updating data", error: err.message });
+  }
+});
+
 module.exports = router;
