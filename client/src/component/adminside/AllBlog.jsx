@@ -92,6 +92,11 @@ const AllBlog = () => {
     setSearchTerm(event.target.value);
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   const generateReport = () => {
     const filteredData = blogsData.filter((blog) =>
       blog.Title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -104,7 +109,7 @@ const AllBlog = () => {
     const columns = ["Title", "Author", "Category","Content","Excerpt","PublishDate"];
 
     // Define rows
-    const rows = filteredData.map((blog) => [blog.Title, blog.Author, blog.Category, blog.Content,blog.Excerpt, blog.PublishDate]);
+    const rows = filteredData.map((blog) => [blog.Title, blog.Author, blog.Category, blog.Content,blog.Excerpt, formatDate(blog.PublishDate)]);
 
     // Add table to the PDF
     doc.autoTable({ columns, body: rows });
