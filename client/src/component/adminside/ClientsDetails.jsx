@@ -231,7 +231,7 @@ const TableComponent = () => {
           </button>
         </div>
         <div className="flex items-center mx-auto">
-          <span className="mr-2">Filter by Payment:</span>
+          <span className="mr-2">Filter Payment By:</span>
           <select 
             className="border p-1 rounded" 
             value={paymentFilter} 
@@ -324,7 +324,7 @@ const TableComponent = () => {
                         updateUserPayment(user._id, e.target.value);
                       }}
                     >
-                      <option value="None">-</option>
+                      <option value="None">   -   </option>
                       <option value="Pending">Pending</option>
                       <option value="Cancelled">Cancelled</option>
                       <option value="Verified">Verified</option>
