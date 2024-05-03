@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import Hsction8 from "../clientside/Hsction8";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AllTestReview() {
     const [reviews,setreviews] =useState([]);
+    const [selectedReview, setSelectedReview] = useState(null); // State for selected review
 
     useEffect(() => {
         const getReviews =async () => {
@@ -35,6 +39,11 @@ function AllTestReview() {
             });
         }
       }; 
+
+      const handleAccept = (review) => {
+        setSelectedReview(review); // Set the selected review
+        toast.success('Review accepted successfully!');
+    };
 
 
       const handleExportReport = () => {
@@ -106,10 +115,11 @@ function AllTestReview() {
                   <td>{massage.destination}</td>
                   
                   <td>
-                    <button className="mt-1 p-2 w-full border bg-green-600 text-white  font-bold rounded-lg">
-                    <a className="nav-link" href="/#">
+                    <button className="mt-1 p-2 w-full border bg-green-600 text-white  font-bold rounded-lg"
+                    onClick={() => handleAccept(massage)} >
+                    
                       Accept
-                    </a>
+                    
                     </button>
                   </td>  
                              
@@ -122,6 +132,7 @@ function AllTestReview() {
               ))}
             </tbody>
           </table>
+          
         </div>
       );
 
