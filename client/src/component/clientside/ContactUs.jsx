@@ -7,6 +7,7 @@ import Img2 from "../../Images/mail.png";
 import Img3 from "../../Images/location.png";
 import axios from "axios";
 
+
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -301,6 +302,7 @@ const ContactUs = () => {
           </tr>
         </table>
       </div>
+   
       {/* Footer Section */}
       <div className="mt-10">
         <Hfotter />
