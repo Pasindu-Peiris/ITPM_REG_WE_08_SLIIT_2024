@@ -134,6 +134,16 @@ const Reviews = () => {
                           {" "}
                           {review.fullName}
                         </p>
+                        <p
+                              style={{
+                                marginTop: "10px",
+                                fontSize: "14px",
+                                color: "#696969",
+                              }}
+                            >
+                              {" "}
+                               {review.email}
+                            </p>
                         <div
                           className="tourmaster-tour-rating"
                           style={{
@@ -170,6 +180,7 @@ const Reviews = () => {
                         </div>
                         <div className="row">
                           <div className="col">
+                          
                             <p
                               style={{
                                 marginTop: "10px",
