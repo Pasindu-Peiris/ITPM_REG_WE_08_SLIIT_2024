@@ -79,14 +79,14 @@ const Dashboard = () => {
 
       {isLoggedIn ? (
         <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
-          <Link to="/profile" className="text-lg p-2">
+          <Link to="/#" className="text-lg p-2">
            Profile
           </Link>
         </div>
       ) : (
-        <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
-          <Link to="/login" className="text-lg p-2">
-            Log In
+        <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500" style={{ backgroundColor: "red" }}>
+          <Link to="#" className="text-lg p-2">
+            Log Out
           </Link>
         </div>
       )}
