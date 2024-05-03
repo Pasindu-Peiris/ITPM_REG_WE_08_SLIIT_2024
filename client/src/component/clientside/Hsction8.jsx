@@ -54,7 +54,7 @@ const Hsction8 = () => {
     }, []);
 
     return (
-        <div>
+        <div className='p-3'>
             <h1 className='text-4xl text-center'>Reviews List</h1>
             <div className='container-fluid' id='Slidebar-'>
                 <div className="testimonial-slider container-fluid">
