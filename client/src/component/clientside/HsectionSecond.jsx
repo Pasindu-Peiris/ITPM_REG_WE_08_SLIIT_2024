@@ -29,20 +29,20 @@ const HsectionSecond = () => {
                     <div className="block2 w-[250px] mx-4" style={board}>
                         <label for="keyword" className='py-1'>Destination</label><br></br>
                         <select name="cars" id="cars" className='w-[100%] py-2' >
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="mercedes">Mercedes</option>
-                            <option value="audi">Audi</option>
+                            <option value="colombo">Colombo</option>
+                            <option value="kandy">Kandy</option>
+                            <option value="jaffna">Jaffna</option>
+                            <option value="galle">Galle</option>
                         </select>
                     </div>
 
                     <div className="block3 w-[250px] mx-4" style={board}>
                         <label for="keyword " className='py-1'>Duration</label><br></br>
                         <select name="cars" id="cars" className='w-[100%] py-2'>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="mercedes">Mercedes</option>
-                            <option value="audi">Audi</option>
+                            <option value="">3 days</option>
+                            <option value="">4 days</option>
+                            <option value="">7 days</option>
+                            <option value="">12 days</option>
                         </select>
                     </div>
 
