@@ -6,6 +6,7 @@ import updateIcn from "../../Images/refresh.png";
 import deleteIcn from "../../Images/trash (1).png";
 import pdfIcn from "../../Images/file-pdf.png";
 import { jsPDF } from "jspdf";
+import Dashboard from "../adminside/Dashboard";
 
 const AllTours = () => {
   const [toursData, setToursData] = useState([]);
@@ -120,7 +121,9 @@ const AllTours = () => {
   };
 
   return (
-    <div style={{ padding: "80px" }}>
+    <>
+    <Dashboard/>
+    <div style={{ padding: "80px", paddingTop: "10%"}}>
       <div
         style={{
           display: "flex",
@@ -247,6 +250,7 @@ const AllTours = () => {
       </table>
       <ToastContainer />
     </div>
+    </>
   );
 };
 

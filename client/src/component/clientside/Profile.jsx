@@ -77,7 +77,7 @@ const Profile = () => {
               </div>
             </div>
           ) : (
-            <p>Loading...</p>
+            <p className="text-lg font-semibold text-center">Loading... </p>
           )}
         </div>
       </Card>

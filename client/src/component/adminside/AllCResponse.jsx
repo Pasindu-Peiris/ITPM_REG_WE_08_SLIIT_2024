@@ -5,8 +5,7 @@ import "jspdf-autotable";
 
 function AllCResponse() {
   const [contacts, setContacts] = useState([]);
-  
-  
+
 
   useEffect(() => {
     const getContacts = async () => {
@@ -38,6 +37,13 @@ function AllCResponse() {
         });
     }
   };
+
+
+  const handleEdit = (id) => {
+    // Redirect to the edit page for the contact with the given id
+    window.location.href = `/contactus/${id}`;
+  };
+   
 
   const handleExportReport = () => {
     const doc = new jsPDF();
@@ -132,7 +138,7 @@ function AllCResponse() {
               <td>
                 <button
                   className="mt-1 p-2 w-full border bg-amber-500 text-white font-bold rounded-lg"
-                >
+                  onClick={() => handleEdit(contact._id)}>
                   Edit
                 </button>
               </td>

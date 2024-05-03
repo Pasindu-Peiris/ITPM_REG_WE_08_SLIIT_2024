@@ -104,7 +104,7 @@ const Login = () => {
         </h1>
       </div>
       <div className="w-[60%] mx-auto mt-4 border-b border-gray-400 pb-8">
-        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit} >
+        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit}>
           <div className="flex mt-6">
             <div className="w-1/2 mr-6">
               <label htmlFor="username" className="block text-md font-medium">
@@ -144,6 +144,13 @@ const Login = () => {
           <Link to={"/register"}>
             <span className="text-xs text-amber-500 p-2">
               CREATE AN ACCOUNT
+            </span>
+          </Link>
+        </div>
+        <div className="mt-2">
+          <Link to={"/adminLog"}>
+            <span className="text-s text-amber-500 p-2">
+              Log in as an admin
             </span>
           </Link>
         </div>

@@ -9,6 +9,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 
 
+
+function Notify() {
+  toast.success('Check your email', {
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      position: "top-right",
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      style: {
+          width: '300px',         // Set the width
+          height: '100px',        // Set the height
+          fontSize: '20px',       // Set the font size
+          alignItems: 'center',   // Center align items vertically
+          fontFamily: '"Josefin Sans", sans-serif',
+          display: 'flex',        // Use flexbox to align items
+          justifyContent: 'center', // Center align items horizontally
+          color: 'white',          // White text color
+      },
+      bodyClassName: 'custom-toast-body'
+
+  });
+}
+
 // Styles
 const addImg = {
   width: "100%",
@@ -191,12 +217,14 @@ const PaymentPage = () => {
   };
 
   const handleSubmit = async () => {
+
     try {
       console.log("Submitting booking data:", bookingData);
       const response = await axios.post('http://localhost:8090/bookings', bookingData);
+      sendMail();
       console.log("Booking created:", response.data);
 
-      sendMail();
+      
 
       // Reset form fields
       setBookingData({
@@ -252,7 +280,7 @@ const PaymentPage = () => {
     }
 
     axios.post('http://localhost:8090/dest/sendemail', data).then((res) => {
-      alert("Email sent successfully");
+      Notify();
     }).catch((err) => {
       alert("Error in sending email");
     })
@@ -492,7 +520,7 @@ const PaymentPage = () => {
         <ToastContainer />
       </div>
 
-      <button onClick={sendMail}>Click</button>
+      {/* <button onClick={sendMail}>Click</button> */}
 
       <Hfotter />
     </>

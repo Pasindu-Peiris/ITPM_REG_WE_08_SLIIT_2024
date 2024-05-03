@@ -9,6 +9,9 @@ const imageSchema = new mongoose.Schema({
   musicPath: {
     type: String,
   },
+  title: {
+    type:String,
+  }
 });
 
 const Image = mongoose.model("Image", imageSchema);

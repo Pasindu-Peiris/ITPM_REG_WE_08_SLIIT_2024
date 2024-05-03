@@ -12,7 +12,7 @@ const ContactUsRes = () => {
   const [contact, setContact] = useState(null);
   const [responseText, setResponseText] = useState("");
   const [error, setError] = useState("");
-
+  const [editMode, setEditMode] = useState(false); // State variable for edit mode
   
 
   useEffect(() => {
@@ -21,19 +21,24 @@ const ContactUsRes = () => {
       try {
         const response = await axios.get(`http://localhost:8090/contactus/${id}`);
         setContact(response.data);
+
+          // Set responseText to current response data only if not in edit mode
+          if (!editMode) {
+            setResponseText(response.data.response);
+          }
       } catch (error) {
         console.log("Error fetching contact:", error);
         alert("Something went wrong" + error);
       }
     };
     fetchContact();
-  }, [id]); // Add id to the dependency array
+  },  [id, editMode]); // Add id and editMode to the dependency array
 
   if (!contact) {
     return <div>Loading...</div>;
   }
 
-  const sendData = async (e) => {
+ /* const sendData = async (e) => {
     e.preventDefault();
 
     try {
@@ -61,6 +66,45 @@ const ContactUsRes = () => {
       setError("Something went wrong while submitting the response.");
     }
   };
+*/
+
+const sendData = async (e) => {
+  e.preventDefault();
+
+  try {
+    if (editMode) {
+      // If in edit mode, update the response
+      await axios.put(`http://localhost:8090/contactus/${id}`, {
+        response: responseText,
+      });
+      toast.success("Response updated successfully", {
+        position: "top-center",
+        theme: "dark",
+        transition: Bounce,
+      });
+    } else {
+      // If not in edit mode, add a new response
+      await axios.post("http://localhost:8090/contactus/addresponse", {
+        id: contact._id,
+        response: responseText,
+      });
+      toast.success("Response saved successfully", {
+        position: "top-center",
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+    window.history.back();
+  } catch (error) {
+    toast.error("Error submitting response:", error, {
+      position: "top-center",
+      theme: "dark",
+      transition: Bounce,
+    });
+    setError("Something went wrong while submitting the response.");
+  }
+};
+
 
 
   const addImg = {
@@ -142,14 +186,34 @@ const ContactUsRes = () => {
             />
             <br />
             <div className="grid grid-cols-3 gap-6 p-10">
-              <button
+             {/* <button
                 type="submit"
                 className="mt-0.5 p-2 border bg-amber-500 text-white font-bold rounded-md"
               >
                 Save
               </button>
               <button className="mt-0.5 p-2 border bg-amber-500 text-white font-bold rounded-md">
-                 Edit
+                 Update
+              </button>
+
+              <button
+                className="mt-0.5 p-2 border bg-amber-500 text-white font-bold rounded-md"
+                onClick={() => window.history.back()}
+              >
+                Back
+  </button>*/}
+              
+              <button
+                type="submit"
+                className="mt-0.5 p-2 border bg-amber-500 text-white font-bold rounded-md"
+              >
+                {editMode ? "Update" : "Save"}
+              </button>
+              <button
+                className="mt-0.5 p-2 border bg-amber-500 text-white font-bold rounded-md"
+                onClick={() => setEditMode(!editMode)} // Toggle edit mode
+              >
+                {editMode ? "Cancel" : "Edit"}
               </button>
 
               <button
@@ -158,6 +222,7 @@ const ContactUsRes = () => {
               >
                 Back
               </button>
+  
             </div>
           </div> 
         </div>

@@ -41,6 +41,7 @@ import ContactUsRes from "./component/adminside/ContactUsRes";
 import AllCResponse from "./component/adminside/AllCResponse";
 import Profile from "./component/clientside/Profile";
 import UserAllBookings from "./component/clientside/UserAllBookings";
+import Reviews from "./component/clientside/Reviews";
 
 
 function App() {
@@ -105,6 +106,7 @@ function App() {
           <Route path="/alltestreview" element={<AllTestReview/>}></Route>
           <Route path="/contactus/:id" element={<ContactUsRes/>}></Route>
           <Route path="/allcresponse" element={<AllCResponse/>}></Route>
+          <Route path="/reviews" element={<Reviews />}></Route>
         
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
           <Route path="profile" element={<Profile />}></Route>

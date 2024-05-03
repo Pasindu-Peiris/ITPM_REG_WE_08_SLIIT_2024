@@ -1,71 +1,95 @@
-import React from 'react';
+import React, { useState } from "react";
+import logo from "../../Images/logo.png";
+import "../CSS/style.css";
+import { Link } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert"; // Importing confirm alert
+import "react-confirm-alert/src/react-confirm-alert.css"; // Importing confirm alert styles
 
 const Dashboard = () => {
-  // Inline CSS for styles
-  const containerStyle = {
-    padding: '3rem'
+  const style = {
+    menu: {
+      backgroundColor: "red", // Fixed typo
+      color: "white",
+    },
+    button: {
+      backgroundColor: "red",
+    },
+    nav: {
+      zIndex: "9999",
+    },
   };
 
-  const listItemStyle = {
-    backgroundColor: '#fcb900', // Background color for list items
-    transition: 'background-color 0.3s, color 0.3s',
-    borderRadius: '0.25rem',
-    marginTop: '1rem',
-    marginBottom: '1rem',
-    border: '1px solid #fcb900' // Add card outline color
-  };
 
-  const linkStyle = {
-    textDecoration: 'none',
-    color: '#000' // Set link color to black
-  };
 
-  const hoverStyle = {
-    backgroundColor: '#c98300',
-    color: '#fff'
-  };
+  const isLoggedIn = localStorage.getItem("token");
 
   return (
-    <div className="container-fluid h-100" style={containerStyle}>
-      <div className="row h-100">
-        <div className="col-md-2">
-          <div className="card h-100 p-2">
-            <div className="card-body d-flex flex-column justify-content-between">
-              <h5 className="card-title font-weight-bold" style={{ fontSize: '1.5rem' }}>Admin Dashboard</h5>
-              <ul className="list-group">
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Dashboard</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="/AllTours" style={linkStyle}>Tours</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="/AllContactUs" style={linkStyle}>Contact Us</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="/AllBlog" style={linkStyle}>Blog</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="/bookings" style={linkStyle}>Booking</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="/AddVirtualTour" style={linkStyle}>360 View</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="/ClientsDetails" style={linkStyle}>Client</a>
-                </li>
-                <li className="list-group-item my-2" style={{ ...listItemStyle, ...hoverStyle }}>
-                  <a className="nav-link font-weight-bold" href="#" style={linkStyle}>Review</a>
-                </li>
-              </ul>
-            </div>
-            <div className="card-footer mt-auto"> {/* Card footer to align the button */}
-              <button className="btn btn-danger">Logout</button> {/* Logout button */}
-            </div>
-          </div>
-        </div>
-        
+    <div
+      style={style.nav}
+      className="Nav w-100 flex justify-between items-center px-5 p-4 bg-black text-gray-100 fixed top-0 left-0 right-0"
+    >
+      <div className="logo">
+        <img className="object-contain" src={logo} alt="logo.png" width={80} />
       </div>
+
+      <div className="menu">
+        <ul className="flex justify-between items-center " id="menu">
+          <li className="px-4">
+            <Link to="/admin" className="hover:text-yellow-400 text-lg">
+              Dashboard
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/alltours" className="hover:text-yellow-400 text-lg">
+              Tours & Destinations
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/bookings" className="hover:text-yellow-400 text-lg">
+              Bookings
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/AllBlog" className="hover:text-yellow-400 text-lg">
+              Blogs
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="#" className="hover:text-yellow-400 text-lg">
+              Virtual Tours
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/alltestreview" className="hover:text-yellow-400 text-lg">
+              Reviews
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/allcontactus" className="hover:text-yellow-400 text-lg">
+              Contact Us
+            </Link>
+          </li>
+          <li className="px-4">
+            <Link to="/clientsdetails" className="hover:text-yellow-400 text-lg">
+              Clients
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      {isLoggedIn ? (
+        <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
+          <Link to="/profile" className="text-lg p-2">
+           Profile
+          </Link>
+        </div>
+      ) : (
+        <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
+          <Link to="/login" className="text-lg p-2">
+            Log In
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
