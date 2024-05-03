@@ -42,6 +42,7 @@ import AllCResponse from "./component/adminside/AllCResponse";
 import Profile from "./component/clientside/Profile";
 import UserAllBookings from "./component/clientside/UserAllBookings";
 import Reviews from "./component/clientside/Reviews";
+import AdminSignIn from "./component/adminside/AdminSignIn";
 
 
 function App() {
@@ -92,6 +93,7 @@ function App() {
           <Route path="/payment" element={<PaymentPage />}></Route>
           <Route path="/payment/:id" element={<PaymentPage />}></Route>
           <Route path="/bookings/user/:id" element={<UserAllBookings/>}></Route>
+          <Route path="/adminsignin" element={<AdminSignIn/>}></Route>
 
           <Route path="/addBlog" element={<AddBlog />}></Route>
           <Route path="/updateBlog" element={<UpdateBlog />}></Route>
@@ -110,6 +112,7 @@ function App() {
         
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
           <Route path="profile" element={<Profile />}></Route>
+          
 
 
           <Route path="/adminLog" element={<AdminLog/>}></Route>

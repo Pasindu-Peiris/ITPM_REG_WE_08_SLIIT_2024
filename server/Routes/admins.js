@@ -5,8 +5,8 @@ const router = express.Router();
 const admins = require("../models/admins");
 
 router.post("/reg", async (req, res) => {
-  // Extract username, email, and phone number from request body
-  const { username, email, phone, password, role } = req.body;
+  // Extract username, password, and role from request body
+  const { username, password, role } = req.body;
 
   try {
     // Check if username is already taken
@@ -15,16 +15,8 @@ router.post("/reg", async (req, res) => {
       return res.status(400).json({ error: "Username is already taken" });
     }
 
-    // Check if email is already associated with an account
-    const existingEmail = await admins.findOne({ email });
-    if (existingEmail) {
-      return res
-        .status(400)
-        .json({ error: "Email is already associated with an account" });
-    }
-
     // Create a new admin instance using the admins model
-    const newAdmin = new admins({ username, email, phone, password, role });
+    const newAdmin = new admins({ username, password, role });
 
     // Save the new admin to the database
     await newAdmin.save();
