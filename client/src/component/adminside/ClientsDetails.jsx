@@ -13,6 +13,8 @@ const TableComponent = () => {
   const [searchInput, setSearchInput] = useState('');
   const [updatedPayment, setUpdatedPayment] = useState('');
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [paymentFilter, setPaymentFilter] = useState('');
+
 
   // Function to handle click event of update icon
   const handleUpdatePayment = (userId) => {
@@ -43,14 +45,14 @@ const TableComponent = () => {
       startY: 20
     });
 
-    // Save the PDF
+    
     doc.save('Client_Details_Report.pdf');
   };
 
 
 
 
-  // Function to fetch data from backend
+  // Function fetch data from backend
   const fetchUserData = async () => {
     try {
       const response = await fetch("http://localhost:8090/user");
@@ -65,7 +67,7 @@ const TableComponent = () => {
     }
   };
 
-  // Function to handle updating user data
+  // Function updating user data
   const updateUserPayment = async (userId, paymentStatus) => {
     try {
       const response = await fetch(`http://localhost:8090/user/${userId}`, {
@@ -76,7 +78,7 @@ const TableComponent = () => {
         body: JSON.stringify({ payments: paymentStatus }),
       });
       if (response.ok) {
-        // Update state after successful update
+        // Update statesuccessful update
         fetchUserData();
         toast.success("Payment status updated successfully", {
           position: "top-center",
@@ -91,7 +93,7 @@ const TableComponent = () => {
   };
 
 
-  // Function to fetch user data along with ongoing tour information from backend
+  // Function to fetch user data along with ongoing
   const fetchUserData2 = async () => {
     try {
       const response = await fetch("http://localhost:8090/user/withOngoingTours");
@@ -106,7 +108,7 @@ const TableComponent = () => {
   };
 
   // delete user
-  // delete user
+
   const deleteUser = async (userId, username) => {
     try {
       toast.info(
@@ -119,7 +121,7 @@ const TableComponent = () => {
                   method: "DELETE",
                 });
                 if (response.ok) {
-                  // Update state after deletion
+                  // Update state deletion
                   setusersData(userData.filter((user) => user._id !== userId));
                   toast.success(`${username} deleted successfully`, {
                     position: "top-center"
@@ -171,19 +173,48 @@ const TableComponent = () => {
   };
 
 
-  // Fetch data on component mount
+  // Fetch data 
   useEffect(() => {
     fetchUserData();
     fetchUserData2();
   }, []);
 
+  // Function  filter change
+  const handlePaymentFilterChange = (event) => {
+    const selectedFilter = event.target.value;
+    setPaymentFilter(selectedFilter);
+    
+    // Filter user data based on payment status
+    if (selectedFilter === 'all') {
+      fetchUserData(); // Reset user data to original state
+    } else {
+      const filteredUserData = userData.filter(user => user.payments === selectedFilter);
+      setusersData(filteredUserData);
+    }
+  };
 
+  const getFontColor = (paymentStatus) => {
+    switch (paymentStatus) {
+      case 'Pending':
+        return 'orange'; // Orange color for pending payments
+      case 'Verified':
+        return 'green'; // Green color for verified payments
+      case 'Cancelled':
+        return 'red'; // Red color for cancelled payments
+      default:
+        return 'inherit'; // Default color
+    }
+  };
+  const getFontWeight = (paymentStatus) => {
+    return paymentStatus === 'Cancelled' ? 'bold' : 'normal'; // Bold font for cancelled payments
+  };
+  
 
   return (
 
     <div className="container mx-auto mt-10">
       <ToastContainer />
-      <div className='flex justify-left mb-7'> {/* Adjusted alignment to center */}
+      <div className='flex justify-left mb-7'> 
         <p style={{ fontWeight: 'bold', fontSize: '2rem', fontFamily: 'Arial, sans-serif' }}>Client Details</p> {/* Applied bold font and increased font size */}
       </div>
       <div className="flex justify-between mb-4">
@@ -196,12 +227,16 @@ const TableComponent = () => {
           </button>
         </div>
         <div className="flex items-center mx-auto">
-          <span className="mr-2">Filter</span>
-          <select className="border p-1 rounded"/* onChange={handleFilterChange}*/>
-            <option value="">All</option> {/* Default option */}
-            <option value="verified">Verified</option>
-            <option value="pending">Pending</option>
-            <option value="cancelled">Cancelled</option>
+          <span className="mr-2">Filter by Payment:</span>
+          <select 
+            className="border p-1 rounded" 
+            value={paymentFilter} 
+            onChange={handlePaymentFilterChange}
+          >
+            <option value="all">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Verified">Verified</option>
           </select>
         </div>
 
@@ -276,7 +311,7 @@ const TableComponent = () => {
                 <td className="border px-4 py-2">{user.email}</td>
                 <td className="border px-4 py-2">{user.phone}</td>
                 <td className="border px-4 py-2">{user.ongoing ? user.ongoing.join(', ') : ''}</td>
-                <td className="border px-4 py-2">
+                <td className="border px-4 py-2" style={{ color: getFontColor(user.payments), fontWeight: getFontWeight(user.payments) }}>
                   {selectedUserId === user._id ?
                     <select
                       value={updatedPayment}
