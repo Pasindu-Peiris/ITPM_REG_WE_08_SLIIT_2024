@@ -10,6 +10,7 @@ import Dashboard from "./Dashboard";
 
 function AllContactUs() {
   const [contacts, setContacts] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     const getContacts = async () => {
@@ -98,6 +99,31 @@ function AllContactUs() {
               Export Report
             </button>
             {/*<SearchBar onSearch="" />*/}   
+
+            <div className="relative flex">
+          <input
+            type="text"
+            placeholder="Search..."
+            className={`px-4 py-2 border rounded-l-lg flex-1 ${(searchInput.length > 0 && /^[0-9]/.test(searchInput)) ||
+                (searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput))
+                ? 'border-red-500'
+                : 'border-gray-300'
+              }`}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+          )}
+          {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
+            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
+          )}
+          <button className="px-4 font-semibold bg-amber-500 text-white rounded-r-lg hover:bg-amber-700 hover:text-white">
+            Search
+          </button>
+
+        </div>
+
           </div>
           {/* Only render the table if there are responses in the contacts array */}
         {contacts.length > 0 && (
@@ -115,7 +141,39 @@ function AllContactUs() {
               </tr>
             </thead>
             <tbody>
-              {contacts.map((massage) => (
+              {contacts
+              .filter((Contact) => {
+                const searchTerm = searchInput ? searchInput.toLowerCase() : '';
+               const name = Contact.name? Contact.name.toLowerCase() : '';
+                const email = Contact.email? Contact.email.toLowerCase() : '';
+                const subject = Contact.subject? Contact.subject.toLowerCase() : '';
+                const massage = Contact.message? Contact.message.toLowerCase() : '';
+                // Check if the search term contains only letters
+                const isAlphaNumeric = /^[a-zA-Z]+$/.test(searchTerm);
+  
+                // Check if the search term is empty or contains only letters
+                if (searchTerm === '' || isAlphaNumeric) {
+                  // Filter by username or email containing the search term
+                  return (
+                    (name.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                    (email.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                    (subject.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                    (massage.includes(searchTerm) && !/^[\d]/.test(searchTerm))
+                  );
+                } else {
+                  // Filter only by username or email starting with the search term
+                  return (
+                    (name.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                    (email.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                    (subject.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                    (massage.startsWith(searchTerm) && !/^[\d]/.test(searchTerm))
+
+                  );
+                }
+            
+              })
+              
+              .map((massage) => (
                 <tr key={massage._id}>
                   <td>{massage.name}</td>
                   <td>{massage.email}</td>
