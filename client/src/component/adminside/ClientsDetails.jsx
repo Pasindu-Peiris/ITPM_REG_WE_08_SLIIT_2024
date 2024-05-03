@@ -5,6 +5,7 @@ import updateIcn from "../../Images/refresh.png";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import jsPDF from 'jspdf';
+import Dashboard from './Dashboard';
 
 
 const TableComponent = () => {
@@ -180,8 +181,11 @@ const TableComponent = () => {
 
 
   return (
+    <>
 
-    <div className="container mx-auto mt-10">
+    <Dashboard/>
+
+    <div className="container mx-auto mt-5">
       <ToastContainer />
       <div className='flex justify-left mb-7'> {/* Adjusted alignment to center */}
         <p style={{ fontWeight: 'bold', fontSize: '2rem', fontFamily: 'Arial, sans-serif' }}>Client Details</p> {/* Applied bold font and increased font size */}
@@ -315,6 +319,7 @@ const TableComponent = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

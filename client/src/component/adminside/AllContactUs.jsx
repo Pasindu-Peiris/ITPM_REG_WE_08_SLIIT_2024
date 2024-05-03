@@ -5,6 +5,7 @@ import AllCResponse from "./AllCResponse";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import Dashboard from "./Dashboard";
 
 
 function AllContactUs() {
@@ -76,7 +77,9 @@ function AllContactUs() {
   };
 
   return (
-        <div style={{ padding: "80px" }}>
+    <>
+    <Dashboard/>
+        <div style={{ padding: "80px", paddingTop: "10%" }}>
             <h1 style={{ fontWeight: "bold", fontSize: "40px", paddingBottom: "20px" }}>Contact Us Form Submission</h1>
           <div 
           
@@ -149,6 +152,7 @@ function AllContactUs() {
         )}
         <AllCResponse/>
         </div>
+        </>
         
       );
     };

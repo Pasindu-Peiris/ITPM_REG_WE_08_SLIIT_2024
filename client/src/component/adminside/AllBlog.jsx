@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import updateIcn from "../../Images/refresh.png";
 import deleteIcn from "../../Images/trash (1).png";
 import jsPDF from "jspdf";
+import Dashboard from "./Dashboard";
 
 const AllBlog = () => {
   const [blogsData, setBlogsData] = useState([]);
@@ -117,7 +118,9 @@ const AllBlog = () => {
   }, []);
 
   return (
-    <div style={{ padding: "80px" }}>
+    <>
+    <Dashboard/>
+    <div style={{ padding: "80px", paddingTop: "10%" }}>
       <div
         style={{
           display: "flex",
@@ -220,6 +223,7 @@ const AllBlog = () => {
       </table>
       <ToastContainer />
     </div>
+    </>
   );
 };
 
