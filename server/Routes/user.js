@@ -50,7 +50,7 @@ router.route("/reg").post(async (req, res) => {
       country,
       phone,
       email,
-      payment,
+      payments,
     });
 
     await newUser.save();
