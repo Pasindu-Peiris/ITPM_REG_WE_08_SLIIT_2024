@@ -60,7 +60,7 @@ const Dashboard = () => {
             </Link>
           </li>
           <li className="px-4">
-            <Link to="#" className="hover:text-yellow-400 text-lg">
+            <Link to="/alltestreview" className="hover:text-yellow-400 text-lg">
               Reviews
             </Link>
           </li>
