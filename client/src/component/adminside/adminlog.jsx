@@ -10,7 +10,7 @@ const AddUserForm = () => {
     e.preventDefault();
 
     try {
-      // Send a POST request to your backend API to add the user
+      // Send a POST request backend API to add the user
       const response = await axios.post("http://localhost:8090/admins/reg", {
         username,
         password,

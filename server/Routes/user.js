@@ -15,6 +15,7 @@ router.route("/reg").post(async (req, res) => {
     phone,
     email,
     payments,
+    trip
   } = req.body;
 
   if (password !== confirmPassword) {
@@ -51,6 +52,7 @@ router.route("/reg").post(async (req, res) => {
       phone,
       email,
       payments,
+      trip
     });
 
     await newUser.save();
@@ -137,5 +139,24 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Delete a user by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Find the user by ID and delete them
+    const deletedUser = await user.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;

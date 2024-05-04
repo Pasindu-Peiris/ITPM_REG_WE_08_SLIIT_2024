@@ -43,7 +43,10 @@ const userSchema = new Schema(
     },
     payments: {
       type: String,
-      required:true,
+    },
+    trip: {
+      type: String,
+      
     }
   },
   { timestamps: true }
