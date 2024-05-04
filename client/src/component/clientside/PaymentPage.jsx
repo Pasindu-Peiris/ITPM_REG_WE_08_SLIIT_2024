@@ -76,10 +76,10 @@ const PaymentPage = () => {
 
   const [bookingData, setBookingData] = useState({
     trid: id,
-    tourName: "",
+    tourName: "Sigiriya, Eight Wonder of the World",
     dayDetails: " ",
     travellers: 1,
-    price: "",
+    price: "340",
     name: "",
     email: "",
     phone: "",
