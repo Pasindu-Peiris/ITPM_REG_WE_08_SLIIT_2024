@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "./Dashboard";
 
 const AddVirtualTour = () => {
   const [title, setTitle] = useState("");
@@ -67,6 +68,8 @@ const AddVirtualTour = () => {
   };
 
   return (
+    <>
+    <Dashboard/>
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <ToastContainer />
       <div className="bg-white rounded-lg shadow-md p-8 w-full sm:w-96">
@@ -158,6 +161,7 @@ const AddVirtualTour = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
