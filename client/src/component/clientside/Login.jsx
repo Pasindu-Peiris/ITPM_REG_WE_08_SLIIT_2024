@@ -31,58 +31,42 @@ const Login = () => {
      });
    };
 
-   const handleSubmit = async (e) => {
-     e.preventDefault();
+ const handleSubmit = async (e) => {
+   e.preventDefault();
 
-     try {
-       const res = await fetch("http://localhost:8090/login/log", {
-         method: "post",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(formData),
-       });
-       const data = await res.json();
+   try {
+     const res = await fetch("http://localhost:8090/login/log", {
+       method: "post",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(formData),
+     });
+     const data = await res.json();
+     console.log("Response:", data);
+     if (data.token) {
        console.log("Token:", data.token);
-       if (data.token) {
-         console.log(data);
-         localStorage.setItem("token", data.token);
-         setIsLoginSuccess(true); 
-         toast.success("Login Successful!", {
-           position: "top-center",
-           theme: "dark",
-           transition: Bounce,
-           onClose: () => navigate("/"),
-         });
-       } else if (data.error === "Password incorrect") {
-         toast.error("Incorrect password. Please try again.", {
-           position: "top-center",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "dark",
-           transition: Bounce,
-         });
-       } else {
-         console.error("Login failed:", data.error);
-         toast.error("User Does not exist", {
-           position: "top-center",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "dark",
-           transition: Bounce,
-         });
-       }
-     } catch (error) {
-       console.error("error", error);
-       toast.error("An error occurred. Please try again later.", {
+
+      
+       localStorage.setItem("token", data.token);
+
+       const tokenParts = data.token.split(".");
+       const encodedPayload = tokenParts[1];
+       const decodedPayload = atob(encodedPayload);
+       const userDetails = JSON.parse(decodedPayload);
+       console.log("User Details:", userDetails);
+
+       setIsLoginSuccess(true);
+       toast.success("Login Successful!", {
+         position: "top-center",
+         theme: "dark",
+         transition: Bounce,
+         onClose: () => navigate("/"),
+       });
+     } else {
+       // Handle error cases
+       console.error("Login failed:", data.error);
+       toast.error(data.error || "An error occurred. Please try again later.", {
          position: "top-center",
          autoClose: 5000,
          hideProgressBar: false,
@@ -94,7 +78,22 @@ const Login = () => {
          transition: Bounce,
        });
      }
-   };
+   } catch (error) {
+     console.error("error", error);
+     toast.error("An error occurred. Please try again later.", {
+       position: "top-center",
+       autoClose: 5000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "dark",
+       transition: Bounce,
+     });
+   }
+ };
+
   return (
     <div>
       <Nav />
@@ -105,7 +104,7 @@ const Login = () => {
         </h1>
       </div>
       <div className="w-[60%] mx-auto mt-4 border-b border-gray-400 pb-8">
-        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit} >
+        <form className="gap gap-3 w-[100%]" onSubmit={handleSubmit}>
           <div className="flex mt-6">
             <div className="w-1/2 mr-6">
               <label htmlFor="username" className="block text-md font-medium">
@@ -145,6 +144,13 @@ const Login = () => {
           <Link to={"/register"}>
             <span className="text-xs text-amber-500 p-2">
               CREATE AN ACCOUNT
+            </span>
+          </Link>
+        </div>
+        <div className="mt-2">
+          <Link to={"/adminLog"}>
+            <span className="text-s text-amber-500 p-2">
+              Log in as an admin
             </span>
           </Link>
         </div>

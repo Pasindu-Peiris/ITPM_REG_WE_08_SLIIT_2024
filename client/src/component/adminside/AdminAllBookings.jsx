@@ -3,6 +3,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 function AdminAllBookings() {
   const [bookings, setBookings] = useState([]);
@@ -85,7 +86,9 @@ const filteredBookings = bookings.filter((booking) => {
 
 
   return (
-    <div style={{ padding: "80px" }}>
+    <>
+    <Dashboard/>
+    <div style={{ padding: "80px", paddingTop: "10%" }}>
       
       <p style={{ fontWeight: "bold", fontSize: "35px", paddingBottom: "20px" }}>All Bookings</p>
       
@@ -138,6 +141,7 @@ const filteredBookings = bookings.filter((booking) => {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 

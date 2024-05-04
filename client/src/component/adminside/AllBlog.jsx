@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import updateIcn from "../../Images/refresh.png";
 import deleteIcn from "../../Images/trash (1).png";
 import jsPDF from "jspdf";
+import Dashboard from "./Dashboard";
 
 const AllBlog = () => {
   const [blogsData, setBlogsData] = useState([]);
@@ -91,6 +92,11 @@ const AllBlog = () => {
     setSearchTerm(event.target.value);
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   const generateReport = () => {
     const filteredData = blogsData.filter((blog) =>
       blog.Title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -103,7 +109,7 @@ const AllBlog = () => {
     const columns = ["Title", "Author", "Category","Content","Excerpt","PublishDate"];
 
     // Define rows
-    const rows = filteredData.map((blog) => [blog.Title, blog.Author, blog.Category, blog.Content,blog.Excerpt, blog.PublishDate]);
+    const rows = filteredData.map((blog) => [blog.Title, blog.Author, blog.Category, blog.Content,blog.Excerpt, formatDate(blog.PublishDate)]);
 
     // Add table to the PDF
     doc.autoTable({ columns, body: rows });
@@ -117,7 +123,9 @@ const AllBlog = () => {
   }, []);
 
   return (
-    <div style={{ padding: "80px" }}>
+    <>
+    <Dashboard/>
+    <div style={{ padding: "80px", paddingTop: "10%" }}>
       <div
         style={{
           display: "flex",
@@ -220,6 +228,7 @@ const AllBlog = () => {
       </table>
       <ToastContainer />
     </div>
+    </>
   );
 };
 

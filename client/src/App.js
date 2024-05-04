@@ -39,6 +39,10 @@ import TestReview from "./component/clientside/TestReview";
 import AllTestReview from "./component/adminside/AllTestReview";
 import ContactUsRes from "./component/adminside/ContactUsRes";
 import AllCResponse from "./component/adminside/AllCResponse";
+import Profile from "./component/clientside/Profile";
+import UserAllBookings from "./component/clientside/UserAllBookings";
+import Reviews from "./component/clientside/Reviews";
+import AdminSignIn from "./component/adminside/AdminSignIn";
 
 
 function App() {
@@ -87,7 +91,10 @@ function App() {
           <Route path="/bookings/:id" element={<ViewBooking />}></Route>
           <Route path="/update/:id" element={<UpdateBooking />}></Route>
           <Route path="/payment" element={<PaymentPage />}></Route>
-          {/* <Route path="/payment/:id" element={<PaymentPage />}></Route> */}
+          <Route path="/payment/:id" element={<PaymentPage />}></Route>
+          <Route path="/bookings/user/:id" element={<UserAllBookings/>}></Route>
+          <Route path="/adminsignin" element={<AdminSignIn/>}></Route>
+
           <Route path="/addBlog" element={<AddBlog />}></Route>
           <Route path="/updateBlog" element={<UpdateBlog />}></Route>
           <Route path="/AllBlog" element={<AllBlog />}></Route>
@@ -101,11 +108,13 @@ function App() {
           <Route path="/alltestreview" element={<AllTestReview/>}></Route>
           <Route path="/contactus/:id" element={<ContactUsRes/>}></Route>
           <Route path="/allcresponse" element={<AllCResponse/>}></Route>
+          <Route path="/reviews" element={<Reviews />}></Route>
         
           <Route path="/virtualtours" element={<VirtualTours />}></Route>
-        
+          <Route path="profile" element={<Profile />}></Route>
+          
 
-       
+
           <Route path="/adminLog" element={<AdminLog/>}></Route>
         </Routes>
       </BrowserRouter>

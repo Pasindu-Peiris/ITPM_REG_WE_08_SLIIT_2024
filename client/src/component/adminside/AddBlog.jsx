@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +12,7 @@ const AddBlogs = () => {
     FeaturedImage: "",
     Content: "",
     Excerpt: "",
-    PublishDate: new Date().toISOString().split('T')[0]
+    PublishDate: new Date().toISOString().split('T')[0],
   });
 
   const [errors, setErrors] = useState({
@@ -21,106 +21,109 @@ const AddBlogs = () => {
     Category: "",
     FeaturedImage: "",
     Content: "",
-    Excerpt: ""
+    Excerpt: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === "file") {
-      const selectedImage = files[0]; // Assuming only one featured image
-      const imageUrl = URL.createObjectURL(selectedImage);
-      setBlogData({ ...blogData, FeaturedImage: imageUrl });
-    } else if (name === "FeaturedImage") {
-      // Validate URL
-      const isValidUrl = isValidURL(value);
-      setErrors({ ...errors, FeaturedImage: isValidUrl ? "" : "Invalid URL" });
-      setBlogData({ ...blogData, [name]: value });
-    } else {
-      setBlogData({ ...blogData, [name]: value });
-    }
-    setErrors({ ...errors, [name]: "" }); // Clear error when input changes
-  };
-
   const isValidURL = (url) => {
-    try {
-      new URL(url);
-      return true;
-    } catch (error) {
-      return false;
-    }
+    const urlPattern = /^(https?:\/\/)(www\.)?[^ ]+\.(com|org|net)(\/.*)?$/;
+    return urlPattern.test(url);
   };
 
   const countWords = (text) => {
     const words = text.trim().split(/\s+/);
-    return words.filter(word => word !== '').length;
+    return words.filter((word) => word !== "").length;
+  };
+
+  const checkTitleExists = async (title) => {
+    try {
+      const response = await axios.get(`http://localhost:8090/blogs/check-title/${title}`);
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error checking title:", error);
+      return false;
+    }
+  };
+
+  const handleInputChange = async (e) => {
+    const { name, value, type, files } = e.target;
+    let newErrors = { ...errors };
+
+    if (type === "file") {
+      const selectedImage = files[0];
+      const imageUrl = URL.createObjectURL(selectedImage);
+      setBlogData((prev) => ({
+        ...prev,
+        FeaturedImage: imageUrl,
+      }));
+    } else {
+      setBlogData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+
+      if (name === "Title") {
+        if (value.trim() === "") {
+          newErrors.Title = "Title is required";
+        } else {
+          const titleExists = await checkTitleExists(value);
+          newErrors.Title = titleExists ? "Title already added" : "";
+        }
+      } else {
+        if (value.trim() === "") {
+          newErrors[name] = `${name} is required`;
+        } else {
+          newErrors[name] = "";
+        }
+      }
+
+      if (name === "FeaturedImage" && !isValidURL(value)) {
+        newErrors.FeaturedImage = "Invalid URL.";
+      }
+
+      if (name === "Content" && countWords(value) < 50) {
+        newErrors.Content = "Content must be at least 50 words long";
+      }
+    }
+
+    setErrors(newErrors);
   };
 
   const handleSubmit = async () => {
+    if (Object.values(errors).some((error) => error !== "")) {
+      toast.error("Please correct the errors before submitting.");
+      return;
+    }
+
     try {
-      // Validation checks
-      let errorOccurred = false;
-      const newErrors = { ...errors };
-
-      if (!blogData.Title) {
-        newErrors.Title = "Title is required";
-        errorOccurred = true;
-      }
-
-      if (!blogData.Author) {
-        newErrors.Author = "Author is required";
-        errorOccurred = true;
-      }
-
-      if (!blogData.Category) {
-        newErrors.Category = "Category is required";
-        errorOccurred = true;
-      }
-
-      if (!blogData.Content) {
-        newErrors.Content = "Content is required";
-        errorOccurred = true;
-      }
-
-      if (countWords(blogData.Content) < 50) {
-        newErrors.Content = "Content must be at least 50 words long";
-        errorOccurred = true;
-      }
-
-      if (!blogData.Excerpt) {
-        newErrors.Excerpt = "Excerpt is required";
-        errorOccurred = true;
-      }
-
-      if (!blogData.FeaturedImage || !isValidURL(blogData.FeaturedImage)) {
-        newErrors.FeaturedImage = "Invalid URL";
-        errorOccurred = true;
-      }
-
-      if (errorOccurred) {
-        setErrors(newErrors);
-        return;
-      }
-
-      // Submitting the form
-      console.log("Submitting blog data:", blogData);
       const response = await axios.post('http://localhost:8090/blogs', blogData);
-      console.log("Blog created:", response.data);
-      setBlogData({
-        Title: "",
-        Author: "",
-        Category: "",
-        FeaturedImage: "",
-        Content: "",
-        Excerpt: "",
-        PublishDate: new Date().toISOString().split('T')[0]
-      });
       toast.success("Blog successfully added!");
-      setTimeout(() => {
-        window.location.href = "/AllBlog";
-      }, 2000);
+      resetFormFields();
+      setTimeout(() => window.location.href = "/AllBlog", 2000);
     } catch (error) {
       console.error("Error creating blog:", error);
+      toast.error("Failed to add blog.");
     }
+  };
+
+  const resetFormFields = () => {
+    setBlogData({
+      Title: "",
+      Author: "",
+      Category: "",
+      FeaturedImage: "",
+      Content: "",
+      Excerpt: "",
+      PublishDate: new Date().toISOString().split('T')[0],
+    });
+
+    setErrors({
+      Title: "",
+      Author: "",
+      Category: "",
+      FeaturedImage: "",
+      Content: "",
+      Excerpt: "",
+    });
   };
 
   return (
@@ -129,6 +132,8 @@ const AddBlogs = () => {
         <div style={{ marginBottom: '10px', textAlign: 'center' }}>
           <h2 style={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '5px' }}>Add Blog Details</h2>
         </div>
+        
+        {/* Title Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Title:</label>
           <input
@@ -140,10 +145,10 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          <div style={{ fontSize: '12px', marginTop: '3px' }}>
-            {countWords(blogData.Title) < 1 && <span style={{ color: 'red' }}> (Title required)</span>}
-          </div>
+          <div style={{ color: 'red', fontSize: '12px', marginTop: '3px' }}>{errors.Title}</div>
         </div>
+        
+        {/* Author Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Author:</label>
           <input
@@ -155,10 +160,10 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          <div style={{ fontSize: '12px', marginTop: '3px' }}>
-            {countWords(blogData.Author) < 1 && <span style={{ color: 'red' }}> (Author required)</span>}
-          </div>
+          <div style={{ color: 'red', fontSize: '12px', marginTop: '3px' }}>{errors.Author}</div>
         </div>
+        
+        {/* Category Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Category:</label>
           <input
@@ -170,10 +175,10 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          <div style={{ fontSize: '12px', marginTop: '3px' }}>
-            {countWords(blogData.Category) < 1 && <span style={{ color: 'red' }}> (Category required)</span>}
-          </div>
+          <div style={{ color: 'red', fontSize: '12px', marginTop: '3px' }}>{errors.Category}</div>
         </div>
+        
+        {/* Featured Image Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Featured Image URL:</label>
           <input
@@ -185,8 +190,10 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           />
-          <div style={{ fontSize: '12px', marginTop: '3px', color: 'red' }}>{errors.FeaturedImage}</div>
+          <div style={{ color: 'red', fontSize: '12px', marginTop: '3px' }}>{errors.FeaturedImage}</div>
         </div>
+        
+        {/* Content Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Content:</label>
           <textarea
@@ -198,12 +205,13 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           ></textarea>
-          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Content}</div> */}
           <div style={{ fontSize: '12px', marginTop: '3px' }}>
             {`${countWords(blogData.Content)} words`}
-            {countWords(blogData.Content) < 50 && <span style={{ color: 'red' }}> (Minimum 50 words required)</span>}
+            {errors.Content ? <span style={{ color: 'red' }}>{errors.Content}</span> : ''}
           </div>
         </div>
+        
+        {/* Excerpt Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Excerpt:</label>
           <textarea
@@ -215,11 +223,10 @@ const AddBlogs = () => {
             onChange={handleInputChange}
             style={{ fontSize: '14px', padding: '5px' }}
           ></textarea>
-          {/* <div style={{ color: 'red', fontSize: '12px' }}>{errors.Excerpt}</div> */}
-          <div style={{ fontSize: '12px', marginTop: '3px' }}>
-            {countWords(blogData.Excerpt) < 1 && <span style={{ color: 'red' }}> (Excerpt required)</span>}
-          </div>
+          <div style={{ color: 'red', fontSize: '12px', marginTop: '3px' }}>{errors.Excerpt}</div>
         </div>
+        
+        {/* Publish Date Field */}
         <div style={{ marginBottom: '5px' }}>
           <label style={{ display: 'block', marginBottom: '3px', fontSize: '14px' }}>Publish Date:</label>
           <input
@@ -232,6 +239,8 @@ const AddBlogs = () => {
             disabled
           />
         </div>
+        
+        {/* Submit Button */}
         <button 
           type="button" 
           className="btn" 
@@ -241,8 +250,7 @@ const AddBlogs = () => {
             marginBottom: '10px',
             fontSize: '14px',
             padding: '5px 10px',
-            borderRadius: '5px'
-          }}
+            borderRadius: '5px' }}
           onClick={handleSubmit}
         >
           Submit
@@ -254,4 +262,3 @@ const AddBlogs = () => {
 };
 
 export default AddBlogs;
-

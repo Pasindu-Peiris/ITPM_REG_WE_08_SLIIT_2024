@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from "./Dashboard";
 
 function AllTestReview() {
     const [reviews,setreviews] =useState([]);
+    const [selectedReview, setSelectedReview] = useState(null); // State for selected review   
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         const getReviews =async () => {
@@ -36,6 +41,33 @@ function AllTestReview() {
         }
       }; 
 
+     const handleEdit  = (id) => {
+        const reviewToEdit = reviews.find((review) => review._id === id);
+        setSelectedReview(reviewToEdit);
+    };
+
+      const handleUpdate = (id) => {
+        const confirmUpdate = window.confirm("Are you sure you want to update this?");
+        if (confirmUpdate) {
+            axios
+            .put(`http://localhost:8090/testreview/update/${id}`, selectedReview)
+            .then((res) => {
+                if (res.status === 200) {
+                    const updatedReviews = reviews.map((review) => {
+                        return review._id === id ? selectedReview : review;
+                    });
+                    setreviews(updatedReviews);
+                    setSelectedReview(null);
+                    toast.success("Review updated successfully !");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("Something went wrong" + err);
+            });
+        }
+    };
+
 
       const handleExportReport = () => {
         const doc = new jsPDF();
@@ -62,7 +94,10 @@ function AllTestReview() {
       };
 
       return (
-        <div style={{ padding: "80px" }}>
+        <>
+       <Dashboard/>
+       
+        <div style={{ padding: "80px", paddingTop: "10%"  }}>
             
           <div 
           
@@ -80,13 +115,38 @@ function AllTestReview() {
             >
               Export Report
             </button>
+
+
+            <div className="relative flex">
+          <input
+            type="text"
+            placeholder="Search..."
+            className={`px-4 py-2 border rounded-l-lg flex-1 ${(searchInput.length > 0 && /^[0-9]/.test(searchInput)) ||
+                (searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput))
+                ? 'border-red-500'
+                : 'border-gray-300'
+              }`}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          {searchInput.length > 0 && /^[0-9]/.test(searchInput) && (
+            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a number</p>
+          )}
+          {searchInput.length > 0 && /^[^a-zA-Z]/.test(searchInput) && (
+            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-full">Search term cannot start with a special character</p>
+          )}
+          <button className="px-4 font-semibold bg-amber-500 text-white rounded-r-lg hover:bg-amber-700 hover:text-white">
+            Search
+          </button>
+
+        </div>
             
             
           </div>
           <table className="table table-striped">
             <thead>
               <tr>  
-                <th scope="col">full Name</th>
+                <th scope="col">Full Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Review</th>
                 <th scope="col">Date</th>
@@ -97,32 +157,74 @@ function AllTestReview() {
               </tr>
             </thead>
             <tbody>
-              {reviews.map((massage) => (
-                <tr key={massage._id}>
-                  <td>{massage.fullName}</td>
-                  <td>{massage.email}</td>
-                  <td>{massage.review}</td>
-                  <td>{massage.date}</td>
-                  <td>{massage.destination}</td>
-                  
-                  <td>
-                    <button className="mt-1 p-2 w-full border bg-green-600 text-white  font-bold rounded-lg">
-                    <a className="nav-link" href="/#">
-                      Accept
-                    </a>
-                    </button>
-                  </td>  
-                             
-                  <td>
-                   <button className="mt-1 p-2 w-full border bg-red-800 text-white  font-bold rounded-lg" onClick={() => handleDelete(massage._id)}>
+              {reviews     
+              .filter((reviewItem) => {
+                  const searchTerm = searchInput ? searchInput.toLowerCase() : '';
+                  const fullName = reviewItem.fullName ? reviewItem.fullName.toLowerCase() : '';
+                  const email = reviewItem.email ? reviewItem.email.toLowerCase() : '';
+                  const review = reviewItem.review ? reviewItem.review.toLowerCase() : '';
+                  const destination = reviewItem.destination ? reviewItem.destination.toLowerCase() : '';
+    
+                  // Check if the search term contains only letters
+                  const isAlphaNumeric = /^[a-zA-Z]+$/.test(searchTerm);
+    
+                  // Check if the search term is empty or contains only letters
+                  if (searchTerm === '' || isAlphaNumeric) {
+                    // Filter by username or email containing the search term
+                    return (
+                      (fullName.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (email.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (review.includes(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (destination.includes(searchTerm) && !/^[\d]/.test(searchTerm))
+                    );
+                  } else {
+                    // Filter only by username or email starting with the search term
+                    return (
+                      (fullName.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (email.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (review.startsWith(searchTerm) && !/^[\d]/.test(searchTerm)) ||
+                      (destination.startsWith(searchTerm) && !/^[\d]/.test(searchTerm))
+
+                    );
+                  }
+              
+                })
+              
+              .map((review) => (
+                <tr key={review._id}>
+                   <td>{selectedReview && selectedReview._id === review._id ? <input className="px-4 py-2 border rounded-l-lg flex-1" value={selectedReview.fullName} onChange={(e) => setSelectedReview({ ...selectedReview, fullName: e.target.value })} /> : review.fullName}</td>
+                                <td>{selectedReview && selectedReview._id === review._id ? <input className="px-4 py-2 border rounded-l-lg flex-1" value={selectedReview.email} onChange={(e) => setSelectedReview({ ...selectedReview, email: e.target.value })} /> : review.email}</td>
+                                <td>{selectedReview && selectedReview._id === review._id ? <textarea className="px-4 py-2 border rounded-l-lg flex-1 w-full " value={selectedReview.review} onChange={(e) => setSelectedReview({ ...selectedReview, review: e.target.value })} /> : review.review}</td>
+                                <td>{selectedReview && selectedReview._id === review._id ? <input className="px-4 py-2 border rounded-l-lg flex-1" value={selectedReview.date} onChange={(e) => setSelectedReview({ ...selectedReview, date: e.target.value })} /> : review.date}</td>
+                                <td>{selectedReview && selectedReview._id === review._id ? <input className="px-4 py-2 border rounded-l-lg flex-1" value={selectedReview.destination} onChange={(e) => setSelectedReview({ ...selectedReview, destination: e.target.value })} /> : review.destination}</td>
+                                <td>
+                     {selectedReview && selectedReview._id === review._id ? (
+                                        <>
+                                            <button className="mt-1 p-2 w-full border bg-green-600 text-white  font-bold rounded-lg" onClick={() => handleUpdate(review._id)}>
+                                                Update
+                                            </button>
+                                            <button className="mt-1 p-2 w-full border bg-red-800 text-white  font-bold rounded-lg" onClick={() => setSelectedReview(null)}>
+                                                Cancel
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button className="mt-1 p-2 w-full border bg-blue-600 text-white  font-bold rounded-lg" onClick={() => handleEdit(review._id)}>
+                                            Edit
+                                        </button>
+                                    )}
+                                </td>
+                                <td>
+                   <button className="mt-1 p-2 w-full border bg-red-800 text-white  font-bold rounded-lg" onClick={() => handleDelete(review._id)}>
                       Delete
                     </button>
                   </td>
-                </tr>
-              ))}
+                            </tr>
+                        ))}
             </tbody>
           </table>
+          
         </div>
+        </>
       );
 
 }

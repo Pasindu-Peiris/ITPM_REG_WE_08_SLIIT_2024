@@ -35,14 +35,21 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
-      required: true,
+  
     },
     phone: {
       type: Number,
       required: true,
+    },
+    payments: {
+      type: String,
+    },
+    trip: {
+      type: String,
+      
     }
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 

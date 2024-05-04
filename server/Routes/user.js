@@ -13,7 +13,9 @@ router.route("/reg").post(async (req, res) => {
     birthdate,
     country,
     phone,
-    email
+    email,
+    payments,
+    trip
   } = req.body;
 
   if (password !== confirmPassword) {
@@ -49,6 +51,8 @@ router.route("/reg").post(async (req, res) => {
       country,
       phone,
       email,
+      payments,
+      trip
     });
 
     await newUser.save();
@@ -60,6 +64,22 @@ router.route("/reg").post(async (req, res) => {
     res.status(500).json("Cannot register the user");
   }
 });
+
+router.get("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const foundUser = await user.findById(userId);
+
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(foundUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get all users
 router.get('/', async (req, res) => {
   try {
@@ -88,8 +108,7 @@ router.get('/withOngoingTours', async (req, res) => {
   }
 });
 
-
-// Get a single tour by ID
+// Get a single user by ID
 router.get('/:id', async (req, res) => {
     try {
         const users = await user.findById(req.params.id);
@@ -101,14 +120,43 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-//delete 
-router.delete('/:id', async (req, res) => {
+
+// Update user information
+router.put("/:id", async (req, res) => {
   try {
-      await user.findByIdAndDelete(req.params.id);
-      res.json({ message: 'User deleted' });
+    const userId = req.params.id;
+    const updatedUserData = req.body; // Assuming req.body contains the updated user data
+
+    // Find the user by ID and update their information
+    const updatedUser = await user.findByIdAndUpdate(userId, updatedUserData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(updatedUser);
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
+
+// Delete a user by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Find the user by ID and delete them
+    const deletedUser = await user.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;

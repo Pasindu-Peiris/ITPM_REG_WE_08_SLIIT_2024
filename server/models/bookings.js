@@ -8,6 +8,9 @@ const bookingsSchema = new Schema({
   userid: {
     type:String,
   },
+  tourid: {
+    type:String,
+  },
   tourName: {
     type: String,
     
