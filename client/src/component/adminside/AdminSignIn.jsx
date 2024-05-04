@@ -8,13 +8,19 @@ function AdminSignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.post('https://localhost:3000/admin/login', { username, password });
+      const response = await axios.post("http://localhost:8090/admins/login", {
+        username,
+        password,
+      });
+      console.log(response);
 
       if (response.data.message === "Success") {
         if (response.data.role === "client_mgr") {
-          window.location.href = '/clientsdetails'; // Redirect to clientsdetails page
+          window.location.href = "/clientsdetails"; // Redirect to clientsdetails page for client managers
+        }  else {
+          setError("Invalid role");
         }
       } else {
         setError("Invalid username or password");
@@ -24,7 +30,6 @@ function AdminSignIn() {
       setError("An error occurred while processing your request");
     }
   };
-
   return (
     <div className="flex items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="w-1/3 p-6 bg-gray-100 rounded-lg shadow-lg">

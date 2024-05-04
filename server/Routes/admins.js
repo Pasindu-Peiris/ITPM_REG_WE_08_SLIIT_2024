@@ -46,13 +46,17 @@ router.post("/login", async (req, res) => {
     // Check if passwords match
     if (admin.password === password) {
       // Passwords match, generate JWT token
-      const token = jwt.sign({ username: admin.username, role: admin.role }, "jwt-secret-key", { expiresIn: '1d' });
+      const token = jwt.sign(
+        { username: admin.username, role: admin.role },
+        "jwt-secret-key",
+        { expiresIn: "1d" }
+      );
 
       // Set token in cookie
-      res.cookie('token', token, { httpOnly: true });
+      res.cookie("token", token, { httpOnly: true });
 
-      // Respond with success message
-      return res.json({ message: "Success" });
+      // Respond with success message and role
+      return res.json({ message: "Success", role: admin.role });
     } else {
       // Passwords don't match
       return res.status(400).json({ error: "Password is incorrect" });
@@ -63,5 +67,6 @@ router.post("/login", async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 module.exports = router;
