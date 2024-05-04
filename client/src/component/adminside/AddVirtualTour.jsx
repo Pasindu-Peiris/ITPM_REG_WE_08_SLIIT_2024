@@ -69,11 +69,11 @@ const AddVirtualTour = () => {
 
   return (
     <>
-      <Dashboard />
-      <div className="flex justify-center items-center h-screen bg-gray-100">
-        <ToastContainer />
-        <div className="bg-white rounded-lg shadow-md p-8 w-full sm:w-96">
-          <h2 className="text-2xl font-semibold mb-6">Create Virtual Tour</h2>
+    <Dashboard/>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <ToastContainer />
+      <div className="bg-white rounded-lg shadow-md p-8 w-full sm:w-96">
+        <h2 className="text-2xl font-semibold mb-6">Create Virtual Tour</h2>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -163,6 +163,7 @@ const AddVirtualTour = () => {
           </form>
         </div>
       </div>
+    
     </>
   );
 };

@@ -55,10 +55,7 @@ const Dashboard = () => {
             </Link>
           </li>
           <li className="px-4">
-            <Link
-              to="/addvirtualtour"
-              className="hover:text-yellow-400 text-lg"
-            >
+            <Link to="/addvirtualtour" className="hover:text-yellow-400 text-lg">
               Virtual Tours
             </Link>
           </li>
