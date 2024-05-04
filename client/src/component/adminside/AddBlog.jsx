@@ -77,7 +77,7 @@ const AddBlogs = () => {
       }
 
       if (name === "FeaturedImage" && !isValidURL(value)) {
-        newErrors.FeaturedImage = "Invalid URL. 'http://www.example.com'";
+        newErrors.FeaturedImage = "Invalid URL.";
       }
 
       if (name === "Content" && countWords(value) < 50) {
