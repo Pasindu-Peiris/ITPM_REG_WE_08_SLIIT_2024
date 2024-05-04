@@ -55,7 +55,10 @@ const Dashboard = () => {
             </Link>
           </li>
           <li className="px-4">
-            <Link to="#" className="hover:text-yellow-400 text-lg">
+            <Link
+              to="/addvirtualtour"
+              className="hover:text-yellow-400 text-lg"
+            >
               Virtual Tours
             </Link>
           </li>
@@ -70,7 +73,10 @@ const Dashboard = () => {
             </Link>
           </li>
           <li className="px-4">
-            <Link to="/clientsdetails" className="hover:text-yellow-400 text-lg">
+            <Link
+              to="/clientsdetails"
+              className="hover:text-yellow-400 text-lg"
+            >
               Clients
             </Link>
           </li>
@@ -80,11 +86,14 @@ const Dashboard = () => {
       {isLoggedIn ? (
         <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500">
           <Link to="/#" className="text-lg p-2">
-           Profile
+            Profile
           </Link>
         </div>
       ) : (
-        <div className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500" style={{ backgroundColor: "red" }}>
+        <div
+          className="side-button w-24 h-12 flex justify-center items-center rounded bg-amber-500"
+          style={{ backgroundColor: "red" }}
+        >
           <Link to="#" className="text-lg p-2">
             Log Out
           </Link>

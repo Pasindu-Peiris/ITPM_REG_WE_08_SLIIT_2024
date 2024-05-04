@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "./Dashboard";
 
 const AddVirtualTour = () => {
   const [title, setTitle] = useState("");
@@ -67,97 +68,102 @@ const AddVirtualTour = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <ToastContainer />
-      <div className="bg-white rounded-lg shadow-md p-8 w-full sm:w-96">
-        <h2 className="text-2xl font-semibold mb-6">Create Virtual Tour</h2>
+    <>
+      <Dashboard />
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <ToastContainer />
+        <div className="bg-white rounded-lg shadow-md p-8 w-full sm:w-96">
+          <h2 className="text-2xl font-semibold mb-6">Create Virtual Tour</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Title
-            </label>
-            <input
-              id="title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              required
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Title
+              </label>
+              <input
+                id="title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="mt-1 block w-full border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="images"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Images
-            </label>
-            <input
-              id="images"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              multiple
-              className="hidden"
-              required
-            />
-            <label
-              htmlFor="images"
-              className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer block w-full text-center"
-            >
-              Select Images
-            </label>
-            {selectedImageFiles.length > 0 && (
-              <p className="text-sm text-gray-500 mt-2">
-                {selectedImageFiles.length} image(s) selected
-              </p>
-            )}
-          </div>
+            <div className="mb-4">
+              <label
+                htmlFor="images"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Images
+              </label>
+              <input
+                id="images"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                multiple
+                className="hidden"
+                required
+              />
+              <label
+                htmlFor="images"
+                className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer block w-full text-center"
+              >
+                Select Images
+              </label>
+              {selectedImageFiles.length > 0 && (
+                <p className="text-sm text-gray-500 mt-2">
+                  {selectedImageFiles.length} image(s) selected
+                </p>
+              )}
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="music"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Music (Optional)
-            </label>
-            <input
-              id="music"
-              type="file"
-              accept="audio/mp3"
-              onChange={handleMusicChange}
-              className="hidden"
-            />
-            <label
-              htmlFor="music"
-              className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer block w-full text-center"
-            >
-              Select Music
-            </label>
-            {selectedMusicFile && (
-              <p className="text-sm text-gray-500 mt-2">Music file selected</p>
-            )}
-          </div>
+            <div className="mb-4">
+              <label
+                htmlFor="music"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Music (Optional)
+              </label>
+              <input
+                id="music"
+                type="file"
+                accept="audio/mp3"
+                onChange={handleMusicChange}
+                className="hidden"
+              />
+              <label
+                htmlFor="music"
+                className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer block w-full text-center"
+              >
+                Select Music
+              </label>
+              {selectedMusicFile && (
+                <p className="text-sm text-gray-500 mt-2">
+                  Music file selected
+                </p>
+              )}
+            </div>
 
-          {error && <p className="text-red-500 mb-4">{error}</p>}
+            {error && <p className="text-red-500 mb-4">{error}</p>}
 
-          <button
-            type="submit"
-            className={`bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 focus:outline-none w-full ${
-              loading && "opacity-50 cursor-not-allowed"
-            }`}
-            disabled={loading}
-          >
-            {loading ? "Creating..." : "Add Virtual Tour"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className={`bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 focus:outline-none w-full ${
+                loading && "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Add Virtual Tour"}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

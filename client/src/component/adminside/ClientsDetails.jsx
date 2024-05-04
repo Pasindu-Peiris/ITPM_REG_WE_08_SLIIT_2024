@@ -36,7 +36,7 @@ const TableComponent = () => {
         user.username,
         user.email,
         user.phone,
-        user.ongoing ? user.ongoing.join(', ') : ''
+        user.trip
       ];
     });
 
@@ -95,7 +95,7 @@ const TableComponent = () => {
 
 
   // Function to fetch user data along with ongoing
-  const fetchUserData2 = async () => {
+  /*const fetchUserData2 = async () => {
     try {
       const response = await fetch("http://localhost:8090/user/withOngoingTours");
       if (!response.ok) {
@@ -106,7 +106,7 @@ const TableComponent = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  };*/
 
   // delete user
 
@@ -177,7 +177,7 @@ const TableComponent = () => {
   // Fetch data 
   useEffect(() => {
     fetchUserData();
-    fetchUserData2();
+    
   }, []);
 
   // Function  filter change
@@ -314,7 +314,7 @@ const TableComponent = () => {
                 <td className="border px-4 py-2">{user.username}</td>
                 <td className="border px-4 py-2">{user.email}</td>
                 <td className="border px-4 py-2">{user.phone}</td>
-                <td className="border px-4 py-2">{user.ongoing ? user.ongoing.join(', ') : ''}</td>
+                <td className="border px-4 py-2">{user.trip}</td>
                 <td className="border px-4 py-2" style={{ color: getFontColor(user.payments), fontWeight: getFontWeight(user.payments) }}>
                   {selectedUserId === user._id ?
                     <select
